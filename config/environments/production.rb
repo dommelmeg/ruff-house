@@ -1,7 +1,7 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.routes.default_url_options = {
-  host: "https://upbeat-booking.onrender.com"
+  host: "https://ruff-house.onrender.com"
 }
 
 Rails.application.configure do
