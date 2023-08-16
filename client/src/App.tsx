@@ -1,3 +1,4 @@
+import React from 'react';
 import { ChakraProvider, Box, Text } from '@chakra-ui/react'
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom"
 import OwnerDashboard from './Pages/OwnerDashboard';
@@ -15,7 +16,6 @@ function App() {
         bg='teal.50'
         h='100vh'
       >
-        <NavBar />
         <Routes>
           <Route path='/' element={<OwnerDashboard />} />
           <Route path='/signin' element={<SignIn />} />
