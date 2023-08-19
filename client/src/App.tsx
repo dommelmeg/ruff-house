@@ -7,9 +7,8 @@ import CreateAccount from './Pages/CreateAccount';
 import DogHouse from './Pages/DogHouse';
 import Jobs from './Pages/Jobs';
 import Sitters from './Pages/Sitters';
-import NavBar from './Components/NavBar';
 
-function App() {
+const App = () => {
   return (
     <ChakraProvider>
       <Box 
