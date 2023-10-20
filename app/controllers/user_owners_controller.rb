@@ -1,2 +1,0 @@
-class UserOwnersController < ApplicationController
-end

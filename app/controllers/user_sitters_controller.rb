@@ -1,2 +1,0 @@
-class UserSittersController < ApplicationController
-end

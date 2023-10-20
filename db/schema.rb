@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_10_20_070459) do
+ActiveRecord::Schema.define(version: 2023_10_20_074527) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,10 +19,21 @@ ActiveRecord::Schema.define(version: 2023_10_20_070459) do
     t.date "start_date"
     t.date "end_date"
     t.text "description"
-    t.integer "user_owner_id"
-    t.integer "user_sitter_id"
+    t.integer "owner_id"
+    t.integer "sitter_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "owners", force: :cascade do |t|
+    t.string "email"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "city"
+    t.string "state"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "profile_id"
   end
 
   create_table "pets", force: :cascade do |t|
@@ -34,7 +45,7 @@ ActiveRecord::Schema.define(version: 2023_10_20_070459) do
     t.integer "weight"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_owner_id"
+    t.integer "owner_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -45,18 +56,7 @@ ActiveRecord::Schema.define(version: 2023_10_20_070459) do
     t.string "type"
   end
 
-  create_table "user_owners", force: :cascade do |t|
-    t.string "email"
-    t.string "first_name"
-    t.string "last_name"
-    t.string "city"
-    t.string "state"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "profile_id"
-  end
-
-  create_table "user_sitters", force: :cascade do |t|
+  create_table "sitters", force: :cascade do |t|
     t.string "email"
     t.string "first_name"
     t.string "last_name"
