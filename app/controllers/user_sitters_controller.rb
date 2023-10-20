@@ -1,0 +1,2 @@
+class UserSittersController < ApplicationController
+end

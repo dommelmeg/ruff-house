@@ -1,0 +1,2 @@
+class UserSitter < Profile
+end

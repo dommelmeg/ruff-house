@@ -10,41 +10,60 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_05_182424) do
+ActiveRecord::Schema.define(version: 2023_10_20_070459) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "dogs", force: :cascade do |t|
-    t.string "name"
-    t.integer "age"
-    t.string "gender"
-    t.string "breed"
-    t.text "bio"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "size"
-  end
-
   create_table "jobs", force: :cascade do |t|
     t.date "start_date"
     t.date "end_date"
-    t.string "location"
     t.text "description"
+    t.integer "user_owner_id"
+    t.integer "user_sitter_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "pets", force: :cascade do |t|
+    t.string "name"
+    t.string "gender"
+    t.integer "age"
+    t.string "breed"
+    t.text "bio"
+    t.integer "weight"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_owner_id"
+  end
+
+  create_table "profiles", force: :cascade do |t|
     t.string "username"
     t.string "password_digest"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "type"
+  end
+
+  create_table "user_owners", force: :cascade do |t|
+    t.string "email"
     t.string "first_name"
     t.string "last_name"
-    t.string "avatar"
-    t.string "email"
     t.string "city"
     t.string "state"
-    t.string "type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "profile_id"
+  end
+
+  create_table "user_sitters", force: :cascade do |t|
+    t.string "email"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "city"
+    t.string "state"
+    t.integer "daily_rate"
+    t.integer "profile_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

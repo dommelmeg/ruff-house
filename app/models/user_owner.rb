@@ -1,0 +1,2 @@
+class UserOwner < Profile
+end
