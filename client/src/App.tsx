@@ -1,6 +1,6 @@
 import React from 'react';
-import { ChakraProvider, Box, Text } from '@chakra-ui/react'
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom"
+import { ChakraProvider, Box } from '@chakra-ui/react'
+import { Route, Routes } from "react-router-dom"
 import OwnerDashboard from './Pages/OwnerDashboard';
 import SignIn from './Pages/SignIn';
 import CreateAccount from './Pages/CreateAccount';
