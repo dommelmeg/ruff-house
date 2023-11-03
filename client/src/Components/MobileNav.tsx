@@ -8,9 +8,6 @@ import {
   VStack,
   useColorModeValue,
   Text,
-  Drawer,
-  DrawerContent,
-  useDisclosure,
   FlexProps,
   Menu,
   MenuButton,
@@ -22,7 +19,6 @@ import {
   FiMenu,
   FiChevronDown,
 } from 'react-icons/fi'
-
 
 interface MobileProps extends FlexProps {
   onOpen: () => void

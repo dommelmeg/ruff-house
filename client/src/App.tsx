@@ -11,10 +11,7 @@ import Sitters from './Pages/Sitters';
 const App = () => {
   return (
     <ChakraProvider>
-      <Box 
-        bg='teal.50'
-        h='100vh'
-      >
+      <Box h='100vh'>
         <Routes>
           <Route path='/' element={<OwnerDashboard />} />
           <Route path='/signin' element={<SignIn />} />
