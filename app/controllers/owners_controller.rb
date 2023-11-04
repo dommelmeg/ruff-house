@@ -1,6 +1,6 @@
 class OwnersController < ApplicationController
     def index
-        owners = Owner.all
+        owners = Owner.all.with_attached_image
         render json: owners
     end
 
@@ -17,7 +17,7 @@ class OwnersController < ApplicationController
     private
 
     def owner_params
-        params.permit(:email, :first_name, :last_name, :city, :state)
-      end
+        params.permit(:email, :first_name, :last_name, :city, :state, :image)
+    end
 
 end
