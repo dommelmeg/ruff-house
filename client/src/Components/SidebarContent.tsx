@@ -12,6 +12,7 @@ import { IconType } from 'react-icons'
 interface LinkItemProps {
   name: string
   icon: IconType
+  route: string
 }
 
 interface SidebarProps extends BoxProps {
@@ -19,10 +20,10 @@ interface SidebarProps extends BoxProps {
 }
 
 const LinkItems: Array<LinkItemProps> = [
-  { name: 'Dashboard', icon: FiHome },
-  { name: 'Dog House', icon: FiTrendingUp },
-  { name: 'Sitters', icon: FiCompass },
-  { name: 'Favorites', icon: FiStar },
+  { name: 'Dashboard', icon: FiHome, route: '/' },
+  { name: 'Dog House', icon: FiTrendingUp, route: '/doghouse' },
+  { name: 'Sitters', icon: FiCompass, route: '/sitters' },
+  { name: 'Favorites', icon: FiStar, route: '/favorites' },
 ]
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
@@ -43,7 +44,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem key={link.name} icon={link.icon} slug={link.route}>
           {link.name}
         </NavItem>
       ))}
