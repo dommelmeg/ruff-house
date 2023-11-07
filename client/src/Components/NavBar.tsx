@@ -7,12 +7,13 @@ import {
 } from '@chakra-ui/react'
 import SidebarContent from './SidebarContent'
 import MobileNav from './MobileNav'
+import OwnerDashboard from '../Pages/OwnerDashboard'
 
-const NavBar = () => {
+const NavBar = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
-    <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
+    <Box minW="100vw" minH="100vh" bg={useColorModeValue('gray.50', 'gray.900')}>
       <SidebarContent onClose={() => onClose} display={{ base: 'none', md: 'block' }} />
       <Drawer
         isOpen={isOpen}
@@ -28,7 +29,7 @@ const NavBar = () => {
       {/* mobilenav */}
       <MobileNav onOpen={onOpen} />
       <Box ml={{ base: 0, md: 60 }} p="4">
-        {/* Content */}
+        {children}
       </Box>
     </Box>
   )
