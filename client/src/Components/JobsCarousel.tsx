@@ -33,7 +33,7 @@ const JobsCarousel = () => {
           </CardHeader>
           <CardBody>
             This is an upcoming jerb for:
-            <AvatarGroup size='md' max={2}>
+            <AvatarGroup size='sm' max={2}>
               <Avatar name='Luke' />
               <Avatar name='Leia Story' />
               <Avatar name='Bella Sprunger' />
@@ -46,7 +46,11 @@ const JobsCarousel = () => {
             Job #2
           </CardHeader>
           <CardBody>
-            This is an upcoming jerb
+            This is an upcoming jerb for:
+            <AvatarGroup size='sm' max={2}>
+              <Avatar name='Luke' />
+              <Avatar name='Leia Story' />
+            </AvatarGroup>
           </CardBody>
         </Card>
 
@@ -55,7 +59,10 @@ const JobsCarousel = () => {
             Job #3
           </CardHeader>
           <CardBody>
-            This is an upcoming jerb
+            This is an upcoming jerb for:
+            <AvatarGroup size='sm' max={2}>
+              <Avatar name='Leia Story' />
+            </AvatarGroup>
           </CardBody>
         </Card>
 
