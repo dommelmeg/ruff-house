@@ -6,11 +6,13 @@ class ProfilesController < ApplicationController
         render json: profile
     end
 
+    #signup
     def create
         new_profile = Profile.create(profile_params)
         render json: new_profile
     end
 
+    #me
     def show
         profile = Profile.find_by(id: params[:id])
         render json: profile

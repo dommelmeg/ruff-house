@@ -4,7 +4,7 @@ import { Flex, CardFooter, Heading, Card, Text, CardHeader, CardBody, Button, Av
 const DogHouse = () => {
   return (
     <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
-      <Card padding='2' align='center'>
+      <Card align='center'>
         <Avatar name='Luke'></Avatar>
         <CardHeader>
           <Heading size='md'>

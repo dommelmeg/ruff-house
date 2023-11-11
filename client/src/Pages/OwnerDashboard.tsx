@@ -22,6 +22,7 @@ const OwnerDashboard = () => {
             <Avatar size='lg' name='Leia Story' />
             <Avatar size='lg' name='Bella Sprunger' />
             <Circle 
+              cursor='pointer'
               size='40px' 
               bg='gray' 
               color='white' 

@@ -1,4 +1,4 @@
-class Owner < ApplicationRecord
+class Owner < Profile
     has_one_attached :image
 
     has_many :pets

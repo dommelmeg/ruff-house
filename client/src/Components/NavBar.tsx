@@ -7,7 +7,6 @@ import {
 } from '@chakra-ui/react'
 import SidebarContent from './SidebarContent'
 import MobileNav from './MobileNav'
-import OwnerDashboard from '../Pages/OwnerDashboard'
 
 const NavBar = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
