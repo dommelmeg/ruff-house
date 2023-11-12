@@ -3,8 +3,9 @@ import { Flex, CardFooter, Heading, Card, Text, CardHeader, CardBody, Button, Av
 
 const DogHouse = () => {
   return (
-    <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
-      <Card align='center'>
+    <SimpleGrid spacing={4} columns=
+    {3}>
+      <Card padding='2' align='center'>
         <Avatar name='Luke'></Avatar>
         <CardHeader>
           <Heading size='md'>
@@ -29,6 +30,22 @@ const DogHouse = () => {
         </CardHeader>
         <CardBody>
           <Text>3 years old</Text>
+        </CardBody>
+        <CardFooter>
+          <Button size='sm'>Edit Info</Button>
+          <Button size='sm'>Add Photos</Button>
+        </CardFooter>
+      </Card>
+
+      <Card padding='2' align='center'>
+        <Avatar name='Bella Sprunger'></Avatar>
+        <CardHeader>
+          <Heading size='md'>
+            Bella Sprunger
+          </Heading>
+        </CardHeader>
+        <CardBody>
+          <Text>1 years old</Text>
         </CardBody>
         <CardFooter>
           <Button size='sm'>Edit Info</Button>

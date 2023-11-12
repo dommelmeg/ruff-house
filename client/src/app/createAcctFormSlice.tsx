@@ -16,7 +16,7 @@ const initialState: createAcctFormState = {
   email: '',
   username: '',
   password: '',
-  type: '',
+  type: 'Owner',
 }
 
 export const createAcctFormSlice = createSlice({
@@ -32,7 +32,7 @@ export const createAcctFormSlice = createSlice({
       state.email = '';
       state.username = '';
       state.password = '';
-      state.type = 'owner'
+      state.type = 'Owner'
     },
   },
 })

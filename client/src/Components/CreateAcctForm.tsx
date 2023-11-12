@@ -3,6 +3,7 @@ import { FormControl, Button, RadioGroup, HStack, Radio, FormLabel, VStack, Inpu
 import { useDispatch, useSelector } from "react-redux"
 import type { RootState } from "../app/store";
 import { updateField } from "../app/createAcctFormSlice";
+import { useAddProfileMutation } from "../app/services/profiles";
 
 const CreateAcctForm = () => {
   const form: any = useSelector((state: RootState) => state.form)
@@ -12,6 +13,12 @@ const CreateAcctForm = () => {
     const { name, value } = e.target
     dispatch(updateField({ field: name, value }));
   }
+
+  const handleRadio = (value) => {
+    dispatch(updateField({ field: 'type', value }));
+  }
+
+  const [addProfile] = useAddProfileMutation()
 
   return (
     <FormControl isRequired>
@@ -35,10 +42,10 @@ const CreateAcctForm = () => {
         <FormLabel as='legend' marginTop='4'>
           Are you a:
         </FormLabel>
-        <RadioGroup defaultValue='owner' onChange={handleChange} colorScheme='orange'>
+        <RadioGroup defaultValue='Owner' onChange={handleRadio} colorScheme='orange'>
           <HStack spacing='24px'>
-            <Radio name='owner' value='owner'>Pet Owner</Radio>
-            <Radio name='sitter' value='sitter'>Pet Sitter</Radio>
+            <Radio name='Owner' value='Owner'>Pet Owner</Radio>
+            <Radio name='Sitter' value='Sitter'>Pet Sitter</Radio>
           </HStack>
         </RadioGroup>
       </FormControl>
@@ -48,7 +55,7 @@ const CreateAcctForm = () => {
         variant='outline' 
         rounded='3xl'
         marginTop='2'
-        onClick={() => console.log(form)}
+        onClick={() => addProfile(form)}
       >
         Create Account
       </Button>

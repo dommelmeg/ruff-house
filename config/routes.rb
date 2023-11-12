@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
   
-  resources :sitters
+  # resources :sitters
   resources :profiles
+  resources :profiles, as: :sitters
+  resources :profiles, as: :owners
   resources :pets
-  resources :owners
+  # resources :owners
   resources :jobs
 
   post"/signup", to: "profiles#create"
