@@ -4,10 +4,12 @@ import { useDispatch, useSelector } from "react-redux"
 import type { RootState } from "../app/store";
 import { updateField } from "../app/createAcctFormSlice";
 import { useAddProfileMutation } from "../app/services/profiles";
+import { useNavigate } from "react-router-dom"
 
 const CreateAcctForm = () => {
   const form: any = useSelector((state: RootState) => state.form)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -19,6 +21,13 @@ const CreateAcctForm = () => {
   }
 
   const [addProfile] = useAddProfileMutation()
+
+  const handleClick = (e) => {
+    e.preventDefault()
+
+    addProfile(form)
+    navigate('/complete-account')
+  }
 
   return (
     <FormControl isRequired>
@@ -55,7 +64,7 @@ const CreateAcctForm = () => {
         variant='outline' 
         rounded='3xl'
         marginTop='2'
-        onClick={() => addProfile(form)}
+        onClick={handleClick}
       >
         Create Account
       </Button>
