@@ -8,13 +8,20 @@ class ProfilesController < ApplicationController
 
     #signup
     def create
-        new_profile = Profile.create(profile_params)
-        render json: new_profile
+        profile = Profile.create!(profile_params)
+        session[:profile_id] = profile.id
+        render json: profile, status: :created
     end
 
     #me
     def show
-        profile = Profile.find_by(id: params[:id])
+        current_profile = Profile.find(session[:profile_id])
+        render json: current_profile
+    end
+
+    def update
+        profile = Profile.where(id: session[:profile_id])
+        profile.update(profile_params)
         render json: profile
     end
 

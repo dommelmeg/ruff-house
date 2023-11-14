@@ -22,10 +22,12 @@ const CreateAcctForm = () => {
 
   const [addProfile] = useAddProfileMutation()
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault()
 
-    addProfile(form)
+    const result: any = await addProfile(form)
+    const { data } = result
+    dispatch(updateField({ field: 'id', value: data.id }));
     navigate('/complete-account')
   }
 

@@ -1,18 +1,7 @@
-// import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-// import { createAcctFormState } from '../app/createAcctFormSlice'
-
-// export const profileApi = createApi({
-//   reducerPath: 'profileApi',
-//   baseQuery: fetchBaseQuery({ baseUrl: '' }),
-//   endpoints: (builder) => ({
-//     createNewProfile: builder.query<createAcctFormState, string>({
-//       query: () => `profile`,
-//     }),
-//   }),
-// })
 import { api } from './api'
 
 export interface Profile {
+  id: number
   firstName: string
   lastName: string
   email: string
@@ -35,14 +24,25 @@ export const profileApi = api.injectEndpoints({
         }
       }
     }),
+    updateProfile: build.mutation<Profile, Partial<Profile>>({
+      query(data) {
+        const { id, ...body } = data
+        return {
+          url: `profiles/${id}`,
+          method: 'PUT',
+          body,
+        }
+      }
+    }),
   }),
 })
 
 export const {
   useAddProfileMutation,
+  useUpdateProfileMutation
 } = profileApi
 
 export const {
-  endpoints: { addProfile },
+  endpoints: { addProfile, updateProfile },
 } = profileApi
 

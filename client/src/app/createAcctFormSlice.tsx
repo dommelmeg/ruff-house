@@ -7,6 +7,8 @@ export interface createAcctFormState {
   email: string
   username: string
   password: string
+  city: string
+  state: string
   type: string
 }
 
@@ -16,6 +18,8 @@ const initialState: createAcctFormState = {
   email: '',
   username: '',
   password: '',
+  city: '',
+  state: '',
   type: 'Owner',
 }
 
@@ -32,6 +36,8 @@ export const createAcctFormSlice = createSlice({
       state.email = '';
       state.username = '';
       state.password = '';
+      state.city = '';
+      state.state = '';
       state.type = 'Owner'
     },
   },
