@@ -5,11 +5,13 @@ import type { RootState } from "../app/store";
 import { updateField } from "../app/createAcctFormSlice";
 import { useUpdateProfileMutation } from "../app/services/profiles";
 import StepOne from "./StepOne";
+import StepTwo from "./StepTwo";
+import StepThree from "./StepThree";
 
 const steps = [
   { title: 'First', description: 'Location' },
   { title: 'Second', description: 'Profile Pic' },
-  { title: 'Third', description: 'Add Pet' },
+  { title: 'Third', description: 'Add a Doggo' },
 ]
 
 const AcctStepper = () => {
@@ -43,8 +45,8 @@ const AcctStepper = () => {
     </Stepper>
 
     {activeStep === 1 ? <StepOne setActiveStep={setActiveStep} /> :
-      activeStep === 2 ? <div>2</div> :
-      <div>3</div> }
+      activeStep === 2 ? <StepTwo setActiveStep={setActiveStep} /> :
+      <StepThree /> }
     </div>
   )
 }
