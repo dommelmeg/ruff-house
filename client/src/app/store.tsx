@@ -1,6 +1,6 @@
 import { configureStore, ConfigureStoreOptions } from '@reduxjs/toolkit';
 import formReducer from './createAcctFormSlice';
-// import auth from './auth';
+import authReducer from './auth';
 import { api } from './services/api';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 
@@ -12,6 +12,7 @@ export const createStore = (
             [api.reducerPath]: api.reducer,
             // auth,
             form: formReducer,
+            auth: authReducer,
           },
       middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(api.middleware),

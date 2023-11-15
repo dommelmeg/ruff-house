@@ -5,6 +5,12 @@ import type { RootState } from "../app/store";
 import { updateField } from "../app/createAcctFormSlice";
 import { useAddProfileMutation } from "../app/services/profiles";
 import { useNavigate } from "react-router-dom"
+import {
+  loginStart, 
+  loginSuccess, 
+  loginFailure, 
+  logout, 
+} from "../app/auth"
 
 const CreateAcctForm = () => {
   const form: any = useSelector((state: RootState) => state.form)
@@ -28,8 +34,10 @@ const CreateAcctForm = () => {
     const result: any = await addProfile(form)
     const { data } = result
     dispatch(updateField({ field: 'id', value: data.id }));
-    navigate('/complete-account')
+    dispatch(loginSuccess(form))
+    loginSuccess && navigate('/complete-account')
   }
+  console.log(form)
 
   return (
     <FormControl isRequired>

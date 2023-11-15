@@ -1,7 +1,46 @@
-// import { createSlice } from '@reduxjs/toolkit'
-// import type { RootState } from './store';
+import { createSlice } from '@reduxjs/toolkit'
+import type { RootState } from './store';
 // import { Profile } from './services/profiles';
 // // import { postsApi } from '../../app/services/posts'
+
+const authSlice = createSlice({
+  name: 'auth',
+  initialState: {
+    user: null,
+    token: null,
+    isAuthenticated: false,
+    isLoading: false,
+    error: null,
+  },
+  reducers: {
+    loginStart: (state) => {
+      state.isLoading = true
+    },
+    loginSuccess: (state, action) => {
+      state.isLoading = false
+      state.isAuthenticated = true
+      state.user = action.payload
+      state.error = null
+    },
+    loginFailure: (state, action) => {
+      state.isLoading = false
+      state.error = action.payload
+    },
+    logout: (state) => {
+      state.isAuthenticated = false
+      state.user = null
+    },
+  },
+})
+
+export const { 
+  loginStart, 
+  loginSuccess, 
+  loginFailure, 
+  logout,
+} = authSlice.actions;
+
+export default authSlice.reducer;
 
 // const initialState = {
 //   user: null,
