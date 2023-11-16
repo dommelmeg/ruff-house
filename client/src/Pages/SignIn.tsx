@@ -6,6 +6,11 @@ const SignIn = () => {
   const navigate = useNavigate()
   const location = useLocation()
 
+  const handleClick = (e) => {
+    e.preventDefault()
+    navigate('/')
+  }
+
   return (
     <Flex direction='row' h='100vh'>
       <Box display='flex' bg='orange.200' w='md' alignItems='center' justifyContent='center'>
@@ -43,6 +48,7 @@ const SignIn = () => {
             variant='outline' 
             marginTop='4' 
             rounded='3xl'
+            onClick={handleClick}
           >
             Sign In
           </Button>

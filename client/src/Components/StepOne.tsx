@@ -11,12 +11,15 @@ const StepOne = ({ setActiveStep }) => {
   const form: any = useSelector((state: RootState) => state.form)
   const dispatch = useDispatch()
   const [updateProfile] = useUpdateProfileMutation()
+  const user: any = useSelector((state: RootState) => state.auth)
 
   const handleChange = (e) => {
     const { name, value } = e.target
     dispatch(updateField({ field: name, value }));
   }
 
+  console.log(user) 
+  
   const handleClick = (e) => {
     e.preventDefault()
 

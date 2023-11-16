@@ -6,6 +6,7 @@ import { updateField } from "../app/createAcctFormSlice";
 import { useUpdateProfileMutation } from "../app/services/profiles";
 
 const StepTwo = ({ setActiveStep }) => {
+  const user: any = useSelector((state: RootState) => state.auth)
   const handleClick = (e) => {
     e.preventDefault()
 

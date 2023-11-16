@@ -14,10 +14,13 @@ import {
 
 const CreateAcctForm = () => {
   const form: any = useSelector((state: RootState) => state.form)
+  const user: any = useSelector((state: RootState) => state.auth)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+
   const handleChange = (e) => {
+    e.preventDefault() 
     const { name, value } = e.target
     dispatch(updateField({ field: name, value }));
   }
@@ -37,7 +40,6 @@ const CreateAcctForm = () => {
     dispatch(loginSuccess(form))
     loginSuccess && navigate('/complete-account')
   }
-  console.log(form)
 
   return (
     <FormControl isRequired>
