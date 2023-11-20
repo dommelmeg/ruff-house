@@ -12,8 +12,6 @@ const OwnerDashboard = () => {
     console.log('YAY, a new doggo!')
   }
 
-  console.log(user)
-
   return (
     <Flex direction='row' maxW='100%'>
       <Stack>

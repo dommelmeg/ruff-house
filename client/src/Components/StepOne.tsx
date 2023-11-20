@@ -17,8 +17,6 @@ const StepOne = ({ setActiveStep }) => {
     const { name, value } = e.target
     dispatch(updateField({ field: name, value }));
   }
-
-  console.log(user) 
   
   const handleClick = (e) => {
     e.preventDefault()
