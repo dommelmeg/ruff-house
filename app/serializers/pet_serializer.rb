@@ -6,7 +6,7 @@ class PetSerializer < ActiveModel::Serializer
   belongs_to :owner
 
   def images
-    rails_blob_path(object.image, only_path: true) if object.image.attached?
+    rails_blob_path(object.images, only_path: true) if object.images.attached?
   end
 
 end

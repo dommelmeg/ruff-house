@@ -8,10 +8,10 @@ import { useUpdateProfileMutation } from "../app/services/profiles";
 const states = ['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming']
 
 const StepOne = ({ setActiveStep }) => {
-  const form: any = useSelector((state: RootState) => state.form)
+  const form: any = useSelector((state: RootState) => state.reducer.form)
   const dispatch = useDispatch()
   const [updateProfile] = useUpdateProfileMutation()
-  const user: any = useSelector((state: RootState) => state.auth)
+  const user: any = useSelector((state: RootState) => state.reducer.auth)
 
   const handleChange = (e) => {
     const { name, value } = e.target

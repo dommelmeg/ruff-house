@@ -14,7 +14,7 @@ const baseQuery = fetchBaseQuery({
   },
 })
 
-const baseQueryWithRetry = retry(baseQuery, { maxRetries: 6 })
+const baseQueryWithRetry = retry(baseQuery, { maxRetries: 1 })
 
 /**
  * Create a base API to inject endpoints into elsewhere.
@@ -30,7 +30,7 @@ export const api = createApi({
    * Otherwise, a single API definition should be used in order to support tag invalidation,
    * among other features
    */
-  reducerPath: 'splitApi',
+  // reducerPath: 'splitApi',
   /**
    * A bare bones base query would just be `baseQuery: fetchBaseQuery({ baseUrl: '/' })`
    */

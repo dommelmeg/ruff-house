@@ -2,11 +2,17 @@ import React from "react";
 import { Flex, Heading, Box, Card, VStack, Grid, Circle, Avatar, HStack, CardHeader, CardBody, Text, Stack } from "@chakra-ui/react";
 import JobsCarousel from "../Components/JobsCarousel";
 import { AddIcon } from '@chakra-ui/icons'
+import { useSelector } from "react-redux";
+import type { RootState } from "../app/store";
 
 const OwnerDashboard = () => {
+  const user: any = useSelector((state: RootState) => state.reducer.auth)
+
   const handleClick = () => {
     console.log('YAY, a new doggo!')
   }
+
+  console.log(user)
 
   return (
     <Flex direction='row' maxW='100%'>

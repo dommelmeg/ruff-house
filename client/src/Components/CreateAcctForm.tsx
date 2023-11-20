@@ -1,5 +1,5 @@
 import React from "react";
-import { FormControl, Button, RadioGroup, HStack, Radio, FormLabel, VStack, Input } from "@chakra-ui/react"
+import { FormControl, Button, RadioGroup, HStack, Radio, FormLabel, VStack, Input, useToast } from "@chakra-ui/react"
 import { useDispatch, useSelector } from "react-redux"
 import type { RootState } from "../app/store";
 import { updateField } from "../app/createAcctFormSlice";
@@ -13,11 +13,12 @@ import {
 } from "../app/auth"
 
 const CreateAcctForm = () => {
-  const form: any = useSelector((state: RootState) => state.form)
-  const user: any = useSelector((state: RootState) => state.auth)
+  const form: any = useSelector((state: RootState) => state.reducer.form)
+  const auth: any = useSelector((state: RootState) => state.reducer.auth)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
+  const toast = useToast()
+  const toastIdRef: any = React.useRef()
 
   const handleChange = (e) => {
     e.preventDefault() 
@@ -33,12 +34,33 @@ const CreateAcctForm = () => {
 
   const handleClick = async (e) => {
     e.preventDefault()
+    toastIdRef.current = toast({
+      title: 'Account Pending',
+      status: 'loading',
+      duration: null
+    })
 
-    const result: any = await addProfile(form)
-    const { data } = result
-    dispatch(updateField({ field: 'id', value: data.id }));
-    dispatch(loginSuccess(form))
-    loginSuccess && navigate('/complete-account')
+    try {
+      const profile = await addProfile(form).unwrap()
+      dispatch(updateField({ field: 'id', value: profile.id }));
+      dispatch(loginSuccess(form))
+      
+      toast.update(toastIdRef.current, {
+        title: 'Account Created',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+      })
+  
+      loginSuccess && navigate('/complete-account')
+    } catch {
+      toast.update(toastIdRef.current, {
+        title: 'An error occurred',
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+      })
+    }
   }
 
   return (

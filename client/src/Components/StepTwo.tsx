@@ -4,9 +4,11 @@ import { useDispatch, useSelector } from "react-redux"
 import type { RootState } from "../app/store";
 import { updateField } from "../app/createAcctFormSlice";
 import { useUpdateProfileMutation } from "../app/services/profiles";
+import { FileUpload } from 'primereact/fileupload';
+        
 
 const StepTwo = ({ setActiveStep }) => {
-  const user: any = useSelector((state: RootState) => state.auth)
+  const user: any = useSelector((state: RootState) => state.reducer.auth)
   const handleClick = (e) => {
     e.preventDefault()
 
@@ -16,7 +18,9 @@ const StepTwo = ({ setActiveStep }) => {
 
   return (
     <div>
-      <Text>COMING SOON: Add your avatar</Text>
+      <div className="card">
+        <FileUpload name="demo[]" url={'/api/upload'} multiple accept="image/*" maxFileSize={1000000} emptyTemplate={<p className="m-0">Drag and drop files to here to upload.</p>} />
+      </div>
 
       <Button 
         colorScheme='orange' 
