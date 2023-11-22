@@ -19,20 +19,15 @@ import {
   FiMenu,
   FiChevronDown,
 } from 'react-icons/fi'
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../app/store";
-import { logout } from "../app/auth"
 
 interface MobileProps extends FlexProps {
   onOpen: () => void
 }
 
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
-  const auth: any = useSelector((state: RootState) => state.reducer.auth)
-  const dispatch = useDispatch()
 
   const handleSignOut = () => {
-    dispatch(logout())
+    console.log('sign me out pls')
   }
 
   return (

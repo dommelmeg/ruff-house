@@ -1,9 +1,5 @@
 import React from "react";
 import { StepIndicator, useSteps, Step, StepStatus, StepIcon, StepNumber, Box, StepTitle, StepDescription, StepSeparator, Stepper, Text, FormControl, VStack, Button, FormLabel, Input, Select } from '@chakra-ui/react'
-import { useDispatch, useSelector } from "react-redux"
-import type { RootState } from "../app/store";
-import { updateField } from "../app/createAcctFormSlice";
-import { useUpdateProfileMutation } from "../app/services/profiles";
 import { useNavigate } from "react-router-dom"
 
 const StepThree = () => {
@@ -12,7 +8,6 @@ const StepThree = () => {
   const handleClick = (e) => {
     e.preventDefault()
 
-    // updateProfile(form)
     navigate('/')
   }
 

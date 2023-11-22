@@ -6,8 +6,6 @@ import OwnerDashboard from './OwnerDashboard';
 import DogHouse from './DogHouse';
 import Jobs from './Jobs';
 import SitterDashboard from './SitterDashboard';
-import { useSelector } from 'react-redux';
-import { RootState } from '../app/store';
 
 const Home = () => {
 
