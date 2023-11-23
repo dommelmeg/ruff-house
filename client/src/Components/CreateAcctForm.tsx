@@ -1,15 +1,19 @@
 import React, { useReducer } from "react";
 import { FormControl, Button, RadioGroup, HStack, Radio, FormLabel, VStack, Input, useToast } from "@chakra-ui/react"
 import { useNavigate } from "react-router-dom"
+import { useQuery, useMutation } from '@tanstack/react-query';
+import axios, {isCancel, AxiosError} from 'axios';
+
 
 const CreateAcctForm = () => {
   const navigate = useNavigate()
   const toast = useToast()
   const toastIdRef: any = React.useRef()
 
+  
   const initialFormState = {
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     email: '',
     username: '',
     password: '',
@@ -23,18 +27,18 @@ const CreateAcctForm = () => {
           ...state,
           [action.field]: action.payload,
         }
-      case 'HANDLE RADIO CHANGE':
-        return {
-          ...state,
-          type: action.payload,
-        }
-      default:
+        case 'HANDLE RADIO CHANGE':
+          return {
+            ...state,
+            type: action.payload,
+          }
+          default:
         return state
     }
   }
-
+  
   const [formState, dispatch] = useReducer(formReducer, initialFormState)
-
+  
   const handleInputChange = (e) => {
     dispatch({
       type: 'HANDLE INPUT TEXT',
@@ -42,7 +46,7 @@ const CreateAcctForm = () => {
       payload: e.target.value,
     })
   }
-
+  
   const handleRadioChange = (e) => {
     dispatch({
       type: 'HANDLE RADIO CHANGE',
@@ -50,14 +54,22 @@ const CreateAcctForm = () => {
       payload: e,
     })
   }
-
+  
+  const createProfile = useMutation({
+    mutationFn: (newProfile) => {
+      return axios.post('/signup', newProfile)
+    }
+  })
+  
   const handleFormSubmitClick = async (e) => {
     e.preventDefault()
+    
+    createProfile.mutate(formState)
     // toastIdRef.current = toast({
-    //   title: 'Account Pending',
-    //   status: 'loading',
-    //   duration: null
-    // })
+      //   title: 'Account Pending',
+      //   status: 'loading',
+      //   duration: null
+      // })
 
     // try {
     //   toast.update(toastIdRef.current, {
@@ -83,7 +95,7 @@ const CreateAcctForm = () => {
       <FormLabel>First Name</FormLabel>
       <Input 
         type='firstName' 
-        name='firstName' 
+        name='first_name' 
         value={formState.firstName} 
         onChange={handleInputChange} 
         placeholder='First Name' 
@@ -93,7 +105,7 @@ const CreateAcctForm = () => {
       <FormLabel marginTop='2'>Last Name</FormLabel>
       <Input 
         type='lastName'
-        name='lastName' 
+        name='last_name' 
         value={formState.lastName} 
         onChange={handleInputChange} 
         placeholder='Last Name' 

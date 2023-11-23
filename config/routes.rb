@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   # resources :owners
   resources :jobs
 
-  post"/signup", to: "profiles#create"
+  post "/signup", to: "profiles#create"
   get "/me", to: "profiles#show"
   
   post "/login", to: "sessions#create"
