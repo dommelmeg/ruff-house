@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Text, Button, Heading, FormControl, FormLabel, Input, Flex, HStack, VStack} from "@chakra-ui/react";
 import { useNavigate, useLocation } from 'react-router-dom'
 
@@ -40,10 +40,10 @@ const SignIn = () => {
             <FormControl>
               
               <FormLabel>Username</FormLabel>
-              <Input value={loginForm.username} name='username' onChange={handleChange} placeholder='Username' width='md' />
+              <Input name='username' onChange={handleChange} placeholder='Username' width='md' />
 
               <FormLabel marginTop='2'>Password</FormLabel>
-              <Input value={loginForm.password} name='password' onChange={handleChange}placeholder='Password' width='md' />
+              <Input name='password' onChange={handleChange}placeholder='Password' width='md' />
 
             </FormControl>
           </HStack>

@@ -1,5 +1,5 @@
 import React from "react";
-import { StepIndicator, useSteps, Step, StepStatus, StepIcon, StepNumber, Box, StepTitle, StepDescription, StepSeparator, Stepper, Text, FormControl, VStack, Button, FormLabel, Input, Select } from '@chakra-ui/react'
+import { Text, Button } from '@chakra-ui/react'
 import { useNavigate } from "react-router-dom"
 
 const StepThree = () => {

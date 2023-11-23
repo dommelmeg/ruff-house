@@ -12,9 +12,9 @@ const App = () => {
   const navigate = useNavigate()
   const location = useLocation()
 
-  useEffect(() => {
-    loggedIn ? navigate('/') : navigate('/signin') 
-  }, [userAuth])
+  // useEffect(() => {
+  //   loggedIn ? navigate('/') : navigate('/signin') 
+  // }, [userAuth])
 
   return (
     <ChakraProvider>

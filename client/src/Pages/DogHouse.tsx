@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, CardFooter, Heading, Card, Text, CardHeader, CardBody, Button, Avatar, SimpleGrid } from "@chakra-ui/react";
+import { CardFooter, Heading, Card, Text, CardHeader, CardBody, Button, Avatar, SimpleGrid } from "@chakra-ui/react";
 
 const DogHouse = () => {
   return (

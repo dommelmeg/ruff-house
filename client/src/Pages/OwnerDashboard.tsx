@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Heading, Box, Card, VStack, Grid, Circle, Avatar, HStack, CardHeader, CardBody, Text, Stack } from "@chakra-ui/react";
+import { Flex, Box, Circle, Avatar, HStack,  Text, Stack } from "@chakra-ui/react";
 import JobsCarousel from "../Components/JobsCarousel";
 import { AddIcon } from '@chakra-ui/icons'
 

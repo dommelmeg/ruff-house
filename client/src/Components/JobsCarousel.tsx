@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Box, Flex, CardHeader, CardBody, Avatar, AvatarGroup } from "@chakra-ui/react";
+import { Card, Box, CardHeader, CardBody, Avatar, AvatarGroup } from "@chakra-ui/react";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 

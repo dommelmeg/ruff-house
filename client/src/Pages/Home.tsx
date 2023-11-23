@@ -1,6 +1,6 @@
 import React from 'react';
 import { Flex } from '@chakra-ui/react'
-import { Route, Routes, useLocation } from "react-router-dom"
+import { Route, Routes } from "react-router-dom"
 import NavBar from '../Components/NavBar';
 import OwnerDashboard from './OwnerDashboard';
 import DogHouse from './DogHouse';
