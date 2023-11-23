@@ -4,12 +4,10 @@ import { useNavigate } from "react-router-dom"
 import { useQuery, useMutation } from '@tanstack/react-query';
 import axios, {isCancel, AxiosError} from 'axios';
 
-
 const CreateAcctForm = () => {
   const navigate = useNavigate()
   const toast = useToast()
   const toastIdRef: any = React.useRef()
-
   
   const initialFormState = {
     first_name: '',
@@ -32,8 +30,8 @@ const CreateAcctForm = () => {
             ...state,
             type: action.payload,
           }
-          default:
-        return state
+        default:
+          return state
     }
   }
   

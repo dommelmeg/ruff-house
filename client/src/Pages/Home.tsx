@@ -6,6 +6,7 @@ import OwnerDashboard from './OwnerDashboard';
 import DogHouse from './DogHouse';
 import Jobs from './Jobs';
 import SitterDashboard from './SitterDashboard';
+import { atom } from 'jotai';
 
 const Home = () => {
 

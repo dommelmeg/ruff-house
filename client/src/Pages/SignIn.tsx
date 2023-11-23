@@ -1,18 +1,50 @@
-import React from "react";
+import React, { useReducer } from "react";
 import { Box, Text, Button, Heading, FormControl, FormLabel, Input, Flex, HStack, VStack} from "@chakra-ui/react";
 import { useNavigate, useLocation } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query';
+import axios, {isCancel, AxiosError} from 'axios';
 
 const SignIn = () => {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const handleChange = (e) => {
-    e.preventDefault() 
-    const { name, value } = e.target
+  const initialSignInState = {
+    username: '',
+    password: '',
   }
 
-  const handleClick = (e) => {
+  const signInReducer = (state, action) => {
+    switch (action.type) {
+      case 'HANDLE INPUT TEXT':
+        return {
+          ...state,
+          [action.field]: action.payload,
+        }
+      default:
+        return state 
+    }
+  }
+
+  const [signInState, dispatch] = useReducer(signInReducer, initialSignInState)
+
+  const handleInputChange = (e) => {
+    dispatch({
+      type: 'HANDLE INPUT TEXT',
+      field: e.target.name,
+      payload: e.target.value,
+    })
+  }
+
+  const signInUser = useMutation({
+    mutationFn: (user) => {
+      return axios.post('/login', user)
+    }
+  })
+
+  const handleSignInClick = (e) => {
     e.preventDefault()
+
+    signInUser.mutate(signInState)
   }
 
   return (
@@ -40,10 +72,22 @@ const SignIn = () => {
             <FormControl>
               
               <FormLabel>Username</FormLabel>
-              <Input name='username' onChange={handleChange} placeholder='Username' width='md' />
+              <Input 
+                type='username'
+                name='username' 
+                value={signInState.username}
+                onChange={handleInputChange} placeholder='Username' 
+                width='md' 
+              />
 
               <FormLabel marginTop='2'>Password</FormLabel>
-              <Input name='password' onChange={handleChange}placeholder='Password' width='md' />
+              <Input 
+                type='password'
+                name='password' 
+                value={signInState.password}
+                onChange={handleInputChange}placeholder='Password' 
+                width='md' 
+              />
 
             </FormControl>
           </HStack>
@@ -52,7 +96,7 @@ const SignIn = () => {
             variant='outline' 
             marginTop='4' 
             rounded='3xl'
-            onClick={handleClick}
+            onClick={handleSignInClick}
           >
             Sign In
           </Button>
