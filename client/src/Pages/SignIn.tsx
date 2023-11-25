@@ -2,11 +2,14 @@ import React, { useReducer } from "react";
 import { Box, Text, Button, Heading, FormControl, FormLabel, Input, Flex, HStack, VStack} from "@chakra-ui/react";
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query';
-import axios, {isCancel, AxiosError} from 'axios';
+import axios from 'axios';
+import { initialFormState, userAuthAtom, errorsAtom } from "../State Management/store";
+import { useAtom } from "jotai";
 
 const SignIn = () => {
   const navigate = useNavigate()
   const location = useLocation()
+  const [currentUser, setCurrentUser] = useAtom(userAuthAtom)
 
   const initialSignInState = {
     username: '',
@@ -38,6 +41,9 @@ const SignIn = () => {
   const signInUser = useMutation({
     mutationFn: (user) => {
       return axios.post('/login', user)
+      .then((r) => {
+        setCurrentUser(r.data)
+      })
     }
   })
 
@@ -45,7 +51,10 @@ const SignIn = () => {
     e.preventDefault()
 
     signInUser.mutate(signInState)
+    navigate('/')
   }
+
+  console.log(currentUser)
 
   return (
     <Flex direction='row' h='100vh'>

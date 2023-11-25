@@ -19,17 +19,33 @@ import {
   FiMenu,
   FiChevronDown,
 } from 'react-icons/fi'
+import { initialFormState, userAuthAtom, errorsAtom } from "../State Management/store";
+import { useAtom } from "jotai";
+import { Route, Routes, useNavigate } from "react-router-dom"
+import { useQuery, useMutation } from '@tanstack/react-query';
+import axios from "axios";
 
 interface MobileProps extends FlexProps {
   onOpen: () => void
 }
 
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+  const [currentUser, setCurrentUser] = useAtom(userAuthAtom)
+  const navigate = useNavigate()
 
+  const signUserOut = useMutation({
+    mutationFn: (user) => {
+      return axios.delete('/logout')
+    }
+  })
+  
   const handleSignOut = () => {
-    console.log('sign me out pls')
+    signUserOut.mutate()
+    setCurrentUser(null)
+    navigate('/signin')
   }
-
+  
+  console.log(currentUser)
   return (
     <Flex
       ml={{ base: 0, md: 60 }}

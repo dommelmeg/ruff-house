@@ -3,20 +3,15 @@ import { FormControl, Button, RadioGroup, HStack, Radio, FormLabel, VStack, Inpu
 import { useNavigate } from "react-router-dom"
 import { useQuery, useMutation } from '@tanstack/react-query';
 import axios, {isCancel, AxiosError} from 'axios';
+import { initialFormState, userAuthAtom, errorsAtom } from "../State Management/store";
+import { useAtom } from "jotai";
 
 const CreateAcctForm = () => {
   const navigate = useNavigate()
   const toast = useToast()
   const toastIdRef: any = React.useRef()
-  
-  const initialFormState = {
-    first_name: '',
-    last_name: '',
-    email: '',
-    username: '',
-    password: '',
-    type: 'Owner',
-  }
+  const [currentUser, setCurrentUser] = useAtom(userAuthAtom)
+  const [errors, setErrors] = useAtom(errorsAtom)
   
   const formReducer = (state, action) => {
     switch (action.type) {
@@ -56,13 +51,25 @@ const CreateAcctForm = () => {
   const createProfile = useMutation({
     mutationFn: (newProfile) => {
       return axios.post('/signup', newProfile)
+      .then((res) => {
+        //set user here
+        setCurrentUser(res.data)
+        navigate('/')
+      })
+      .catch((error) => {
+        //set errors here
+        setErrors(error.response.data.errors)
+      });
     }
+    
   })
   
   const handleFormSubmitClick = async (e) => {
+    //need to clear any errors
     e.preventDefault()
     
     createProfile.mutate(formState)
+    setCurrentUser(formState)
     // toastIdRef.current = toast({
       //   title: 'Account Pending',
       //   status: 'loading',
@@ -86,6 +93,8 @@ const CreateAcctForm = () => {
     // }
   }
 
+  // console.log(currentUser)
+  console.log(errors)
 
   return (
     <FormControl isRequired>
