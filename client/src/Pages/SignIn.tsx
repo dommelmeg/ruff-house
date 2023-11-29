@@ -3,13 +3,15 @@ import { Box, Text, Button, Heading, FormControl, FormLabel, Input, Flex, HStack
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import { initialFormState, userAuthAtom, errorsAtom } from "../State Management/store";
+import { initialFormState, userAuthAtom, errorsAtom } from "../StateManagement/store";
 import { useAtom } from "jotai";
+import userEvent from "@testing-library/user-event";
 
 const SignIn = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const [currentUser, setCurrentUser] = useAtom(userAuthAtom)
+  const [loginErrors, setLoginErrors] = useAtom(errorsAtom)
 
   const initialSignInState = {
     username: '',
@@ -43,6 +45,11 @@ const SignIn = () => {
       return axios.post('/login', user)
       .then((r) => {
         setCurrentUser(r.data)
+        navigate('/')
+      })
+      .catch((error) => {
+        // setErrors(error.response.data.errors)
+        setLoginErrors(error.response.data.error.login)
       })
     }
   })
@@ -51,10 +58,7 @@ const SignIn = () => {
     e.preventDefault()
 
     signInUser.mutate(signInState)
-    navigate('/')
   }
-
-  console.log(currentUser)
 
   return (
     <Flex direction='row' h='100vh'>

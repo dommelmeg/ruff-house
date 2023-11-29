@@ -3,27 +3,16 @@ import { Flex } from '@chakra-ui/react'
 import { Route, Routes, useNavigate } from "react-router-dom"
 import NavBar from '../Components/NavBar';
 import OwnerDashboard from './OwnerDashboard';
+import Sitters from './Sitters';
 import DogHouse from './DogHouse';
 import Jobs from './Jobs';
 import SitterDashboard from './SitterDashboard';
-import { initialFormState, userAuthAtom, errorsAtom } from "../State Management/store";
+import { initialFormState, userAuthAtom, errorsAtom } from "../StateManagement/store";
 import { useAtom } from "jotai";
 
 const Home = () => {
   const navigate = useNavigate()
   const [currentUser, setCurrentUser] = useAtom(userAuthAtom)
-
-  console.log(currentUser)
-
-  useEffect(() => {
-    fetch("/me")
-      .then((r) => {
-        if (r.ok) {
-          r.json()
-          .then((user) => setCurrentUser(user))
-        }
-      }) 
-  }, [])
 
   return (
     <Flex>
@@ -33,7 +22,8 @@ const Home = () => {
             <Route path='/' element={<OwnerDashboard />} />
             <Route path='/doghouse' element={<DogHouse />} />
             <Route path='/jobs' element={<Jobs />} />
-            <Route path='/sitters' element={<SitterDashboard />} />
+            <Route path='/sitter-dashboard' element={<SitterDashboard />} />
+            <Route path='/sitters' element={<Sitters />} />
           </Routes>
         </Flex>
       </NavBar>

@@ -9,6 +9,8 @@ export const initialFormState = {
   email: '',
   username: '',
   password: '',
+  city: '',
+  state: '',
   type: 'Owner',
 }
 

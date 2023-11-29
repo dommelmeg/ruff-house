@@ -1,12 +1,31 @@
-import React from "react";
+import React, { useReducer } from "react";
 import { FormControl, VStack, Button, FormLabel, Input, Select, Box } from '@chakra-ui/react'
+import { initialFormState } from "../StateManagement/store";
+import { useQuery, useMutation } from '@tanstack/react-query'
 
 const states = ['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming']
 
 const StepOne = ({ setActiveStep }) => {
+  // const locationReducer = (state, action) => {
+  //   switch (action.type) {
+  //     case 'HANDLE INPUT TEXT':
+  //       return {
+  //         ...state,
+  //         [action.field]: action.payload,
+  //       }
+  //     default:
+  //       return state
+  //   }
+  // }
+
+  // const [locationState, dispatch] = useReducer(locationReducer, initialFormState)
 
   const handleChange = (e) => {
-    const { name, value } = e.target
+    // dispatch({
+    //   type: 'HANDLE INPUT TEXT',
+    //   field: e.target.name,
+    //   payload: e.target.value,
+    // })
   }
   
   const handleClick = (e) => {

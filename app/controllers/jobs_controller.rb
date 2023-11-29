@@ -13,4 +13,10 @@ class JobsController < ApplicationController
         )
         render json: new_job, status: :create
     end
+
+    def user_index
+        user_jobs = Jobs.where(profile_id: session[:owner_id])
+        render json: user_jobs.order('date')
+    end
 end
+    

@@ -3,7 +3,7 @@ import { FormControl, Button, RadioGroup, HStack, Radio, FormLabel, VStack, Inpu
 import { useNavigate } from "react-router-dom"
 import { useQuery, useMutation } from '@tanstack/react-query';
 import axios, {isCancel, AxiosError} from 'axios';
-import { initialFormState, userAuthAtom, errorsAtom } from "../State Management/store";
+import { initialFormState, userAuthAtom, errorsAtom } from "../StateManagement/store";
 import { useAtom } from "jotai";
 
 const CreateAcctForm = () => {
@@ -54,7 +54,7 @@ const CreateAcctForm = () => {
       .then((res) => {
         //set user here
         setCurrentUser(res.data)
-        navigate('/')
+        navigate('/complete-account')
       })
       .catch((error) => {
         //set errors here
@@ -69,7 +69,6 @@ const CreateAcctForm = () => {
     e.preventDefault()
     
     createProfile.mutate(formState)
-    setCurrentUser(formState)
     // toastIdRef.current = toast({
       //   title: 'Account Pending',
       //   status: 'loading',
@@ -94,7 +93,6 @@ const CreateAcctForm = () => {
   }
 
   // console.log(currentUser)
-  console.log(errors)
 
   return (
     <FormControl isRequired>

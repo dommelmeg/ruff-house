@@ -19,7 +19,7 @@ import {
   FiMenu,
   FiChevronDown,
 } from 'react-icons/fi'
-import { initialFormState, userAuthAtom, errorsAtom } from "../State Management/store";
+import { initialFormState, userAuthAtom, errorsAtom } from "../StateManagement/store";
 import { useAtom } from "jotai";
 import { Route, Routes, useNavigate } from "react-router-dom"
 import { useQuery, useMutation } from '@tanstack/react-query';
@@ -89,9 +89,9 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                   alignItems="flex-start"
                   spacing="1px"
                   ml="2">
-                  <Text fontSize="sm">Justina Clark</Text>
+                  <Text fontSize="sm">{currentUser.first_name} {currentUser.last_name}</Text>
                   <Text fontSize="xs" color="gray.600">
-                    Owner
+                    {currentUser.type}
                   </Text>
                 </VStack>
                 <Box display={{ base: 'none', md: 'flex' }}>

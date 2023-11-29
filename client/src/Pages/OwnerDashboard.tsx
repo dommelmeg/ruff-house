@@ -4,6 +4,11 @@ import JobsCarousel from "../Components/JobsCarousel";
 import { AddIcon } from '@chakra-ui/icons'
 
 const OwnerDashboard = () => {
+  //jobs that have not happened yet
+  const current = []
+  //completed jobs
+  const past = []
+
   const handleClick = () => {
     console.log('YAY, a new doggo!')
   }
@@ -11,12 +16,35 @@ const OwnerDashboard = () => {
   return (
     <Flex direction='row' maxW='100%'>
       <Stack>
-        <Text mt='4'>Open Jobs</Text>
-        <JobsCarousel />
-        <Text mt='4'>Previous Jobs</Text>
-        <JobsCarousel />
-        <Text mt='4'>Doggo House</Text>
-        <Box width='80vw' padding={4} rounded='2xl'>
+        <Text 
+          fontSize="2xl" 
+          fontWeight="bold"
+        >
+          UPCOMING JOBS
+        </Text>
+        <JobsCarousel jobStatus={current} />
+
+        <Text 
+          fontSize="2xl" 
+          fontWeight="bold" 
+          mt='4'
+        >
+          COMPLETED JOBS
+        </Text>
+        <JobsCarousel jobStatus={past} />
+
+        <Text 
+          fontSize="2xl" 
+          fontWeight="bold" 
+          mt='4'
+        >
+          DOGGO HOUSE
+        </Text>
+        <Box 
+          width='80vw' 
+          padding={4} 
+          rounded='2xl'
+        >
           <HStack>
             <Avatar size='lg' name='Luke' />
             <Avatar size='lg' name='Leia Story' />
