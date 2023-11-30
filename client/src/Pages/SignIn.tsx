@@ -3,7 +3,7 @@ import { Box, Text, Button, Heading, FormControl, FormLabel, Input, Flex, HStack
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import { initialFormState, userAuthAtom, errorsAtom } from "../StateManagement/store";
+import { userAuthAtom, errorsAtom } from "../StateManagement/store";
 import { useAtom } from "jotai";
 import userEvent from "@testing-library/user-event";
 
@@ -68,7 +68,7 @@ const SignIn = () => {
           <Text>Don't have an account yet? Create one below.</Text>
           <Button 
             colorScheme='orange' 
-            variant='outline' 
+            // variant='outline' 
             rounded='3xl'
             marginTop='4'
             onClick={() => navigate('/createaccount')}

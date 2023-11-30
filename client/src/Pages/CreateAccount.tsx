@@ -15,7 +15,8 @@ const CreateAccount = () => {
           <Text>Already have an account? Sign in below.</Text>
           <Button 
             colorScheme='orange' 
-            variant='outline' 
+            // variant='outline' 
+            mt={4}
             rounded='3xl'
             onClick={() => navigate('/signin')}
           >

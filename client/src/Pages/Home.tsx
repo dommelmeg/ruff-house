@@ -7,7 +7,7 @@ import Sitters from './Sitters';
 import DogHouse from './DogHouse';
 import Jobs from './Jobs';
 import SitterDashboard from './SitterDashboard';
-import { initialFormState, userAuthAtom, errorsAtom } from "../StateManagement/store";
+import { userAuthAtom, errorsAtom } from "../StateManagement/store";
 import { useAtom } from "jotai";
 
 const Home = () => {

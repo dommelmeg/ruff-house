@@ -2,18 +2,13 @@ import React, { useState } from "react";
 import { Card, Box, CardHeader, CardBody, Avatar, AvatarGroup, CardFooter, Button, ButtonGroup } from "@chakra-ui/react";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import { Job } from "../StateManagement/store";
 
+interface JobsCarouselProps {
+  jobs: Job[]
+}
 
-const JobsCarousel = ({ jobStatus }) => {
-
-  const jobsArray = [
-    {id: 1, start_date: '9/3/2024', end_date: '9/5/2024', description: 'need overnight care for dogs', owner_id: 1, sitter_id: 3},
-    {id: 2, start_date: '12/5/2023', end_date: '12/10/2023', description: 'need a sitter to walk dogs every 4-6 hours and feed them twice a day', owner_id: 2, sitter_id: 3},
-    {id: 1, start_date: '9/3/2024', end_date: '9/5/2024', description: 'need overnight care for dogs', owner_id: 1, sitter_id: 3},
-    {id: 2, start_date: '12/5/2023', end_date: '12/10/2023', description: 'need a sitter to walk dogs every 4-6 hours and feed them twice a day', owner_id: 2, sitter_id: 3},
-    {id: 2, start_date: '12/5/2023', end_date: '12/10/2023', description: 'need a sitter to walk dogs every 4-6 hours and feed them twice a day', owner_id: 2, sitter_id: 3},
-  ]
-
+const JobsCarousel = ({ jobs }: JobsCarouselProps) => {
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -33,11 +28,13 @@ const JobsCarousel = ({ jobStatus }) => {
       items: 1
     }
   };
+  console.log(jobs)
+  if (!jobs.length) return <Box>Nothing to see here</Box>
 
   return (
     <Box width='80vw' bg='gray.300' padding={4} rounded='2xl'>
       <Carousel responsive={responsive}>
-        {jobsArray.map((job) => {
+        {jobs.map((job) => {
           return(
             <Card size='sm' padding={2} m={4} key={job.id}>
               <CardHeader>

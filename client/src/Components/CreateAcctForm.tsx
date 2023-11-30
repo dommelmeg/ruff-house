@@ -3,10 +3,20 @@ import { FormControl, Button, RadioGroup, HStack, Radio, FormLabel, VStack, Inpu
 import { useNavigate } from "react-router-dom"
 import { useQuery, useMutation } from '@tanstack/react-query';
 import axios, {isCancel, AxiosError} from 'axios';
-import { initialFormState, userAuthAtom, errorsAtom } from "../StateManagement/store";
+import { userAuthAtom, errorsAtom } from "../StateManagement/store";
 import { useAtom } from "jotai";
 
 const CreateAcctForm = () => {
+  const initialFormState = {
+    id: null,
+    first_name: '',
+    last_name: '',
+    email: '',
+    username: '',
+    password: '',
+    type: 'Owner',
+  }
+
   const navigate = useNavigate()
   const toast = useToast()
   const toastIdRef: any = React.useRef()
