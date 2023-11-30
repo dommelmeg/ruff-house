@@ -1,58 +1,43 @@
 import React from "react";
-import { CardFooter, Heading, Card, Text, CardHeader, CardBody, Button, Avatar, SimpleGrid } from "@chakra-ui/react";
+import { CardFooter, Heading, Card, Text, CardHeader, CardBody, Button, Avatar, SimpleGrid, Accordion, AccordionItem, AccordionButton, Box, AccordionIcon, AccordionPanel, HStack, ButtonGroup, Stack } from "@chakra-ui/react";
+import { userAuthAtom, User } from "../StateManagement/store";
+import { useAtom } from "jotai";
+
 
 const DogHouse = () => {
+  const [currentUser, setCurrentUser] = useAtom<User>(userAuthAtom)
+  const usersDogs = currentUser.pets
+
   return (
-    <SimpleGrid gap={4} columns=
-    {3}>
-      <Card padding='2' align='center'>
-        <Avatar name='Luke'></Avatar>
-        <CardHeader>
-          <Heading size='md'>
-            Luke Story
-          </Heading>
-        </CardHeader>
-        <CardBody>
-          <Text>2 years old</Text>
-        </CardBody>
-        <CardFooter>
-          <Button size='sm'>Edit Info</Button>
-          <Button size='sm'>Add Photos</Button>
-        </CardFooter>
-      </Card>
-
-      <Card padding='2' align='center'>
-        <Avatar name='Leia Story'></Avatar>
-        <CardHeader>
-          <Heading size='md'>
-            Leia Story
-          </Heading>
-        </CardHeader>
-        <CardBody>
-          <Text>3 years old</Text>
-        </CardBody>
-        <CardFooter>
-          <Button size='sm'>Edit Info</Button>
-          <Button size='sm'>Add Photos</Button>
-        </CardFooter>
-      </Card>
-
-      <Card padding='2' align='center'>
-        <Avatar name='Bella Sprunger'></Avatar>
-        <CardHeader>
-          <Heading size='md'>
-            Bella Sprunger
-          </Heading>
-        </CardHeader>
-        <CardBody>
-          <Text>1 years old</Text>
-        </CardBody>
-        <CardFooter>
-          <Button size='sm'>Edit Info</Button>
-          <Button size='sm'>Add Photos</Button>
-        </CardFooter>
-      </Card>
-    </SimpleGrid>
+    <Accordion allowToggle>
+      {usersDogs.map((dog) => {
+        return (
+          <AccordionItem>
+            <h2>
+              <AccordionButton>
+                <Box as="span" flex='1' textAlign='left'>
+                  <HStack>
+                  <Avatar size='lg' name={dog.name} />
+                  <Heading size='md'>{dog.name}</Heading>
+                  </HStack>
+                </Box>
+                <AccordionIcon />
+              </AccordionButton>
+            </h2>
+            <AccordionPanel pb={4}>
+              <Stack>
+                <Text>{dog.breed}</Text>
+                <Text>{dog.gender.toUpperCase()}: {dog.age} Years Old</Text>
+                <ButtonGroup>
+                  <Button size='sm'>Edit Info</Button>
+                  <Button size='sm'>Add Photos</Button>
+                </ButtonGroup>
+              </Stack>
+            </AccordionPanel>
+          </AccordionItem>
+        )
+      })}
+    </Accordion>
   )
 }
 
