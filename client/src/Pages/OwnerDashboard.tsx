@@ -1,9 +1,10 @@
-import React from "react";
-import { Flex, Box, Circle, Avatar, HStack,  Text, Stack } from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Flex, Box, Circle, Avatar, HStack,  Text, Stack, IconButton, Icon } from "@chakra-ui/react";
 import JobsCarousel from "../Components/JobsCarousel";
-import { AddIcon } from '@chakra-ui/icons'
+import { AddIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons'
 
 const OwnerDashboard = () => {
+  const [showCompletedJobs, setShowCompletedJobs] = useState(true)
   //jobs that have not happened yet
   const current = []
   //completed jobs
@@ -13,25 +14,40 @@ const OwnerDashboard = () => {
     console.log('YAY, a new doggo!')
   }
 
+  const handleCompletedJobsToggle = () => {
+    setShowCompletedJobs((prevState) => !prevState)
+  }
+
+  const handleAddJobBtn = () => {
+
+  }
+
   return (
     <Flex direction='row' maxW='100%'>
       <Stack>
-        <Text 
-          fontSize="2xl" 
-          fontWeight="bold"
-        >
-          UPCOMING JOBS
-        </Text>
-        <JobsCarousel jobStatus={current} />
+        <HStack>
 
         <Text 
           fontSize="2xl" 
-          fontWeight="bold" 
-          mt='4'
-        >
-          COMPLETED JOBS
+          fontWeight="bold"
+          >
+          UPCOMING JOBS
         </Text>
-        <JobsCarousel jobStatus={past} />
+        <IconButton aria-label="add job" icon={<AddIcon />} variant='ghost' onClick={handleAddJobBtn} />
+        </HStack>
+        <JobsCarousel jobStatus={current} />
+
+        <HStack>
+          <Text 
+            fontSize="2xl" 
+            fontWeight="bold" 
+            mt='4'
+          >
+            COMPLETED JOBS
+          </Text>
+          <IconButton mt='4' aria-label="hide/show completed jobs" icon={showCompletedJobs ? <ChevronUpIcon /> : <ChevronDownIcon />} variant='ghost' onClick={handleCompletedJobsToggle} />
+        </HStack>
+        {showCompletedJobs && <JobsCarousel jobStatus={past} />}
 
         <Text 
           fontSize="2xl" 
