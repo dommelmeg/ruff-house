@@ -14,10 +14,13 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
+  useColorMode
 } from '@chakra-ui/react'
 import {
   FiMenu,
   FiChevronDown,
+  FiSun,
+  FiMoon
 } from 'react-icons/fi'
 import { initialFormState, userAuthAtom, errorsAtom } from "../StateManagement/store";
 import { useAtom } from "jotai";
@@ -32,6 +35,8 @@ interface MobileProps extends FlexProps {
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const [currentUser, setCurrentUser] = useAtom(userAuthAtom)
   const navigate = useNavigate()
+  const { toggleColorMode, colorMode } = useColorMode()
+  const darkMode = colorMode === 'dark'
 
   const signUserOut = useMutation({
     mutationFn: (user) => {
@@ -75,6 +80,9 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
 
       <HStack spacing={{ base: '0', md: '6' }}>
         <Flex alignItems={'center'}>
+          <Box  mx='8'>
+            <IconButton aria-label="Color Mode" icon={darkMode ? <FiMoon /> : <FiSun />} onClick={toggleColorMode} variant='ghost' />
+          </Box>
           <Menu>
             <MenuButton py={2} transition="all 0.3s" _focus={{ boxShadow: 'none' }}>
               <HStack>

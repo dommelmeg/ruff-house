@@ -1,11 +1,13 @@
 import React from "react";
-import { Box, Flex, Text, BoxProps, useColorModeValue, CloseButton } from "@chakra-ui/react";
+import { Box, Flex, Text, BoxProps, useColorModeValue, CloseButton, Switch, useColorMode, HStack, IconButton } from "@chakra-ui/react";
 import NavItem from "./NavItem";
 import {
   FiHome,
   FiTrendingUp,
   FiCompass,
   FiStar,
+  FiSun,
+  FiMoon
 } from 'react-icons/fi'
 import { IconType } from 'react-icons'
 
@@ -27,6 +29,8 @@ const LinkItems: Array<LinkItemProps> = [
 ]
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+
+
   return (
     <Box
       transition="3s ease"
