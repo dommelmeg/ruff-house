@@ -37,7 +37,7 @@ const OwnerDashboard = () => {
           fontSize="2xl" 
           fontWeight="bold"
           >
-          UPCOMING JOBS
+          REQUESTS
         </Text>
         <IconButton aria-label="add job" icon={<AddIcon />} variant='ghost' onClick={handleAddJobBtn} />
         </HStack>
@@ -49,7 +49,7 @@ const OwnerDashboard = () => {
             fontWeight="bold" 
             mt='4'
           >
-            COMPLETED JOBS
+            COMPLETED
           </Text>
           <IconButton mt='4' aria-label="hide/show completed jobs" icon={showCompletedJobs ? <ChevronUpIcon /> : <ChevronDownIcon />} variant='ghost' onClick={handleCompletedJobsToggle} />
         </HStack>

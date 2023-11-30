@@ -9,7 +9,10 @@ import {
   FiSun,
   FiMoon
 } from 'react-icons/fi'
+import { BsPersonArmsUp } from "react-icons/bs";
+import { BiSolidDog } from "react-icons/bi";
 import { IconType } from 'react-icons'
+
 
 interface LinkItemProps {
   name: string
@@ -23,8 +26,8 @@ interface SidebarProps extends BoxProps {
 
 const LinkItems: Array<LinkItemProps> = [
   { name: 'Dashboard', icon: FiHome, route: '/' },
-  { name: 'Dog House', icon: FiTrendingUp, route: '/doghouse' },
-  { name: 'Sitters', icon: FiCompass, route: '/sitters' },
+  { name: 'Dog House', icon: BiSolidDog, route: '/doghouse' },
+  { name: 'Sitters', icon: BsPersonArmsUp, route: '/sitters' },
   { name: 'Favorites', icon: FiStar, route: '/favorites' },
 ]
 
