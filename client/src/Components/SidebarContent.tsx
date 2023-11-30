@@ -13,7 +13,6 @@ import { BsPersonArmsUp } from "react-icons/bs";
 import { BiSolidDog } from "react-icons/bi";
 import { IconType } from 'react-icons'
 
-
 interface LinkItemProps {
   name: string
   icon: IconType

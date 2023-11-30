@@ -3,7 +3,7 @@ import { CardFooter, Heading, Card, Text, CardHeader, CardBody, Button, Avatar, 
 
 const DogHouse = () => {
   return (
-    <SimpleGrid spacing={4} columns=
+    <SimpleGrid gap={4} columns=
     {3}>
       <Card padding='2' align='center'>
         <Avatar name='Luke'></Avatar>

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   
   # resources :sitters
   resources :profiles
-  resources :profiles, as: :sitters
+  resources :sitters
   resources :profiles, as: :owners
   resources :pets
   # resources :owners
