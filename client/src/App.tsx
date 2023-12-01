@@ -9,13 +9,13 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import axios, {isCancel, AxiosError} from 'axios';
 import { useAtom } from "jotai";
-import { userAuthAtom } from './StateManagement/store';
+import { userAuthAtom, userTypeAtom } from './StateManagement/store';
+import userEvent from '@testing-library/user-event';
 
 const App = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const [currentUser, setCurrentUser] = useAtom(userAuthAtom)
-
 
   useEffect(() => {
     fetch("/me")
@@ -24,7 +24,11 @@ const App = () => {
           r.json()
           .then((user) => {
             setCurrentUser(user)
-            // navigate('/')
+            if (currentUser.type === 'Owner') {
+              navigate('/')
+            } else {
+              navigate('/sitter-dashboard')
+            }
           })
         }
       }) 

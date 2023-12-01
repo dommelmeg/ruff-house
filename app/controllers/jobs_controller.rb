@@ -1,4 +1,6 @@
 class JobsController < ApplicationController
+    before_action :owner_user, only: [:create, :destroy, :update]
+
     def index
         jobs = Job.all
         render json: jobs
@@ -12,6 +14,12 @@ class JobsController < ApplicationController
             end_date: session[:end_date],
         )
         render json: new_job, status: :create
+    end
+
+    def destroy
+    end
+
+    def update
     end
 
     def user_index

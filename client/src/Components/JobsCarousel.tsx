@@ -2,13 +2,18 @@ import React, { useState } from "react";
 import { Card, Box, CardHeader, CardBody, Avatar, AvatarGroup, CardFooter, Button, ButtonGroup } from "@chakra-ui/react";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import { Job } from "../StateManagement/store";
+import { Job, userAuthAtom, User } from "../StateManagement/store";
+import { useAtom } from "jotai";
 
 interface JobsCarouselProps {
   jobs: Job[]
 }
 
 const JobsCarousel = ({ jobs }: JobsCarouselProps) => {
+  const [currentUser, setCurrentUser] = useAtom<User>(userAuthAtom)
+  const userPets = currentUser.pets
+
+
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -28,13 +33,13 @@ const JobsCarousel = ({ jobs }: JobsCarouselProps) => {
       items: 1
     }
   };
-  console.log(jobs)
+
   if (!jobs.length) return <Box>Nothing to see here</Box>
 
   return (
     <Box width='80vw' bg='gray.300' padding={4} rounded='2xl'>
       <Carousel responsive={responsive}>
-        {jobs.map((job) => {
+        {jobs?.map((job) => {
           return(
             <Card size='sm' padding={2} m={4} key={job.id}>
               <CardHeader>
@@ -43,16 +48,20 @@ const JobsCarousel = ({ jobs }: JobsCarouselProps) => {
               <CardBody>
                 {job.description}
                 <AvatarGroup size='sm' max={2} mt={2}>
-                  <Avatar name='Luke' />
-                  <Avatar name='Leia Story' />
-                  <Avatar name='Bella Sprunger' />
+                  {userPets?.map((dog) => {
+                    return (
+                      <Avatar name={dog.name} key={dog.id}/>
+                    )
+                  })}
                 </AvatarGroup>
               </CardBody>
               <CardFooter>
+                {currentUser.type === 'Owner' && 
                   <ButtonGroup>
                     <Button variant='outline' colorScheme="orange">Edit</Button>
                     <Button variant='outline' colorScheme="orange">Delete</Button>
-                  </ButtonGroup>
+                  </ButtonGroup> 
+                }
               </CardFooter>
             </Card>
           )

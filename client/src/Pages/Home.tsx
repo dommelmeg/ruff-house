@@ -14,6 +14,12 @@ const Home = () => {
   const navigate = useNavigate()
   const [currentUser, setCurrentUser] = useAtom(userAuthAtom)
 
+  useEffect(() => {
+    if (!currentUser) {
+      navigate('/signin')
+    } 
+  }, [currentUser])
+
   return (
     <Flex>
       <NavBar>

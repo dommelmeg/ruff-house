@@ -3,7 +3,7 @@ import { FormControl, Button, RadioGroup, HStack, Radio, FormLabel, VStack, Inpu
 import { useNavigate } from "react-router-dom"
 import { useQuery, useMutation } from '@tanstack/react-query';
 import axios, {isCancel, AxiosError} from 'axios';
-import { userAuthAtom, errorsAtom } from "../StateManagement/store";
+import { userAuthAtom, errorsAtom, userTypeAtom } from "../StateManagement/store";
 import { useAtom } from "jotai";
 
 const CreateAcctForm = () => {
@@ -22,6 +22,7 @@ const CreateAcctForm = () => {
   const toastIdRef: any = React.useRef()
   const [currentUser, setCurrentUser] = useAtom(userAuthAtom)
   const [errors, setErrors] = useAtom(errorsAtom)
+  const [userType, setUserType] = useAtom(userTypeAtom)
   
   const formReducer = (state, action) => {
     switch (action.type) {
@@ -64,6 +65,7 @@ const CreateAcctForm = () => {
       .then((res) => {
         //set user here
         setCurrentUser(res.data)
+        setUserType(res.data.type)
         navigate('/complete-account')
       })
       .catch((error) => {

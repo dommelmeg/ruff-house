@@ -3,15 +3,17 @@ import { Box, Text, Button, Heading, FormControl, FormLabel, Input, Flex, HStack
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import { userAuthAtom, errorsAtom } from "../StateManagement/store";
+import { userAuthAtom, errorsAtom, userTypeAtom } from "../StateManagement/store";
 import { useAtom } from "jotai";
 import userEvent from "@testing-library/user-event";
+import { userInfo } from "os";
 
 const SignIn = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const [currentUser, setCurrentUser] = useAtom(userAuthAtom)
   const [loginErrors, setLoginErrors] = useAtom(errorsAtom)
+  const [userType, setUserType] = useAtom(userTypeAtom)
 
   const initialSignInState = {
     username: '',
@@ -45,7 +47,6 @@ const SignIn = () => {
       return axios.post('/login', user)
       .then((r) => {
         setCurrentUser(r.data)
-        navigate('/')
       })
       .catch((error) => {
         // setErrors(error.response.data.errors)
@@ -53,11 +54,33 @@ const SignIn = () => {
       })
     }
   })
-
-  const handleSignInClick = (e) => {
+  
+  const handleSignInClick = async (e) => {
     e.preventDefault()
-
-    signInUser.mutate(signInState)
+    
+    let response = await fetch('/signin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(signInState),
+    }).then((r) => {
+      if (r.ok) {
+        r.json()
+          .then((user) => {
+            setCurrentUser(user)
+              if (user.type === 'Owner') {
+                navigate('/')
+              } else {
+                navigate('/sitter-dashboard')
+              }
+          })
+      } else {
+        r.json()
+          .then((errorData) => console.log(errorData.error.login))
+      }
+      }
+    )
   }
 
   return (

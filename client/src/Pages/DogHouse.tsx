@@ -1,5 +1,6 @@
 import React from "react";
-import { CardFooter, Heading, Card, Text, CardHeader, CardBody, Button, Avatar, SimpleGrid, Accordion, AccordionItem, AccordionButton, Box, AccordionIcon, AccordionPanel, HStack, ButtonGroup, Stack } from "@chakra-ui/react";
+import { CardFooter, Heading, Card, Text, CardHeader, CardBody, Button, Avatar, SimpleGrid, Accordion, AccordionItem, AccordionButton, Box, AccordionIcon, AccordionPanel, HStack, ButtonGroup, Stack, IconButton } from "@chakra-ui/react";
+import { AddIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons'
 import { userAuthAtom, User } from "../StateManagement/store";
 import { useAtom } from "jotai";
 
@@ -9,8 +10,18 @@ const DogHouse = () => {
   const usersDogs = currentUser.pets
 
   return (
-    <Accordion allowToggle>
-      {usersDogs.map((dog) => {
+    <Box>
+      <HStack>
+        <Text 
+          fontSize="2xl" 
+          fontWeight="bold"
+        >
+          DOGGO HOUSE
+        </Text>
+        <IconButton aria-label="add job" icon={<AddIcon />} variant='ghost' />
+      </HStack>
+    <Accordion allowToggle mt='4'>
+      {usersDogs?.map((dog) => {
         return (
           <AccordionItem>
             <h2>
@@ -38,6 +49,7 @@ const DogHouse = () => {
         )
       })}
     </Accordion>
+        </Box>
   )
 }
 

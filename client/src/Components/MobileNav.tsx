@@ -45,9 +45,15 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   })
   
   const handleSignOut = () => {
-    signUserOut.mutate()
-    setCurrentUser(null)
-    navigate('/signin')
+    fetch('/logout', {
+      method: 'DELETE'
+    })
+    .then((r) => {
+      if (r.ok) {
+        setCurrentUser(null)
+        navigate('/signin')
+      }
+    })
   }
   
   console.log(currentUser)

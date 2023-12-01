@@ -17,6 +17,10 @@ export const initialState: User = {
   jobs: [],
 }
 
+export const initialTypeState = {
+  type: '',
+}
+
 export type CreateAcctForm = {
   first_name: string
   last_name: string
@@ -61,6 +65,8 @@ export type User = {
 }
 
 export const userAuthAtom = atomWithStorage('userAuth', initialState)
+
+export const userTypeAtom = atomWithStorage('userType', initialTypeState)
 
 export const setUserAuthAtom = atom((set) => set(userAuthAtom))
 

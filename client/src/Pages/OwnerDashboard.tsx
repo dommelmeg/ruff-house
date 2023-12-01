@@ -4,12 +4,18 @@ import JobsCarousel from "../Components/JobsCarousel";
 import { AddIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons'
 import { useAtom } from "jotai";
 import { userAuthAtom, User } from "../StateManagement/store";
+import { useNavigate } from "react-router-dom";
 
 const OwnerDashboard = () => {
   const [showCompletedJobs, setShowCompletedJobs] = useState(true)
   const [currentUser, setCurrentUser] = useAtom<User>(userAuthAtom)
+  const navigate = useNavigate()
   const userJobs = currentUser.jobs
+  const userPets = currentUser.pets
 
+  if (currentUser.type === 'Sitter') {
+    navigate('/sitter-dashboard')
+  }
 
   //jobs that have not happened yet
   const current = []
@@ -32,14 +38,13 @@ const OwnerDashboard = () => {
     <Flex direction='row' maxW='100%'>
       <Stack>
         <HStack>
-
-        <Text 
-          fontSize="2xl" 
-          fontWeight="bold"
-          >
-          REQUESTS
-        </Text>
-        <IconButton aria-label="add job" icon={<AddIcon />} variant='ghost' onClick={handleAddJobBtn} />
+          <Text 
+            fontSize="2xl" 
+            fontWeight="bold"
+            >
+            REQUESTS
+          </Text>
+          <IconButton aria-label="add job" icon={<AddIcon />} variant='ghost' onClick={handleAddJobBtn} />
         </HStack>
         <JobsCarousel jobs={userJobs} />
 
@@ -68,9 +73,11 @@ const OwnerDashboard = () => {
           rounded='2xl'
         >
           <HStack>
-            <Avatar size='lg' name='Luke' />
-            <Avatar size='lg' name='Leia Story' />
-            <Avatar size='lg' name='Bella Sprunger' />
+            {userPets?.map((dog) => {
+              return (
+                <Avatar size='lg' name={dog.name} key={dog.id} />
+              )
+            })}
             <Circle 
               cursor='pointer'
               size='40px' 

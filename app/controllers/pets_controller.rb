@@ -1,4 +1,6 @@
 class PetsController < ApplicationController
+    before_action :owner_user, only: [:create, :destroy, :update]
+
     def index
         pets = Pet.all
         render json: pets
@@ -7,6 +9,12 @@ class PetsController < ApplicationController
     def create
         new_pet = Pet.create(pet_params)
         render json: new_pet, status: :created
+    end
+
+    def destroy
+    end
+
+    def update
     end
 
     private

@@ -4,23 +4,29 @@ import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
 
-const steps = [
+const ownerSteps = [
   { title: 'First', description: 'Location' },
   { title: 'Second', description: 'Profile Pic' },
   { title: 'Third', description: 'Add a Doggo' },
+]
+
+const sitterSteps = [
+  { title: 'First', description: 'Location' },
+  { title: 'Second', description: 'Profile Pic' },
+  { title: 'Third', description: 'Set Your Rate' },
 ]
 
 const AcctStepper = () => {
 
   const { activeStep, setActiveStep } = useSteps({
     index: 1,
-    count: steps.length,
+    count: 3,
   })
 
   return (
     <div>
     <Stepper index={activeStep} padding='10' colorScheme='orange'>
-      {steps.map((step, index) => (
+      {ownerSteps.map((step, index) => (
         <Step key={index}>
           <StepIndicator>
             <StepStatus

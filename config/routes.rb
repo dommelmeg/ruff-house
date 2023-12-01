@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   post "/signup", to: "profiles#create"
   get "/me", to: "profiles#show"
   
-  post "/login", to: "sessions#create"
+  post "/signin", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
 
   get '/userjobs', to: 'jobs#user_index'

@@ -1,24 +1,27 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { SimpleGrid, Card, CardHeader, Heading, CardBody, Text, VStack } from "@chakra-ui/react";
 
 const Sitters = () => {
   const [allSitters, setAllSitters] = useState([])
 
-  const getSitters = useQuery({
-    queryKey: ['getSitters'],
-    queryFn: () => {
-      return axios.get('/sitters')
-      .then((r) => setAllSitters(r.data))
-    }
-  })
+  useEffect(() => {
+    fetch("/sitters")
+      .then((r) => {
+        if (r.ok) {
+          r.json()
+          .then((sitters) => setAllSitters(sitters))
+        }
+      }) 
+  }, [])
 
   return (
+
     <SimpleGrid columns={3} gap={4} >
-      {allSitters.map((sitter) => {
+      {allSitters?.map((sitter) => {
         return (
-          <Card padding='2' align='center'>
+          <Card padding='2' align='center' key={sitter.id}>
             <CardHeader>
               <Heading size='md'>
                 {sitter.first_name} {sitter.last_name}

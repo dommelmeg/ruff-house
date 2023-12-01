@@ -7,6 +7,12 @@ class ApplicationController < ActionController::API
 
   private
 
+  def owner_user
+    owner = Profile.find_by(type: 'Owner')
+    return render json: { error: 'Only pet owners have access'}
+    # status: :unauthorized unless session.include? :profile_id
+  end
+
   def authorize
     return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :profile_id
   end
