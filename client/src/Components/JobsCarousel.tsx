@@ -31,7 +31,7 @@ const JobsCarousel = ({ jobs }: JobsCarouselProps) => {
     }
   };
 
-  if (!jobs.length) return <Box>Nothing to see here</Box>
+  if (!jobs?.length) return <Box>Nothing to see here</Box>
 
   return (
     <Box width='80vw' bg='gray.300' padding={4} rounded='2xl'>

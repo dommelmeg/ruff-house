@@ -12,10 +12,12 @@ import axios from "axios";
 const OwnerDashboard = () => {
   const [showCompletedJobs, setShowCompletedJobs] = useState(true)
   const [showBookedJobs, setShowBookedJobs] = useState(true)
+  const [showRequestedJobs, setShowRequestedJobs] = useState(true)
   const [currentUser, setCurrentUser] = useAtom<User>(userAuthAtom)
   const navigate = useNavigate()
   const userPets = currentUser.pets
-
+  const currentDate = new Date()
+  
   const { data: userJobs, isLoading } = useQuery({
     queryKey: ['userjobs'],
     queryFn: () => {
@@ -30,18 +32,10 @@ const OwnerDashboard = () => {
   const requestedJobs = userJobs?.data.filter((job) => !job.sitter_id)
   console.log(userJobs)
   const bookedJobs = userJobs?.data.filter((job) => job.sitter_id)
-  const completedJobs = []
+  const completedJobs = userJobs?.data.filter((job) => new Date(job.end_date) < currentDate)
 
   const handleClick = () => {
     console.log('YAY, a new doggo!')
-  }
-
-  const handleCompletedJobsToggle = () => {
-    setShowCompletedJobs((prevState) => !prevState)
-  }
-
-  const handleBookedJobsToggle = () => {
-    setShowBookedJobs((prevState) => !prevState)
   }
 
   return (
@@ -54,9 +48,10 @@ const OwnerDashboard = () => {
             >
             REQUESTS
           </Text>
+          <IconButton aria-label="hide/show requested jobs" icon={showRequestedJobs ? <ChevronUpIcon /> : <ChevronDownIcon />} variant='ghost' onClick={() => setShowRequestedJobs((prevState) => !prevState)} />
           <AddJobModule />
         </HStack>
-        {requestedJobs.length > 0 && <JobsCarousel jobs={requestedJobs} />}
+        {showRequestedJobs && <JobsCarousel jobs={requestedJobs} />}
 
         <HStack>
           <Text 
@@ -66,7 +61,7 @@ const OwnerDashboard = () => {
           >
             BOOKED JOBS
           </Text>
-          <IconButton mt='4' aria-label="hide/show booked jobs" icon={showBookedJobs ? <ChevronUpIcon /> : <ChevronDownIcon />} variant='ghost' onClick={handleBookedJobsToggle} />
+          <IconButton mt='4' aria-label="hide/show booked jobs" icon={showBookedJobs ? <ChevronUpIcon /> : <ChevronDownIcon />} variant='ghost' onClick={() => setShowBookedJobs((prevState) => !prevState)} />
         </HStack>
         {showBookedJobs && <JobsCarousel jobs={bookedJobs} />}
 
@@ -78,7 +73,7 @@ const OwnerDashboard = () => {
           >
             COMPLETED
           </Text>
-          <IconButton mt='4' aria-label="hide/show completed jobs" icon={showCompletedJobs ? <ChevronUpIcon /> : <ChevronDownIcon />} variant='ghost' onClick={handleCompletedJobsToggle} />
+          <IconButton mt='4' aria-label="hide/show completed jobs" icon={showCompletedJobs ? <ChevronUpIcon /> : <ChevronDownIcon />} variant='ghost' onClick={() => setShowCompletedJobs((prevState) => !prevState)} />
         </HStack>
         {showCompletedJobs && <JobsCarousel jobs={completedJobs} />}
 

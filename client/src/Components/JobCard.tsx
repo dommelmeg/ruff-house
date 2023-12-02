@@ -9,6 +9,7 @@ const JobCard = ({ job }) => {
   const [currentUser, setCurrentUser] = useAtom<User>(userAuthAtom)
   const userPets = currentUser.pets
   const queryClient = useQueryClient()
+  const owner = currentUser.type === 'Owner'
 
   const deleteJob = useMutation({
     mutationFn: (id) => {
@@ -39,7 +40,7 @@ const JobCard = ({ job }) => {
         </AvatarGroup>
       </CardBody>
       <CardFooter>
-        {currentUser.type === 'Owner' && 
+        {owner && 
           <ButtonGroup>
             <Button variant='outline' colorScheme="orange">Edit</Button>
             <Button variant='outline' colorScheme="orange" onClick={handleDeleteButton}>Delete</Button>
