@@ -6,13 +6,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 const JobCard = ({ job }) => {
-  
-
   const [currentUser, setCurrentUser] = useAtom<User>(userAuthAtom)
   const userPets = currentUser.pets
   const queryClient = useQueryClient()
 
-// @ts-ignore
   const deleteJob = useMutation({
     mutationFn: (id) => {
       return axios.delete(`/jobs/${id}`)

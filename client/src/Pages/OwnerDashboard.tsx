@@ -27,10 +27,10 @@ const OwnerDashboard = () => {
     navigate('/sitter-dashboard')
   }
 
-  //jobs that have not happened yet
-  const current = []
-  //completed jobs
-  const past = []
+  const requestedJobs = userJobs?.data.filter((job) => !job.sitter_id)
+  console.log(userJobs)
+  const bookedJobs = userJobs?.data.filter((job) => job.sitter_id)
+  const completedJobs = []
 
   const handleClick = () => {
     console.log('YAY, a new doggo!')
@@ -56,7 +56,7 @@ const OwnerDashboard = () => {
           </Text>
           <AddJobModule />
         </HStack>
-        {userJobs?.data && <JobsCarousel jobs={userJobs?.data} />}
+        {requestedJobs.length > 0 && <JobsCarousel jobs={requestedJobs} />}
 
         <HStack>
           <Text 
@@ -68,7 +68,7 @@ const OwnerDashboard = () => {
           </Text>
           <IconButton mt='4' aria-label="hide/show booked jobs" icon={showBookedJobs ? <ChevronUpIcon /> : <ChevronDownIcon />} variant='ghost' onClick={handleBookedJobsToggle} />
         </HStack>
-        {showBookedJobs && <JobsCarousel jobs={past} />}
+        {showBookedJobs && <JobsCarousel jobs={bookedJobs} />}
 
         <HStack>
           <Text 
@@ -80,7 +80,7 @@ const OwnerDashboard = () => {
           </Text>
           <IconButton mt='4' aria-label="hide/show completed jobs" icon={showCompletedJobs ? <ChevronUpIcon /> : <ChevronDownIcon />} variant='ghost' onClick={handleCompletedJobsToggle} />
         </HStack>
-        {showCompletedJobs && <JobsCarousel jobs={past} />}
+        {showCompletedJobs && <JobsCarousel jobs={completedJobs} />}
 
         <Text 
           fontSize="2xl"
