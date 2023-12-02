@@ -41,7 +41,7 @@ const SitterDashboard = () => {
             fontSize="2xl" 
             fontWeight="bold"
             >
-            REQUESTS
+            UPCOMING JOBS
           </Text>
         <JobsCarousel jobs={userJobs} />
 

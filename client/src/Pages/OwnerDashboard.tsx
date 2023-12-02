@@ -5,13 +5,25 @@ import { AddIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons'
 import { useAtom } from "jotai";
 import { userAuthAtom, User } from "../StateManagement/store";
 import { useNavigate } from "react-router-dom";
+import AddJobModule from "../Components/AddJobModule";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const OwnerDashboard = () => {
   const [showCompletedJobs, setShowCompletedJobs] = useState(true)
+  const [showBookedJobs, setShowBookedJobs] = useState(true)
+  const [userJobs, setUserJobs] = useState([])
   const [currentUser, setCurrentUser] = useAtom<User>(userAuthAtom)
   const navigate = useNavigate()
-  const userJobs = currentUser.jobs
   const userPets = currentUser.pets
+
+  useQuery({
+    queryKey: ['userjobs'],
+    queryFn: async () => {
+      return await axios.get('/userjobs')
+      .then((r) => setUserJobs(r.data))
+    }
+  })
 
   if (currentUser.type === 'Sitter') {
     navigate('/sitter-dashboard')
@@ -30,8 +42,8 @@ const OwnerDashboard = () => {
     setShowCompletedJobs((prevState) => !prevState)
   }
 
-  const handleAddJobBtn = () => {
-
+  const handleBookedJobsToggle = () => {
+    setShowBookedJobs((prevState) => !prevState)
   }
 
   return (
@@ -44,9 +56,21 @@ const OwnerDashboard = () => {
             >
             REQUESTS
           </Text>
-          <IconButton aria-label="add job" icon={<AddIcon />} variant='ghost' onClick={handleAddJobBtn} />
+          <AddJobModule />
         </HStack>
         <JobsCarousel jobs={userJobs} />
+
+        <HStack>
+          <Text 
+            fontSize="2xl" 
+            fontWeight="bold" 
+            mt='4'
+          >
+            BOOKED JOBS
+          </Text>
+          <IconButton mt='4' aria-label="hide/show booked jobs" icon={showBookedJobs ? <ChevronUpIcon /> : <ChevronDownIcon />} variant='ghost' onClick={handleBookedJobsToggle} />
+        </HStack>
+        {showBookedJobs && <JobsCarousel jobs={past} />}
 
         <HStack>
           <Text 

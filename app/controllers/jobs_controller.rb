@@ -1,5 +1,5 @@
 class JobsController < ApplicationController
-    before_action :owner_user, only: [:create, :destroy, :update]
+    # before_action :owner_user, only: [:create, :destroy, :update]
 
     def index
         jobs = Job.all
@@ -9,11 +9,11 @@ class JobsController < ApplicationController
     def create
         new_job = Job.create!(
             owner_id: session[:profile_id],
-            sitter_id: session[:sitter_id],
-            start_date: session[:start_date],
-            end_date: session[:end_date],
+            start_date: params[:start_date],
+            end_date: params[:end_date],
+            description: params[:description],
         )
-        render json: new_job, status: :create
+        render json: new_job, status: :created
     end
 
     def destroy
@@ -23,8 +23,8 @@ class JobsController < ApplicationController
     end
 
     def user_index
-        user_jobs = Jobs.where(profile_id: session[:owner_id])
-        render json: user_jobs.order('date')
+        user_jobs = Job.where(owner_id: session[:profile_id])
+        render json: user_jobs
     end
 end
     

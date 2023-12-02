@@ -1,5 +1,5 @@
 class PetsController < ApplicationController
-    before_action :owner_user, only: [:create, :destroy, :update]
+    # before_action :owner_user, only: [:create, :destroy, :update]
 
     def index
         pets = Pet.all
