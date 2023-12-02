@@ -43,7 +43,7 @@ const SitterDashboard = () => {
             >
             UPCOMING JOBS
           </Text>
-        <JobsCarousel jobs={userJobs} />
+        <JobsCarousel jobs={userJobs} variant={'sitter'} />
 
         <HStack>
           <Text 
@@ -55,7 +55,7 @@ const SitterDashboard = () => {
           </Text>
           <IconButton mt='4' aria-label="hide/show completed jobs" icon={showCompletedJobs ? <ChevronUpIcon /> : <ChevronDownIcon />} variant='ghost' onClick={handleCompletedJobsToggle} />
         </HStack>
-        {showCompletedJobs && <JobsCarousel jobs={past} />}
+        {showCompletedJobs && <JobsCarousel jobs={past} variant={'sitter'} />}
         </Stack>
     </Flex>
   )

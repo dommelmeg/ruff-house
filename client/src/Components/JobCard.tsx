@@ -5,7 +5,7 @@ import { userAuthAtom, User } from "../StateManagement/store";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
-const JobCard = ({ job }) => {
+const JobCard = ({ job, variant }) => {
   const [currentUser, setCurrentUser] = useAtom<User>(userAuthAtom)
   const userPets = currentUser.pets
   const queryClient = useQueryClient()
@@ -39,14 +39,23 @@ const JobCard = ({ job }) => {
           })}
         </AvatarGroup>
       </CardBody>
-      <CardFooter>
-        {owner && 
-          <ButtonGroup>
-            <Button variant='outline' colorScheme="orange">Edit</Button>
-            <Button variant='outline' colorScheme="orange" onClick={handleDeleteButton}>Delete</Button>
-          </ButtonGroup> 
+        {variant === 'requested' ? 
+          <CardFooter>
+            <ButtonGroup>
+              <Button variant='outline' colorScheme="orange">Edit</Button>
+              <Button variant='outline' colorScheme="orange" onClick={handleDeleteButton}>Delete</Button>
+            </ButtonGroup> 
+          </CardFooter>
+          :
+          variant === 'completed' ?
+            <CardFooter>
+              <ButtonGroup>
+                <Button variant='outline' colorScheme="orange">Rate Your Sitter</Button>
+              </ButtonGroup> 
+            </CardFooter> 
+          :
+          null
         }
-      </CardFooter>
     </Card>
   )
 }

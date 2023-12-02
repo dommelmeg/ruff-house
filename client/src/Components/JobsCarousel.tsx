@@ -6,10 +6,11 @@ import { Job, userAuthAtom, User } from "../StateManagement/store";
 import JobCard from "./JobCard";
 
 interface JobsCarouselProps {
-  jobs: Job[]
+  jobs: Job[];
+  variant: string;
 }
 
-const JobsCarousel = ({ jobs }: JobsCarouselProps) => {
+const JobsCarousel = ({ jobs, variant }: JobsCarouselProps) => {
 
   const responsive = {
     superLargeDesktop: {
@@ -38,7 +39,7 @@ const JobsCarousel = ({ jobs }: JobsCarouselProps) => {
       <Carousel responsive={responsive}>
         {jobs?.map((job) => {
           return(
-            <JobCard job={job} key={job.id} />
+            <JobCard job={job} key={job.id} variant={variant} />
           )
         })}
       </Carousel>

@@ -51,7 +51,7 @@ const OwnerDashboard = () => {
           <IconButton aria-label="hide/show requested jobs" icon={showRequestedJobs ? <ChevronUpIcon /> : <ChevronDownIcon />} variant='ghost' onClick={() => setShowRequestedJobs((prevState) => !prevState)} />
           <AddJobModule />
         </HStack>
-        {showRequestedJobs && <JobsCarousel jobs={requestedJobs} />}
+        {showRequestedJobs && <JobsCarousel jobs={requestedJobs} variant={'requested'} />}
 
         <HStack>
           <Text 
@@ -63,7 +63,7 @@ const OwnerDashboard = () => {
           </Text>
           <IconButton mt='4' aria-label="hide/show booked jobs" icon={showBookedJobs ? <ChevronUpIcon /> : <ChevronDownIcon />} variant='ghost' onClick={() => setShowBookedJobs((prevState) => !prevState)} />
         </HStack>
-        {showBookedJobs && <JobsCarousel jobs={bookedJobs} />}
+        {showBookedJobs && <JobsCarousel jobs={bookedJobs} variant={'booked'} />}
 
         <HStack>
           <Text 
@@ -75,7 +75,7 @@ const OwnerDashboard = () => {
           </Text>
           <IconButton mt='4' aria-label="hide/show completed jobs" icon={showCompletedJobs ? <ChevronUpIcon /> : <ChevronDownIcon />} variant='ghost' onClick={() => setShowCompletedJobs((prevState) => !prevState)} />
         </HStack>
-        {showCompletedJobs && <JobsCarousel jobs={completedJobs} />}
+        {showCompletedJobs && <JobsCarousel jobs={completedJobs} variant={'completed'} />}
 
         <Text 
           fontSize="2xl"
