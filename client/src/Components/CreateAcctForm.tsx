@@ -22,7 +22,6 @@ const CreateAcctForm = () => {
   const toastIdRef: any = React.useRef()
   const [currentUser, setCurrentUser] = useAtom(userAuthAtom)
   const [errors, setErrors] = useAtom(errorsAtom)
-  const [userType, setUserType] = useAtom(userTypeAtom)
   
   const formReducer = (state, action) => {
     switch (action.type) {
@@ -65,7 +64,6 @@ const CreateAcctForm = () => {
       .then((res) => {
         //set user here
         setCurrentUser(res.data)
-        setUserType(res.data.type)
         navigate('/complete-account')
       })
       .catch((error) => {

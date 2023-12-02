@@ -22,10 +22,10 @@ import {
   FiSun,
   FiMoon
 } from 'react-icons/fi'
-import { userAuthAtom, errorsAtom } from "../StateManagement/store";
+import { userAuthAtom } from "../StateManagement/store";
 import { useAtom } from "jotai";
-import { Route, Routes, useNavigate } from "react-router-dom"
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useNavigate } from "react-router-dom"
+import { useMutation } from '@tanstack/react-query';
 import axios from "axios";
 
 interface MobileProps extends FlexProps {

@@ -3,10 +3,9 @@ Rails.application.routes.draw do
   # resources :sitters
   resources :profiles
   resources :sitters
-  resources :profiles, as: :owners
   resources :pets
-  # resources :owners
   resources :jobs
+  resources :owners
 
   post "/signup", to: "profiles#create"
   get "/me", to: "profiles#show"

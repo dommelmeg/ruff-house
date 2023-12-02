@@ -12,16 +12,14 @@ import axios from "axios";
 const OwnerDashboard = () => {
   const [showCompletedJobs, setShowCompletedJobs] = useState(true)
   const [showBookedJobs, setShowBookedJobs] = useState(true)
-  const [userJobs, setUserJobs] = useState([])
   const [currentUser, setCurrentUser] = useAtom<User>(userAuthAtom)
   const navigate = useNavigate()
   const userPets = currentUser.pets
 
-  useQuery({
+  const { data: userJobs, isLoading } = useQuery({
     queryKey: ['userjobs'],
-    queryFn: async () => {
-      return await axios.get('/userjobs')
-      .then((r) => setUserJobs(r.data))
+    queryFn: () => {
+      return axios.get('/userjobs')
     }
   })
 
@@ -58,7 +56,7 @@ const OwnerDashboard = () => {
           </Text>
           <AddJobModule />
         </HStack>
-        <JobsCarousel jobs={userJobs} />
+        {userJobs?.data && <JobsCarousel jobs={userJobs?.data} />}
 
         <HStack>
           <Text 

@@ -3,16 +3,13 @@ import { Card, Box, CardHeader, CardBody, Avatar, AvatarGroup, CardFooter, Butto
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { Job, userAuthAtom, User } from "../StateManagement/store";
-import { useAtom } from "jotai";
+import JobCard from "./JobCard";
 
 interface JobsCarouselProps {
   jobs: Job[]
 }
 
 const JobsCarousel = ({ jobs }: JobsCarouselProps) => {
-  const [currentUser, setCurrentUser] = useAtom<User>(userAuthAtom)
-  const userPets = currentUser.pets
-
 
   const responsive = {
     superLargeDesktop: {
@@ -41,29 +38,7 @@ const JobsCarousel = ({ jobs }: JobsCarouselProps) => {
       <Carousel responsive={responsive}>
         {jobs?.map((job) => {
           return(
-            <Card size='sm' padding={2} m={4} key={job.id}>
-              <CardHeader>
-                {job.start_date} - {job.end_date}
-              </CardHeader>
-              <CardBody>
-                {job.description}
-                <AvatarGroup size='sm' max={2} mt={2}>
-                  {userPets?.map((dog) => {
-                    return (
-                      <Avatar name={dog.name} key={dog.id}/>
-                    )
-                  })}
-                </AvatarGroup>
-              </CardBody>
-              <CardFooter>
-                {currentUser.type === 'Owner' && 
-                  <ButtonGroup>
-                    <Button variant='outline' colorScheme="orange">Edit</Button>
-                    <Button variant='outline' colorScheme="orange">Delete</Button>
-                  </ButtonGroup> 
-                }
-              </CardFooter>
-            </Card>
+            <JobCard job={job} key={job.id} />
           )
         })}
       </Carousel>

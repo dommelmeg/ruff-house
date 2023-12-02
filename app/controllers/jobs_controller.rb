@@ -17,6 +17,9 @@ class JobsController < ApplicationController
     end
 
     def destroy
+        job = Job.find_by(id: params[:id])
+        job.destroy
+        head :no_content
     end
 
     def update
