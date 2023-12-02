@@ -1,37 +1,21 @@
 import React, { useState } from "react";
-import { Flex, Box, Circle, Avatar, HStack,  Text, Stack, IconButton, Icon } from "@chakra-ui/react";
+import { Flex, HStack,  Text, Stack } from "@chakra-ui/react";
 import JobsCarousel from "../Components/JobsCarousel";
-import { AddIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons'
 import { useAtom } from "jotai";
 import { userAuthAtom, User } from "../StateManagement/store";
 import { useNavigate } from "react-router-dom";
 
 const SitterDashboard = () => {
-  const [showCompletedJobs, setShowCompletedJobs] = useState(true)
-  const [currentUser, setCurrentUser] = useAtom<User>(userAuthAtom)
+  const [showCompletedJobs] = useState(true)
+  const [currentUser] = useAtom<User>(userAuthAtom)
   const navigate = useNavigate()
   const userJobs = currentUser.jobs
-  const userPets = currentUser.pets
+  const currentDate = new Date()
+  const upcomingJobs = userJobs?.filter((job) => new Date(job.end_date) > currentDate)
+  const completedJobs = userJobs?.filter((job) => new Date(job.end_date) < currentDate)
 
   if (currentUser.type === 'Owner') {
     navigate('/')
-  }
-
-  //jobs that have not happened yet
-  const current = []
-  //completed jobs
-  const past = []
-
-  const handleClick = () => {
-    console.log('YAY, a new doggo!')
-  }
-
-  const handleCompletedJobsToggle = () => {
-    setShowCompletedJobs((prevState) => !prevState)
-  }
-
-  const handleAddJobBtn = () => {
-
   }
 
   return (
@@ -40,10 +24,10 @@ const SitterDashboard = () => {
           <Text 
             fontSize="2xl" 
             fontWeight="bold"
-            >
+          >
             UPCOMING JOBS
           </Text>
-        <JobsCarousel jobs={userJobs} variant={'sitter'} />
+        <JobsCarousel jobs={upcomingJobs} variant={'sitter'} />
 
         <HStack>
           <Text 
@@ -53,9 +37,8 @@ const SitterDashboard = () => {
           >
             COMPLETED
           </Text>
-          <IconButton mt='4' aria-label="hide/show completed jobs" icon={showCompletedJobs ? <ChevronUpIcon /> : <ChevronDownIcon />} variant='ghost' onClick={handleCompletedJobsToggle} />
         </HStack>
-        {showCompletedJobs && <JobsCarousel jobs={past} variant={'sitter'} />}
+        {showCompletedJobs && <JobsCarousel jobs={completedJobs} variant={'sitter'} />}
         </Stack>
     </Flex>
   )
