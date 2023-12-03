@@ -1,55 +1,55 @@
 import React from "react";
-import { CardFooter, Heading, Card, Text, CardHeader, CardBody, Button, Avatar, SimpleGrid, Accordion, AccordionItem, AccordionButton, Box, AccordionIcon, AccordionPanel, HStack, ButtonGroup, Stack, IconButton } from "@chakra-ui/react";
+import { CardFooter, Heading, Card, Text, CardHeader, CardBody, Button, Flex, Avatar, SimpleGrid, Accordion, AccordionItem, AccordionButton, Box, AccordionIcon, AccordionPanel, HStack, ButtonGroup, Stack, IconButton, Tabs, TabList, Tab, TabPanels, TabPanel, VStack } from "@chakra-ui/react";
 import { AddIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons'
 import { userAuthAtom, User } from "../StateManagement/store";
 import { useAtom } from "jotai";
+import AddPetModule from "../Components/AddPetModule";
 
 
 const DogHouse = () => {
   const [currentUser, setCurrentUser] = useAtom<User>(userAuthAtom)
   const usersDogs = currentUser.pets
+  const currentDate = new Date()
 
   return (
-    <Box>
+    <Flex w='100%'>
+      <Stack>
+
       <HStack>
         <Text 
           fontSize="2xl" 
           fontWeight="bold"
-        >
+          >
           DOGGO HOUSE
         </Text>
-        <IconButton aria-label="add job" icon={<AddIcon />} variant='ghost' />
+        <AddPetModule />
       </HStack>
-    <Accordion allowToggle mt='4'>
-      {usersDogs?.map((dog) => {
-        return (
-          <AccordionItem>
-            <h2>
-              <AccordionButton>
-                <Box as="span" flex='1' textAlign='left'>
-                  <HStack>
-                  <Avatar size='lg' name={dog.name} />
-                  <Heading size='md'>{dog.name}</Heading>
-                  </HStack>
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
-              <Stack>
-                <Text>{dog.breed}</Text>
-                <Text>{dog.gender.toUpperCase()}: Years Old</Text>
-                <ButtonGroup>
-                  <Button size='sm'>Edit Info</Button>
-                  <Button size='sm'>Add Photos</Button>
-                </ButtonGroup>
-              </Stack>
-            </AccordionPanel>
-          </AccordionItem>
-        )
-      })}
-    </Accordion>
-        </Box>
+
+      <Tabs variant='enclosed' mt='4'>
+        <TabList mb='1em'>
+          {usersDogs?.map((dog) => {
+            return (
+              <Tab>
+                  <Avatar size='xs' />
+                  <Text ml='2'>{dog.name}</Text>
+              </Tab>
+              )
+            })}
+        </TabList>
+        <TabPanels>
+          {usersDogs?.map((dog) => {
+            const birthDate = new Date(dog.birth_date)
+            // @ts-ignore
+            const diff = Math.abs(birthDate - currentDate)
+            const age = (diff/(1000 * 3600 * 24)/365).toFixed(1)
+            return (
+              <TabPanel>{dog.name}</TabPanel>
+              )
+            })}
+        </TabPanels>
+      </Tabs>
+            </Stack>
+    </Flex>
   )
 }
 
