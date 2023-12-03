@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_11_16_051409) do
+ActiveRecord::Schema.define(version: 2023_12_03_201717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2023_11_16_051409) do
     t.integer "sitter_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "rating"
   end
 
   create_table "owners", force: :cascade do |t|
@@ -61,13 +62,13 @@ ActiveRecord::Schema.define(version: 2023_11_16_051409) do
   create_table "pets", force: :cascade do |t|
     t.string "name"
     t.string "gender"
-    t.integer "age"
     t.string "breed"
     t.text "bio"
     t.integer "weight"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "owner_id"
+    t.string "birth_date"
   end
 
   create_table "profiles", force: :cascade do |t|

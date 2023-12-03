@@ -22,22 +22,18 @@ interface SidebarProps extends BoxProps {
 
 const OwnerLinkItems: Array<LinkItemProps> = [
   { name: 'Dashboard', icon: FaHouse, route: '/' },
-  { name: 'Dog House', icon: BiSolidDog, route: '/doghouse' },
+  { name: 'Doggo House', icon: BiSolidDog, route: '/doghouse' },
   { name: 'Sitters', icon: BsPersonArmsUp, route: '/sitters' },
   // { name: 'Favorites', icon: MdFavorite, route: '/favorites' },
 ]
 
 const SitterLinkItems: Array<LinkItemProps> = [
   { name: 'Dashboard', icon: FaHouse, route: '/sitter-dashboard' },
-  // { name: 'Dog House', icon: BiSolidDog, route: '/doghouse' },
   { name: 'All Jobs', icon: BsPersonArmsUp, route: '/jobs' },
-  // { name: 'Favorites', icon: MdFavorite, route: '/favorites' },
 ]
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
-  const [userType, setUserType] = useAtom(userTypeAtom)
   const [currentUser, setCurrentUser] = useAtom(userAuthAtom)
-  // const owner = userType === { type: 'Owner'}
 
   return (
     <Box

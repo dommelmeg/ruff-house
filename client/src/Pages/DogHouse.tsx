@@ -38,7 +38,7 @@ const DogHouse = () => {
             <AccordionPanel pb={4}>
               <Stack>
                 <Text>{dog.breed}</Text>
-                <Text>{dog.gender.toUpperCase()}: {dog.age} Years Old</Text>
+                <Text>{dog.gender.toUpperCase()}: Years Old</Text>
                 <ButtonGroup>
                   <Button size='sm'>Edit Info</Button>
                   <Button size='sm'>Add Photos</Button>

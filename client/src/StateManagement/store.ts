@@ -34,7 +34,7 @@ export type Pet = {
   id: number
   name: string
   gender: string
-  age: number
+  birth_date: string
   breed: string
   bio: string
   weight: number
@@ -71,5 +71,8 @@ export const userTypeAtom = atomWithStorage('userType', initialTypeState)
 export const setUserAuthAtom = atom((set) => set(userAuthAtom))
 
 export const errorsAtom = atomWithStorage('errors', [])
+
+const dogBreeds = require('dog-breeds')
+export const allDogBreeds = dogBreeds.all
 
 // export const getUserAuthAtom = atom((get) => get(userAuthAtom))

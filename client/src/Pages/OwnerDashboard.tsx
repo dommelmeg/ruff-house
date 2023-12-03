@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import AddJobModule from "../Components/AddJobModule";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import AddPetModule from "../Components/AddPetModule";
 
 const OwnerDashboard = () => {
   const [showCompletedJobs, setShowCompletedJobs] = useState(true)
@@ -30,13 +31,8 @@ const OwnerDashboard = () => {
   }
 
   const requestedJobs = userJobs?.data.filter((job) => !job.sitter_id)
-  console.log(userJobs)
   const bookedJobs = userJobs?.data.filter((job) => job.sitter_id)
   const completedJobs = userJobs?.data.filter((job) => new Date(job.end_date) < currentDate)
-
-  const handleClick = () => {
-    console.log('YAY, a new doggo!')
-  }
 
   return (
     <Flex direction='row' maxW='100%'>
@@ -95,15 +91,7 @@ const OwnerDashboard = () => {
                 <Avatar size='lg' name={dog.name} key={dog.id} />
               )
             })}
-            <Circle 
-              cursor='pointer'
-              size='40px' 
-              bg='gray' 
-              color='white' 
-              onClick={handleClick}
-            >
-              <AddIcon />
-            </Circle>
+            <AddPetModule />
           </HStack>
         </Box>
       </Stack>
