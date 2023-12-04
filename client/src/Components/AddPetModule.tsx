@@ -138,8 +138,8 @@ const AddPetModule = () => {
                     colorScheme='orange'
                   >
                     <HStack spacing='24px'>
-                      <Radio type='type' name='female' value='female'>Female</Radio>
-                      <Radio type='type' name='male' value='male'>Male</Radio>
+                      <Radio type='type' name='female' value='Female'>Female</Radio>
+                      <Radio type='type' name='male' value='Male'>Male</Radio>
                     </HStack>
                   </RadioGroup>
                 </FormControl>

@@ -74,5 +74,6 @@ export const errorsAtom = atomWithStorage('errors', [])
 
 const dogBreeds = require('dog-breeds')
 export const allDogBreeds = dogBreeds.all
+export const randomDogBreed = dogBreeds.random()
 
 // export const getUserAuthAtom = atom((get) => get(userAuthAtom))

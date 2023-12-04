@@ -42,14 +42,15 @@ const DogHouse = () => {
         const birthDate = new Date(dog.birth_date)
         // @ts-ignore
         const diff = Math.abs(birthDate - currentDate)
-        const age = (diff/(1000 * 3600 * 24)/365).toFixed(1)
+        const ageNum = (diff/(1000 * 3600 * 24)/365)
+        const age = Math.trunc(ageNum)
         return (
-          <DogTabPanel age={age} dog={dog} />
+          <Box><DogTabPanel age={age} dog={dog} /></Box>
         )
       })}
         </TabPanels>
       </Tabs>
-            </Stack>
+      </Stack>
     </Flex>
   )
 }
