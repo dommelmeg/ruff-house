@@ -161,10 +161,10 @@ const AddPetModule = () => {
                 />
 
                 <FormLabel marginTop='2'>Breed</FormLabel>
-                <Select placeholder='Select breed' name='breed' >
+                <Select placeholder='Select breed' name='breed' onChange={handleSelectInputChange} >
                   {allDogBreeds.map((breed) => {
                     return(
-                      <option key={breed.name} value={breed.name}>{breed.name}</option>
+                      <option key={breed.id} value={breed.name}>{breed.name}</option>
                     )
                   })}
                 </Select>
