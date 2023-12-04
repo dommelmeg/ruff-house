@@ -4,6 +4,7 @@ import { AddIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons'
 import { userAuthAtom, User } from "../StateManagement/store";
 import { useAtom } from "jotai";
 import AddPetModule from "../Components/AddPetModule";
+import DogTabPanel from "../Components/DogTabPanel";
 
 
 const DogHouse = () => {
@@ -37,15 +38,15 @@ const DogHouse = () => {
             })}
         </TabList>
         <TabPanels>
-          {usersDogs?.map((dog) => {
-            const birthDate = new Date(dog.birth_date)
-            // @ts-ignore
-            const diff = Math.abs(birthDate - currentDate)
-            const age = (diff/(1000 * 3600 * 24)/365).toFixed(1)
-            return (
-              <TabPanel>{dog.name}</TabPanel>
-              )
-            })}
+        {usersDogs?.map((dog) => {
+        const birthDate = new Date(dog.birth_date)
+        // @ts-ignore
+        const diff = Math.abs(birthDate - currentDate)
+        const age = (diff/(1000 * 3600 * 24)/365).toFixed(1)
+        return (
+          <DogTabPanel age={age} dog={dog} />
+        )
+      })}
         </TabPanels>
       </Tabs>
             </Stack>
