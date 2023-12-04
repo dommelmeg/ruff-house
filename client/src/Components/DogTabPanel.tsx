@@ -22,7 +22,7 @@ const DogTabPanel = ({ age, dog }) => {
       return axios.delete(`/pets/${id}`)
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['userPets'] })
+      queryClient.invalidateQueries({ queryKey: ['userpets'] })
     }
   })
 

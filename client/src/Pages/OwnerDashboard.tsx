@@ -16,13 +16,19 @@ const OwnerDashboard = () => {
   const [showRequestedJobs, setShowRequestedJobs] = useState(true)
   const [currentUser, setCurrentUser] = useAtom<User>(userAuthAtom)
   const navigate = useNavigate()
-  const userPets = currentUser.pets
   const currentDate = new Date()
   
   const { data: userJobs, isLoading } = useQuery({
     queryKey: ['userjobs'],
     queryFn: () => {
       return axios.get('/userjobs')
+    }
+  })
+
+  const { data: userPets } = useQuery({
+    queryKey: ['userpets'],
+    queryFn: () => {
+      return axios.get('/userpets')
     }
   })
 
@@ -86,7 +92,7 @@ const OwnerDashboard = () => {
           rounded='2xl'
         >
           <HStack>
-            {userPets?.map((dog) => {
+            {userPets?.data.map((dog) => {
               return (
                 <Avatar size='lg' name={dog.name} key={dog.id} />
               )

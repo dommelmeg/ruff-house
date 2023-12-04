@@ -5,12 +5,21 @@ import { userAuthAtom, User } from "../StateManagement/store";
 import { useAtom } from "jotai";
 import AddPetModule from "../Components/AddPetModule";
 import DogTabPanel from "../Components/DogTabPanel";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 
 const DogHouse = () => {
   const [currentUser, setCurrentUser] = useAtom<User>(userAuthAtom)
   const usersDogs = currentUser.pets
   const currentDate = new Date()
+
+  const { data: userPets } = useQuery({
+    queryKey: ['userpets'],
+    queryFn: () => {
+      return axios.get('/userpets')
+    }
+  })
 
   return (
     <Flex w='100%'>
@@ -28,7 +37,7 @@ const DogHouse = () => {
 
       <Tabs variant='enclosed' mt='4'>
         <TabList mb='1em'>
-          {usersDogs?.map((dog) => {
+          {userPets?.data.map((dog) => {
             return (
               <Tab>
                   <Avatar size='xs' />
@@ -38,7 +47,7 @@ const DogHouse = () => {
             })}
         </TabList>
         <TabPanels>
-        {usersDogs?.map((dog) => {
+        {userPets?.data.map((dog) => {
         const birthDate = new Date(dog.birth_date)
         // @ts-ignore
         const diff = Math.abs(birthDate - currentDate)

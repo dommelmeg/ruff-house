@@ -28,6 +28,11 @@ class PetsController < ApplicationController
     def update
     end
 
+    def user_index
+        user_pets = Pet.where(owner_id: session[:profile_id])
+        render json: user_pets
+    end
+
     private
 
     def pet_params

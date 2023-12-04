@@ -12,8 +12,6 @@ const AddPetModule = () => {
   const [currentUser, setCurrentUser] = useAtom(userAuthAtom)
   const queryClient = useQueryClient()
 
-
-
   const initialPetState: Pet = {
     id: null,
     name: '',
@@ -88,7 +86,7 @@ const AddPetModule = () => {
       return axios.post('/pets', newPet)
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['userPets'] })
+      queryClient.invalidateQueries({ queryKey: ['userpets'] })
     }
   })
 
