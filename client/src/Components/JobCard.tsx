@@ -42,7 +42,7 @@ const JobCard = ({ job, variant }) => {
         {variant === 'requested' ? 
           <CardFooter>
             <ButtonGroup>
-              <Button variant='outline' colorScheme="orange">Edit</Button>
+              {/* <Button variant='outline' colorScheme="orange">Edit</Button> */}
               <Button variant='outline' colorScheme="orange" onClick={handleDeleteButton}>Delete</Button>
             </ButtonGroup> 
           </CardFooter>

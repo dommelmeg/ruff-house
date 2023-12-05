@@ -6,7 +6,6 @@ import { ColorModeScript } from '@chakra-ui/react'
 import theme from './theme';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Provider } from "jotai";
-import { RuffHouseContext, RuffHouseProvider } from './Context/ruffHouse';
 
 const queryClient = new QueryClient();
 
@@ -15,14 +14,12 @@ if (!rootElement) throw new Error('Failed to find the root element');
 const root = ReactDOM.createRoot(rootElement);
 
 root.render(
-  <RuffHouseProvider>
-    <QueryClientProvider client={queryClient}>
-      <Provider>
-        <BrowserRouter>
-          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-          <App />
-        </BrowserRouter>
-      </Provider>
-    </QueryClientProvider>
-  </RuffHouseProvider>
+  <QueryClientProvider client={queryClient}>
+    <Provider>
+      <BrowserRouter>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+        <App />
+      </BrowserRouter>
+    </Provider>
+  </QueryClientProvider>
 );

@@ -39,7 +39,7 @@ const DogHouse = () => {
         <TabList mb='1em'>
           {userPets?.data.map((dog) => {
             return (
-              <Tab>
+              <Tab key={dog.id}>
                   <Avatar size='xs' />
                   <Text ml='2'>{dog.name}</Text>
               </Tab>

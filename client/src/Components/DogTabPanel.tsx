@@ -13,10 +13,6 @@ const DogTabPanel = ({ age, dog }) => {
     setDogPic(randomDogBreed.imageURL)
   }, [])
 
-  const handleEditPetBtn = () => {
-    
-  }
-
   const deletePet = useMutation({
     mutationFn: (id) => {
       return axios.delete(`/pets/${id}`)
@@ -58,12 +54,6 @@ const DogTabPanel = ({ age, dog }) => {
 
               <IconButton
                 variant='ghost'
-                aria-label="edit pet"
-                icon={<EditIcon />}
-                onClick={handleEditPetBtn}
-              />
-              <IconButton
-                variant='ghost'
                 aria-label="delete pet"
                 icon={<DeleteIcon />}
                 onClick={handleDeletePetBtn}
@@ -78,10 +68,12 @@ const DogTabPanel = ({ age, dog }) => {
             colSpan={3}
             rowSpan={1}
           >
-            <Box w='630px'>
+            {/* For when I add Active storage */}
+            
+            {/* <Box w='630px'>
               <Heading size='lg'>The Cutest Doggo Award Goes To...</Heading>
               Cutie lil doggo images go here
-            </Box>
+            </Box> */}
           </GridItem>
         </Grid>
       </TabPanel>

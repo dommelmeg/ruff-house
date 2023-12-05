@@ -56,7 +56,6 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
     })
   }
   
-  console.log(currentUser)
   return (
     <Flex
       ml={{ base: 0, md: 60 }}

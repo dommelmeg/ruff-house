@@ -25,9 +25,6 @@ class PetsController < ApplicationController
         head :no_content
     end
 
-    def update
-    end
-
     def user_index
         user_pets = Pet.where(owner_id: session[:profile_id])
         render json: user_pets
