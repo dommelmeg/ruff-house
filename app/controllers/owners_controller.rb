@@ -1,6 +1,6 @@
 class OwnersController < ApplicationController
     def index
-        owners = Owner.all.with_attached_image
+        owners = Owner.all
         render json: owners
     end
 

@@ -13,6 +13,7 @@ export const initialState: User = {
   type: 'Owner',
   city: '',
   state: '',
+  image_url: '',
   pets: [],
   jobs: [],
 }
@@ -39,6 +40,7 @@ export type Pet = {
   bio: string
   weight: number
   owner_id: number
+  image_url: string
 }
 
 export type Job = {
@@ -60,6 +62,7 @@ export type User = {
   type: string
   city: string
   state: string
+  image_url: string
   pets: Pet[]
   jobs: Job[]
 }

@@ -21,6 +21,7 @@ const AddPetModule = () => {
     bio: '',
     weight: null,
     owner_id: null,
+    image_url: '',
   }
 
   const petFormReducer = (state, action) => {
@@ -167,6 +168,14 @@ const AddPetModule = () => {
                   })}
                 </Select>
 
+                <FormLabel mt='2'>Profile Picture</FormLabel>
+                <Input
+                  type='text'
+                  name='image_url'
+                  value={petFormState.image_url}
+                  onChange={handleInputChange}
+                />
+
                 <FormLabel mt='2'>Bio</FormLabel>
                 <Textarea
                   name='bio'
@@ -184,7 +193,9 @@ const AddPetModule = () => {
               <Button 
                 colorScheme="orange" 
                 onClick={handleSubmitRequest}
-              >Save</Button>
+              >
+                Save
+              </Button>
               <Button variant='ghost' mr={3} onClick={handleClose}>
                 Cancel
               </Button>

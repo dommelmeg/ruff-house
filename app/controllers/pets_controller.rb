@@ -15,6 +15,7 @@ class PetsController < ApplicationController
             breed: params[:breed],
             bio: params[:bio],
             weight: params[:weight],
+            image_url: params[:image_url]
         )
         render json: new_pet, status: :created
     end
@@ -33,6 +34,6 @@ class PetsController < ApplicationController
     private
 
     def pet_params
-        params.permit(:name, :gender, :birth_date, :breed, :bio, :weight, :owner_id)
+        params.permit(:name, :gender, :birth_date, :breed, :bio, :weight, :owner_id, :image_url)
     end
 end

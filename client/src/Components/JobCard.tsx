@@ -46,13 +46,13 @@ const JobCard = ({ job, variant }) => {
               <Button variant='outline' colorScheme="orange" onClick={handleDeleteButton}>Delete</Button>
             </ButtonGroup> 
           </CardFooter>
-          :
-          variant === 'completed' ?
-            <CardFooter>
-              <ButtonGroup>
-                <Button variant='outline' colorScheme="orange">Rate Your Sitter</Button>
-              </ButtonGroup> 
-            </CardFooter> 
+          // :
+          // variant === 'completed' ?
+          //   <CardFooter>
+          //     <ButtonGroup>
+          //       <Button variant='outline' colorScheme="orange">Rate Your Sitter</Button>
+          //     </ButtonGroup> 
+          //   </CardFooter> 
           :
           null
         }

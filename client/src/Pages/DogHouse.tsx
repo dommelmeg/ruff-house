@@ -40,7 +40,7 @@ const DogHouse = () => {
           {userPets?.data.map((dog) => {
             return (
               <Tab key={dog.id}>
-                  <Avatar size='xs' />
+                  <Avatar size='xs' src={dog.image_url} name={dog.name} />
                   <Text ml='2'>{dog.name}</Text>
               </Tab>
               )

@@ -94,7 +94,7 @@ const OwnerDashboard = () => {
           <HStack>
             {userPets?.data.map((dog) => {
               return (
-                <Avatar size='lg' name={dog.name} key={dog.id} />
+                <Avatar size='lg' name={dog.name} key={dog.id} src={dog.image_url} />
               )
             })}
             <AddPetModule />

@@ -41,7 +41,7 @@ const DogTabPanel = ({ age, dog }) => {
           >
             <Image 
               maxW='200px'
-              src={dogPic} 
+              src={dog.image_url || dogPic}
             />
           </GridItem>
           <GridItem 
@@ -69,7 +69,7 @@ const DogTabPanel = ({ age, dog }) => {
             rowSpan={1}
           >
             {/* For when I add Active storage */}
-            
+
             {/* <Box w='630px'>
               <Heading size='lg'>The Cutest Doggo Award Goes To...</Heading>
               Cutie lil doggo images go here

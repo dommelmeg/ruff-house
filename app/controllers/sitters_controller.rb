@@ -1,6 +1,6 @@
 class SittersController < ApplicationController
     def index
-        sitters = Sitter.all.with_attached_image
+        sitters = Sitter.all
         render json: sitters
     end
 
@@ -12,6 +12,6 @@ class SittersController < ApplicationController
     private
 
     def sitter_params
-        params.permit(:email, :first_name, :last_name, :city, :state, :image)
+        params.permit(:email, :first_name, :last_name, :city, :state, :image_url)
     end
 end
