@@ -34,7 +34,7 @@ const JobCard = ({ job, variant }) => {
         <AvatarGroup size='sm' max={2} mt={2}>
           {userPets?.map((dog) => {
             return (
-              <Avatar name={dog.name} key={dog.id}/>
+              <Avatar name={dog.name} key={dog.id} src={dog.image_url}/>
             )
           })}
         </AvatarGroup>

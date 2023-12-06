@@ -3,7 +3,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { SimpleGrid, Card, CardHeader, Heading, CardBody, Text, VStack, Avatar } from "@chakra-ui/react";
 
-const Sitters = ({ allSitters }) => {
+const Sitters = () => {
+  const { data: allSitters } = useQuery({
+    queryKey: ['allSitters'],
+    queryFn: () => {
+      return axios.get('/sitters')
+    }
+  })
 
   return (
     <SimpleGrid columns={3} gap={4} >
@@ -27,7 +33,7 @@ const Sitters = ({ allSitters }) => {
         )
       })
       :
-      <Text>No sitters available </Text>
+      <Text>No sitters available</Text>
     }
     </SimpleGrid>
   )

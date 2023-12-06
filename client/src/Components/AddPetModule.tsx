@@ -88,6 +88,7 @@ const AddPetModule = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['userpets'] })
+      queryClient.invalidateQueries({ queryKey: ['userjobs'] })
     }
   })
 

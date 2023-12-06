@@ -1,9 +1,9 @@
 import React, { useReducer } from "react";
-import { FormControl, Button, RadioGroup, HStack, Radio, FormLabel, VStack, Input, useToast } from "@chakra-ui/react"
+import { FormControl, Button, RadioGroup, HStack, Radio, FormLabel, VStack, Input, useToast, Select } from "@chakra-ui/react"
 import { useNavigate } from "react-router-dom"
 import { useQuery, useMutation } from '@tanstack/react-query';
 import axios, {isCancel, AxiosError} from 'axios';
-import { userAuthAtom, errorsAtom, userTypeAtom } from "../StateManagement/store";
+import { userAuthAtom, errorsAtom, userTypeAtom, states } from "../StateManagement/store";
 import { useAtom } from "jotai";
 
 const CreateAcctForm = () => {
@@ -14,6 +14,8 @@ const CreateAcctForm = () => {
     email: '',
     username: '',
     password: '',
+    city: '',
+    state: '',
     type: 'Owner',
   }
 
@@ -35,6 +37,11 @@ const CreateAcctForm = () => {
             ...state,
             type: action.payload,
           }
+        case 'HANDLE SELECT INPUT':
+          return{
+            ...state,
+            state: action.payload
+          }
         default:
           return state
     }
@@ -55,6 +62,14 @@ const CreateAcctForm = () => {
       type: 'HANDLE RADIO CHANGE',
       field: 'type',
       payload: e,
+    })
+  }
+
+  const handleSelectChange = (e) => {
+    dispatch({
+      type: 'HANDLE SELECT INPUT',
+      field: 'state',
+      payload: e.target.value
     })
   }
   
@@ -101,8 +116,6 @@ const CreateAcctForm = () => {
     //   })
     // }
   }
-
-  // console.log(currentUser)
 
   return (
     <FormControl isRequired>
@@ -157,6 +170,22 @@ const CreateAcctForm = () => {
         width='md' 
       />
 
+      <FormControl isRequired>
+        <VStack align='left'>
+          <FormLabel>City</FormLabel>
+          <Input name='city' placeholder='City' value={formState.city} onChange={handleInputChange} width='md' />
+
+          <FormLabel marginTop='2'>State</FormLabel>
+          <Select placeholder='Select state' name='state' >
+            {states.map((state) => {
+              return(
+                <option key={state} value={state}>{state}</option>
+              )
+            })}
+          </Select>
+        </VStack>
+      </FormControl>
+
       <FormControl as='fieldset' isRequired>
         <FormLabel as='legend' marginTop='4'>
           Are you a:
@@ -183,7 +212,7 @@ const CreateAcctForm = () => {
         Create Account
       </Button>
 
-    </VStack>
+      </VStack>
     </FormControl>
   )
 }

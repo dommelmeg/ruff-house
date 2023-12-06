@@ -19,6 +19,7 @@ const DogTabPanel = ({ age, dog }) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['userpets'] })
+      queryClient.invalidateQueries({ queryKey: ['userjobs'] })
     }
   })
 
