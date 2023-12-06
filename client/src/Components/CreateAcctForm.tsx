@@ -66,6 +66,7 @@ const CreateAcctForm = () => {
   }
 
   const handleSelectChange = (e) => {
+    console.log(e.target.value)
     dispatch({
       type: 'HANDLE SELECT INPUT',
       field: 'state',
@@ -79,7 +80,6 @@ const CreateAcctForm = () => {
       .then((res) => {
         //set user here
         setCurrentUser(res.data)
-        navigate('/complete-account')
       })
       .catch((error) => {
         //set errors here
@@ -94,6 +94,11 @@ const CreateAcctForm = () => {
     e.preventDefault()
     
     createProfile.mutate(formState)
+    if (currentUser.type === 'Owner') {
+      navigate('/')
+    } else {
+      navigate('/sitter-dashboard')
+    }
     // toastIdRef.current = toast({
       //   title: 'Account Pending',
       //   status: 'loading',
@@ -176,7 +181,7 @@ const CreateAcctForm = () => {
           <Input name='city' placeholder='City' value={formState.city} onChange={handleInputChange} width='md' />
 
           <FormLabel marginTop='2'>State</FormLabel>
-          <Select placeholder='Select state' name='state' >
+          <Select placeholder='Select state' name='state' onChange={handleSelectChange} >
             {states.map((state) => {
               return(
                 <option key={state} value={state}>{state}</option>

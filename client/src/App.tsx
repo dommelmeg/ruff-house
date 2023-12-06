@@ -4,7 +4,6 @@ import { Route, Routes } from "react-router-dom"
 import SignIn from './Pages/SignIn';
 import CreateAccount from './Pages/CreateAccount';
 import Home from './Pages/Home';
-import CompleteAccount from './Pages/CompleteAccount';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import axios, {isCancel, AxiosError} from 'axios';
@@ -41,7 +40,6 @@ const App = () => {
           <Route path='/signin' element={<SignIn />} />
           <Route path='/createaccount' element={<CreateAccount />} />
           <Route path='/*' element={<Home />} />
-          <Route path='/complete-account' element={<CompleteAccount />} />
         </Routes>
       </Box>
     </ChakraProvider>
