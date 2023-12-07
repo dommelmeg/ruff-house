@@ -1,16 +1,13 @@
-import React from "react";
-import { Flex, Grid, GridItem, Image, HStack, Heading, IconButton, Text, Divider } from "@chakra-ui/react";
+import React, { useReducer } from "react";
+import { Flex, Grid, GridItem, Image, VStack, HStack, Heading, IconButton, Text, Divider, Editable, EditablePreview, useEditableControls, ButtonGroup, Input, EditableInput, Alert, AlertTitle, AlertDescription, AlertIcon } from "@chakra-ui/react";
 import { userAuthAtom } from "../StateManagement/store";
 import { useAtom } from "jotai";
-import { EditIcon } from "@chakra-ui/icons";
+import { EditIcon, CheckIcon, CloseIcon } from "@chakra-ui/icons";
+import EditProfileModal from "../Components/EditProfileModal";
 
 const Profile = () => {
   const [currentUser, setCurrentUser] = useAtom(userAuthAtom)
   const defaultImg = 'https://i.stack.imgur.com/l60Hf.png'
-
-  const handleEditUserBtn = () => {
-    console.log('hook me up bby')
-  }
 
   return (
     <Flex direction='row' maxW='100%'>
@@ -32,17 +29,32 @@ const Profile = () => {
           <GridItem 
             colSpan={2}
             rowSpan={1}
-            maxW='400px'
+            maxW='600px'
           >
             <HStack>
-              <Heading>Welcome, {currentUser.first_name}!</Heading>
-              <IconButton
-                variant='ghost'
-                aria-label="edit user"
-                icon={<EditIcon />}
-                onClick={handleEditUserBtn}
-              />
+            <Heading>Welcome, {currentUser.first_name} {currentUser.last_name}</Heading>
+              <EditProfileModal />
             </HStack>
+            {currentUser.city ? <Text>{currentUser.city}, {currentUser.state}</Text> 
+            : 
+            <Alert 
+              mt='4' 
+              status='error' 
+              variant='top-accent' 
+              rounded='md'
+            >
+              <AlertIcon />
+                <AlertTitle>Use the edit button above to add your location!</AlertTitle>
+            </Alert>}
+            <Divider mt='4' />
+            <Text mt='4'><b>Username:</b> {currentUser.username}</Text>
+            <Text><b>Email: </b>{currentUser.email}</Text>
+            {currentUser.type === 'Sitter' && 
+              <>
+                <Divider mt='4' />
+                <Text mt='4'><b>Daily Rate: </b></Text>
+              </>
+            }
           </GridItem>
           <GridItem
             colSpan={3}

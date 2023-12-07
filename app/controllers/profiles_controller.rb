@@ -20,7 +20,7 @@ class ProfilesController < ApplicationController
     end
 
     def update
-        profile = Profile.where(id: session[:profile_id])
+        profile = Profile.find_by(id: session[:profile_id])
         profile.update(profile_params)
         render json: profile
     end

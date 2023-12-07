@@ -17,15 +17,16 @@ const Sitters = () => {
         return (
           <Card padding='2' align='center' key={sitter.id}>
             <CardHeader>
-            <Avatar name={sitter.name} src={sitter.image_url} />
-              <Heading size='md'>
-                {sitter.first_name} {sitter.last_name}
-              </Heading>
+              <VStack>
+                <Avatar name={sitter.name} src={sitter.image_url} />
+                <Heading size='md'>
+                  {sitter.first_name} {sitter.last_name}
+                </Heading>
+              </VStack>
             </CardHeader>
             <CardBody>
               <VStack>
-
-                <Text>City, State</Text>
+                {sitter.city ? <Text>{sitter.city}, {sitter.state}</Text> : 'Sitter is not available to book just yet'}
                 {/* <Text>A rating would be cool too...</Text> */}
               </VStack>
             </CardBody>
