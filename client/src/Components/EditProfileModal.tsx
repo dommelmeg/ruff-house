@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, VStack, FormLabel, Input, RadioGroup, HStack, Radio, Textarea, ModalFooter, ButtonGroup, Button, useDisclosure, IconButton, Select } from "@chakra-ui/react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, VStack, FormLabel, Input, RadioGroup, HStack, Radio, Textarea, ModalFooter, ButtonGroup, Button, useDisclosure, IconButton, Select, NumberInput, NumberInputField, NumberIncrementStepper, NumberInputStepper, NumberDecrementStepper } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
 import { states, userAuthAtom } from "../StateManagement/store";
 import { useAtom } from "jotai";
@@ -10,14 +10,15 @@ const EditProfileModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const finalRef = React.useRef(null)
   const [currentUser, setCurrentUser] = useAtom(userAuthAtom)
-  const { first_name, last_name, city, state, image_url } = currentUser
+  const { first_name, last_name, city, state, image_url, daily_rate } = currentUser
 
   const initialEditProfileState = {
     first_name: first_name,
     last_name: last_name,
     city: city,
     state: state,
-    image_url: image_url
+    image_url: image_url,
+    daily_rate: daily_rate
   }
 
   const editProfileFormReducer = (state, action) => {
@@ -31,6 +32,11 @@ const EditProfileModal = () => {
         return {
           ...state,
           state: action.payload
+        }
+      case 'HANDLE NUMBER INPUT':
+        return {
+          ...state,
+          daily_rate: action.payload
         }
       case 'RESET':
         return initialEditProfileState
@@ -48,7 +54,6 @@ const EditProfileModal = () => {
       type: 'RESET'
     })
   }
-  
   
   const handleInputChange = (e) => {
     dispatch({
@@ -80,6 +85,14 @@ const EditProfileModal = () => {
 
     editProfile.mutate(profileFormState)
     handleClose()
+  }
+
+  const handleNumberInput = (e) => {
+    dispatch({
+      type: 'HANDLE NUMBER INPUT',
+      field: 'daily_rate',
+      payload: e
+    })
   }
 
   return (
@@ -146,7 +159,24 @@ const EditProfileModal = () => {
                 placeholder={image_url}
                 value={profileFormState.image_url}
                 onChange={handleInputChange}
-                />
+              />
+
+              {currentUser.type === 'Sitter' && 
+              <>
+                <FormLabel mt='2'>Daily Rate</FormLabel>
+                <NumberInput
+                  onChange={handleNumberInput}
+                >
+                  <NumberInputField 
+                    value={profileFormState.daily_rate}
+                  />
+                  <NumberInputStepper>
+                    <NumberIncrementStepper />
+                    <NumberDecrementStepper />
+                  </NumberInputStepper>
+                </NumberInput>
+              </>
+                  }
             </VStack>
           </FormControl>
         </ModalBody>

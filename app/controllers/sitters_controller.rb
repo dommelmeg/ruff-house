@@ -1,4 +1,4 @@
-class SittersController < ApplicationController
+class SittersController < ProfilesController
     def index
         sitters = Sitter.all
         render json: sitters
@@ -12,6 +12,6 @@ class SittersController < ApplicationController
     private
 
     def sitter_params
-        params.permit(:email, :first_name, :last_name, :city, :state, :image_url)
+        params.permit(:email, :first_name, :last_name, :city, :state, :image_url, :daily_rate)
     end
 end

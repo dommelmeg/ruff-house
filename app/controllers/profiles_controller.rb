@@ -28,6 +28,6 @@ class ProfilesController < ApplicationController
     private
 
     def profile_params
-        params.permit(:username, :first_name, :last_name, :email, :city, :state, :password, :type, :image_url)
+        params.permit(:username, :first_name, :last_name, :email, :city, :state, :password, :type, :image_url, :daily_rate)
     end
 end

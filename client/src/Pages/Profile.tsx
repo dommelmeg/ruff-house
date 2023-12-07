@@ -52,7 +52,7 @@ const Profile = () => {
             {currentUser.type === 'Sitter' && 
               <>
                 <Divider mt='4' />
-                <Text mt='4'><b>Daily Rate: </b></Text>
+                <Text mt='4'><b>Daily Rate:</b> ${currentUser.daily_rate}</Text>
               </>
             }
           </GridItem>

@@ -14,6 +14,7 @@ export const initialState: User = {
   city: '',
   state: '',
   image_url: '',
+  daily_rate: null,
   pets: [],
   jobs: [],
 }
@@ -63,6 +64,7 @@ export type User = {
   city: string
   state: string
   image_url: string
+  daily_rate: number
   pets: Pet[]
   jobs: Job[]
 }

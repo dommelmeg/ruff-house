@@ -1,4 +1,4 @@
-class OwnersController < ApplicationController
+class OwnersController < ProfilesController
     def index
         owners = Owner.all
         render json: owners
