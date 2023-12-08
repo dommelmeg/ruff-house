@@ -7,7 +7,7 @@ import axios from "axios";
 
 const JobCard = ({ job, variant }) => {
   const { start_date, end_date } = job
-  const [currentUser, setCurrentUser] = useAtom<User>(userAuthAtom)
+  const [currentUser] = useAtom<User>(userAuthAtom)
   const userPets = currentUser.pets
   const queryClient = useQueryClient()
   const owner = currentUser.type === 'Owner'

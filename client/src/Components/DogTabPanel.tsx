@@ -8,6 +8,7 @@ import axios from "axios";
 const DogTabPanel = ({ age, dog }) => {
   const [dogPic, setDogPic] = useState('')
   const queryClient = useQueryClient()
+  console.log(age)
   
   useEffect(() => {
     setDogPic(randomDogBreed.imageURL)
@@ -60,7 +61,11 @@ const DogTabPanel = ({ age, dog }) => {
                 onClick={handleDeletePetBtn}
               />
             </HStack>
+            {
+            age < 1 ? <Text>Puppy - {dog.gender} {dog.breed} </Text>
+            : 
             <Text>{age} Years Old – {dog.gender} {dog.breed}</Text>
+            }
             <Text>{dog.weight} lbs.</Text>
             <Divider mt={4} mb={4} />
             <Text>{dog.bio}</Text>
