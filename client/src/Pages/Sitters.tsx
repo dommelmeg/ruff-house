@@ -12,7 +12,7 @@ const Sitters = () => {
   })
 
   return (
-    <SimpleGrid columns={3} gap={4} >
+    <SimpleGrid columns={4} gap={4} >
       {allSitters?.data.length > 0 ? allSitters.data.map((sitter) => {
         return (
           <Card padding='2' align='center' key={sitter.id}>
@@ -25,9 +25,11 @@ const Sitters = () => {
               </VStack>
             </CardHeader>
             <CardBody>
-              <VStack>
-                {sitter.city ? <Text>{sitter.city}, {sitter.state}</Text> : 'Sitter is not available to book just yet'}
-                {/* <Text>A rating would be cool too...</Text> */}
+              <VStack align='center'>
+                {sitter.city ? 
+                  <Text>{sitter.city}, {sitter.state}</Text> 
+                : null
+                }
               </VStack>
             </CardBody>
           </Card>

@@ -6,10 +6,14 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 const JobCard = ({ job, variant }) => {
+  const { start_date, end_date } = job
   const [currentUser, setCurrentUser] = useAtom<User>(userAuthAtom)
   const userPets = currentUser.pets
   const queryClient = useQueryClient()
   const owner = currentUser.type === 'Owner'
+  //@ts-ignore
+  const numberOfDays = Math.abs(new Date(start_date) - new Date(end_date))
+  const lengthOfJob = numberOfDays/(1000 * 3600 * 24)
 
   const deleteJob = useMutation({
     mutationFn: (id) => {
@@ -19,10 +23,6 @@ const JobCard = ({ job, variant }) => {
       queryClient.invalidateQueries({ queryKey: ['userjobs'] })
     }
   })
-
-  const handleDeleteButton = () => {
-    deleteJob.mutate(job.id)
-  }
 
   return (
     <Card size='sm' padding={2} m={4} key={job.id}>
@@ -43,7 +43,7 @@ const JobCard = ({ job, variant }) => {
           <CardFooter>
             <ButtonGroup>
               {/* <Button variant='outline' colorScheme="orange">Edit</Button> */}
-              <Button variant='outline' colorScheme="orange" onClick={handleDeleteButton}>Delete</Button>
+              <Button variant='outline' colorScheme="orange" onClick={() => deleteJob.mutate(job.id)}>Delete</Button>
             </ButtonGroup> 
           </CardFooter>
           // :
