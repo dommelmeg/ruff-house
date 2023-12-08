@@ -12,7 +12,7 @@ const Sitters = () => {
   })
 
   return (
-    <SimpleGrid columns={4} gap={4} >
+    <SimpleGrid columns={4} gap={4}>
       {allSitters?.data.length > 0 ? allSitters.data.map((sitter) => {
         return (
           <Card padding='2' align='center' key={sitter.id}>

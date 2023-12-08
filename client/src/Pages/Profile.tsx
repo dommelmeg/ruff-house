@@ -1,8 +1,7 @@
-import React, { useReducer } from "react";
-import { Flex, Grid, GridItem, Image, VStack, HStack, Heading, IconButton, Text, Divider, Editable, EditablePreview, useEditableControls, ButtonGroup, Input, EditableInput, Alert, AlertTitle, AlertDescription, AlertIcon } from "@chakra-ui/react";
+import React from "react";
+import { Flex, Grid, GridItem, Image, VStack, HStack, Heading, Text, Divider, Alert, AlertTitle, AlertIcon } from "@chakra-ui/react";
 import { userAuthAtom } from "../StateManagement/store";
 import { useAtom } from "jotai";
-import { EditIcon, CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import EditProfileModal from "../Components/EditProfileModal";
 
 const Profile = () => {

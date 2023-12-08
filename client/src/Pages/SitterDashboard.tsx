@@ -6,10 +6,12 @@ import { userAuthAtom, User } from "../StateManagement/store";
 import { useNavigate } from "react-router-dom";
 
 const SitterDashboard = () => {
-  const [showCompletedJobs] = useState(true)
-  const [currentUser] = useAtom<User>(userAuthAtom)
   const navigate = useNavigate()
+  const [currentUser] = useAtom<User>(userAuthAtom)
+  const [showCompletedJobs] = useState(true)
+
   const userJobs = currentUser.jobs
+
   const currentDate = new Date()
   const upcomingJobs = userJobs?.filter((job) => new Date(job.end_date) > currentDate)
   const completedJobs = userJobs?.filter((job) => new Date(job.end_date) < currentDate)

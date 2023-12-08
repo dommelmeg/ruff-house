@@ -6,4 +6,8 @@ class Job < ApplicationRecord
     def job_pets
         self.owner.pets
     end
+
+    def job_sitter
+        self.sitter
+    end
 end

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Flex, Box, Circle, Avatar, HStack,  Text, Stack, IconButton, Icon } from "@chakra-ui/react";
+import { Flex, Box, Avatar, HStack,  Text, Stack, IconButton } from "@chakra-ui/react";
 import JobsCarousel from "../Components/JobsCarousel";
-import { AddIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons'
+import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons'
 import { useAtom } from "jotai";
 import { userAuthAtom, User } from "../StateManagement/store";
 import { useNavigate } from "react-router-dom";
@@ -11,14 +11,17 @@ import axios from "axios";
 import AddPetModule from "../Components/AddPetModule";
 
 const OwnerDashboard = () => {
+  const navigate = useNavigate()
+
+  const [currentUser] = useAtom<User>(userAuthAtom)
+
+  const currentDate = new Date()
+
   const [showCompletedJobs, setShowCompletedJobs] = useState(true)
   const [showBookedJobs, setShowBookedJobs] = useState(true)
   const [showRequestedJobs, setShowRequestedJobs] = useState(true)
-  const [currentUser, setCurrentUser] = useAtom<User>(userAuthAtom)
-  const navigate = useNavigate()
-  const currentDate = new Date()
   
-  const { data: userJobs, isLoading } = useQuery({
+  const { data: userJobs } = useQuery({
     queryKey: ['userjobs'],
     queryFn: () => {
       return axios.get('/userjobs')

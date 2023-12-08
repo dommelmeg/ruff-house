@@ -83,4 +83,6 @@ const dogBreeds = require('dog-breeds')
 export const allDogBreeds = dogBreeds.all
 export const randomDogBreed = dogBreeds.random()
 
+export const moment = require('moment')
+
 // export const getUserAuthAtom = atom((get) => get(userAuthAtom))
