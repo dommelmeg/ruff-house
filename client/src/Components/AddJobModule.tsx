@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import { useDisclosure, Box, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Circle, ModalFooter, ButtonGroup, FormControl, VStack, FormLabel, Input, Textarea } from "@chakra-ui/react";
+import { useDisclosure, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Circle, ModalFooter, ButtonGroup, FormControl, VStack, FormLabel, Input, Textarea } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import { userAuthAtom, Job } from "../StateManagement/store";
 import { useAtom } from "jotai";

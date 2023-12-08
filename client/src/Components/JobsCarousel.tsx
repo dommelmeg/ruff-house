@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Card, Box, CardHeader, CardBody, Avatar, AvatarGroup, CardFooter, Button, ButtonGroup } from "@chakra-ui/react";
+import React from "react";
+import { Box } from "@chakra-ui/react";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import { Job, userAuthAtom, User } from "../StateManagement/store";
+import { Job } from "../StateManagement/store";
 import JobCard from "./JobCard";
 
 interface JobsCarouselProps {

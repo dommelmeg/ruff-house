@@ -6,6 +6,7 @@ import { ColorModeScript } from '@chakra-ui/react'
 import theme from './theme';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Provider } from "jotai";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 const queryClient = new QueryClient();
 
@@ -15,6 +16,7 @@ const root = ReactDOM.createRoot(rootElement);
 
 root.render(
   <QueryClientProvider client={queryClient}>
+    <ReactQueryDevtools initialIsOpen={false} />
     <Provider>
       <BrowserRouter>
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />

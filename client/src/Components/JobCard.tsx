@@ -1,16 +1,17 @@
 import React from "react";
-import { Card, CardHeader, CardBody, AvatarGroup, Avatar, CardFooter, ButtonGroup, Button, Heading, HStack } from "@chakra-ui/react";
+import { Card, CardHeader, CardBody, AvatarGroup, Avatar, CardFooter, ButtonGroup, Button, Heading } from "@chakra-ui/react";
 import { useAtom } from "jotai";
-import { userAuthAtom, User, moment } from "../StateManagement/store";
+import { userAuthAtom, moment } from "../StateManagement/store";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 const JobCard = ({ job, variant }) => {
   const { start_date, end_date } = job
-  const [currentUser] = useAtom<User>(userAuthAtom)
-  const userPets = currentUser.pets
+  const [currentUser] = useAtom(userAuthAtom)
   const queryClient = useQueryClient()
-  const owner = currentUser.type === 'Owner'
+  const userPets = currentUser.pets
+  console.log(userPets)
+
   //@ts-ignore
   const numberOfDays = Math.abs(new Date(end_date) - new Date(start_date))
   const lengthOfJob = numberOfDays/(1000 * 3600 * 24)
@@ -23,11 +24,17 @@ const JobCard = ({ job, variant }) => {
       queryClient.invalidateQueries({ queryKey: ['userjobs'] })
     }
   })
+  console.log(currentUser)
 
   return (
     <Card size='sm' padding={2} m={4} key={job.id}>
       <CardHeader>
-        <Heading>{lengthOfJob}</Heading>
+        {currentUser.pets?.length > 1 ? 
+        <Heading>{currentUser.last_name} Doggos</Heading>
+        :
+        null
+      }
+        
         {moment(job.start_date).format('ll')} - {moment(job.end_date).format('ll')}
       </CardHeader>
       <CardBody>

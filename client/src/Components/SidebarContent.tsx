@@ -1,13 +1,11 @@
 import React from "react";
-import { Box, Flex, Text, BoxProps, useColorModeValue, CloseButton, Switch, useColorMode, HStack, IconButton } from "@chakra-ui/react";
+import { Box, Flex, Text, BoxProps, useColorModeValue, CloseButton } from "@chakra-ui/react";
 import NavItem from "./NavItem";
 import { useAtom } from "jotai";
 import { BsPersonArmsUp } from "react-icons/bs";
 import { BiSolidDog } from "react-icons/bi";
 import { FaHouse } from "react-icons/fa6";
-import { MdFavorite } from "react-icons/md";
-import { userTypeAtom, userAuthAtom } from "../StateManagement/store";
-
+import { userAuthAtom } from "../StateManagement/store";
 import { IconType } from 'react-icons'
 
 interface LinkItemProps {
@@ -23,7 +21,6 @@ interface SidebarProps extends BoxProps {
 const OwnerLinkItems: Array<LinkItemProps> = [
   { name: 'Dashboard', icon: FaHouse, route: '/' },
   { name: 'Doggo House', icon: BiSolidDog, route: '/doghouse' },
-  { name: 'Sitters', icon: BsPersonArmsUp, route: '/sitters' },
   // { name: 'Favorites', icon: MdFavorite, route: '/favorites' },
 ]
 
@@ -33,7 +30,7 @@ const SitterLinkItems: Array<LinkItemProps> = [
 ]
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
-  const [currentUser, setCurrentUser] = useAtom(userAuthAtom)
+  const [currentUser] = useAtom(userAuthAtom)
 
   return (
     <Box
@@ -44,7 +41,8 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       w={{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"
-      {...rest}>
+      {...rest}
+    >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Text fontSize="2xl" fontWeight="bold" color='orange.500'>
           RUFF HOUSE

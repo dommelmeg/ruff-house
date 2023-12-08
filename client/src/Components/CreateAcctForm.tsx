@@ -1,9 +1,9 @@
 import React, { useReducer } from "react";
 import { FormControl, Button, RadioGroup, HStack, Radio, FormLabel, VStack, Input, useToast, Select } from "@chakra-ui/react"
 import { useNavigate } from "react-router-dom"
-import { useQuery, useMutation } from '@tanstack/react-query';
-import axios, {isCancel, AxiosError} from 'axios';
-import { userAuthAtom, errorsAtom, userTypeAtom, states } from "../StateManagement/store";
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
+import { userAuthAtom, errorsAtom, states } from "../StateManagement/store";
 import { useAtom } from "jotai";
 
 const CreateAcctForm = () => {

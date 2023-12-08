@@ -1,11 +1,10 @@
 import React from "react";
 import { Box, Text, Button, Heading, VStack, Flex } from "@chakra-ui/react";
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import CreateAcctForm from "../Components/CreateAcctForm";
 
 const CreateAccount = () => {
   const navigate = useNavigate()
-  const location = useLocation()
 
   return (
     <Flex direction='row' h='100vh'>

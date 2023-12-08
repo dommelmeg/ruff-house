@@ -5,8 +5,6 @@ import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { userAuthAtom, errorsAtom, userTypeAtom } from "../StateManagement/store";
 import { useAtom } from "jotai";
-import userEvent from "@testing-library/user-event";
-import { userInfo } from "os";
 
 const SignIn = () => {
   const navigate = useNavigate()

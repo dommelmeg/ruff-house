@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { TabPanel, Grid, GridItem, Image, SimpleGrid, Heading, Button, ButtonGroup, IconButton, HStack, Text, Spacer, Divider, Box, VStack } from "@chakra-ui/react";
+import { TabPanel, Grid, GridItem, Image, Heading, IconButton, HStack, Text, Divider } from "@chakra-ui/react";
 import { randomDogBreed } from "../StateManagement/store";
-import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { DeleteIcon } from "@chakra-ui/icons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 const DogTabPanel = ({ age, dog }) => {
   const [dogPic, setDogPic] = useState('')
   const queryClient = useQueryClient()
-  console.log(age)
   
   useEffect(() => {
     setDogPic(randomDogBreed.imageURL)

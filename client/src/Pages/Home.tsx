@@ -7,10 +7,8 @@ import Sitters from './Sitters';
 import DogHouse from './DogHouse';
 import Jobs from './Jobs';
 import SitterDashboard from './SitterDashboard';
-import { userAuthAtom, errorsAtom } from "../StateManagement/store";
+import { userAuthAtom } from "../StateManagement/store";
 import { useAtom } from "jotai";
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import Profile from './Profile';
 
 const Home = () => {

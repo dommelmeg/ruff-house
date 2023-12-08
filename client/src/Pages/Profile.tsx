@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Grid, GridItem, Image, VStack, HStack, Heading, Text, Divider, Alert, AlertTitle, AlertIcon } from "@chakra-ui/react";
+import { Flex, Grid, GridItem, Image, HStack, Heading, Text, Divider, Alert, AlertTitle, AlertIcon } from "@chakra-ui/react";
 import { userAuthAtom } from "../StateManagement/store";
 import { useAtom } from "jotai";
 import EditProfileModal from "../Components/EditProfileModal";

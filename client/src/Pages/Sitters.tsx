@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import axios from "axios";
 import { SimpleGrid, Card, CardHeader, Heading, CardBody, Text, VStack, Avatar } from "@chakra-ui/react";
 
