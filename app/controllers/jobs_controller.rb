@@ -16,6 +16,14 @@ class JobsController < ApplicationController
         render json: new_job, status: :created
     end
 
+    def update
+        job = Job.find_by(id: params[:id])
+        job.update(
+            sitter_id: session[:profile_id]
+        )
+        render json: job
+    end
+
     def destroy
         job = Job.find_by(id: params[:id])
         job.destroy

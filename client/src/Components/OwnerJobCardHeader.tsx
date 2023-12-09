@@ -9,7 +9,7 @@ const OwnerJobCardHeader = ({ job, variant }) => {
   return (
     <>
       <CardHeader>
-        {variant === 'booked' ?
+        {variant === 'booked' || variant === 'completed' ?
           <>
             <Avatar size='md' name={job_sitter.first_name} key={job_sitter.id} src={job_sitter.image_url}/>
                 

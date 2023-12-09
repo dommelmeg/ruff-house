@@ -26,8 +26,20 @@ const JobCard = ({ job, variant }) => {
     }
   })
 
+  const jobPatch = useMutation({
+    mutationFn: (editedJob) => {
+      return axios.patch(`/jobs/${job.id}`, editedJob)
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['allJobs']})
+    }
+  })
+
   const handleClaimJobBtn = () => {
-    
+    //@ts-ignore
+    jobPatch.mutate({
+      sitter_id: currentUser.id
+    })
   }
 
   return (
@@ -47,13 +59,25 @@ const JobCard = ({ job, variant }) => {
         {variant === 'requested' ? 
           <CardFooter>
             <ButtonGroup>
-              <Button variant='outline' colorScheme="orange" onClick={() => deleteJob.mutate(job.id)}>Delete</Button>
+              <Button 
+                variant='outline' 
+                colorScheme="orange" 
+                onClick={() => deleteJob.mutate(job.id)}
+              >
+                Delete
+              </Button>
             </ButtonGroup> 
           </CardFooter>
           :
           variant === 'unbooked' ?
             <CardFooter>
-              <Button variant='outline' colorScheme="orange">Claim Job</Button>
+              <Button 
+                variant='outline' 
+                colorScheme="orange"
+                onClick={handleClaimJobBtn}
+              >
+                Claim Job
+              </Button>
             </CardFooter>
           // :
           // variant === 'completed' ?

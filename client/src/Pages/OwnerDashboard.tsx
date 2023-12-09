@@ -40,7 +40,7 @@ const OwnerDashboard = () => {
   }
 
   const requestedJobs = userJobs?.data.filter((job) => !job.sitter_id)
-  const bookedJobs = userJobs?.data.filter((job) => job.sitter_id)
+  const bookedJobs = userJobs?.data.filter((job) => job.sitter_id && new Date(job.end_date) > currentDate)
   const completedJobs = userJobs?.data.filter((job) => new Date(job.end_date) < currentDate)
 
   return (

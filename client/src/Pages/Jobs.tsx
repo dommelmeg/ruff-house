@@ -4,20 +4,16 @@ import axios from "axios";
 import { Flex, Text, SimpleGrid, Stack } from "@chakra-ui/react";
 import JobCard from "../Components/JobCard";
 
-const Jobs = () => {
-  const { data: allJobs } = useQuery({
-    queryKey: ['allJobs'],
-    queryFn: () => {
-      return axios.get('/jobs')
-    }
-  })
+const Jobs = ({allJobs}) => {
+
+  console.log(allJobs)
 
   const unBookedJobs = allJobs.data.filter((job) => !job.sitter_id)
 
   return (
     <Flex w='100%'>
       <Stack>
-      <Text 
+        <Text 
           fontSize="2xl" 
           fontWeight="bold"
           >

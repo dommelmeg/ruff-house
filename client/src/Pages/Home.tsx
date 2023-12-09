@@ -10,6 +10,8 @@ import SitterDashboard from './SitterDashboard';
 import { userAuthAtom } from "../StateManagement/store";
 import { useAtom } from "jotai";
 import Profile from './Profile';
+import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
 
 const Home = () => {
   const navigate = useNavigate()
@@ -21,6 +23,13 @@ const Home = () => {
     } 
   }, [currentUser])
 
+  const { data: allJobs } = useQuery({
+    queryKey: ['allJobs'],
+    queryFn: () => {
+      return axios.get('/jobs')
+    }
+  })
+
   return (
     <Flex>
       <NavBar>
@@ -28,7 +37,7 @@ const Home = () => {
           <Routes>
             <Route path='/' element={<OwnerDashboard />} />
             <Route path='/doghouse' element={<DogHouse />} />
-            <Route path='/jobs' element={<Jobs />} />
+            <Route path='/jobs' element={<Jobs allJobs={allJobs} />} />
             <Route path='/sitter-dashboard' element={<SitterDashboard />} />
             <Route path='/sitters' element={<Sitters />} />
             <Route path='/profile' element={<Profile />} />
