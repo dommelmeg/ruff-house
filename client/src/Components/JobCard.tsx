@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardHeader, CardBody, AvatarGroup, Avatar, CardFooter, ButtonGroup, Button, Heading, Divider } from "@chakra-ui/react";
+import { Card, CardHeader, CardBody, AvatarGroup, Avatar, CardFooter, ButtonGroup, Button, Heading, Divider, Text, HStack } from "@chakra-ui/react";
 import { useAtom } from "jotai";
 import { userAuthAtom, moment } from "../StateManagement/store";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -8,7 +8,7 @@ import SitterJobCardHeader from "./SitterJobCardHeader";
 import OwnerJobCardHeader from "./OwnerJobCardHeader";
 
 const JobCard = ({ job, variant }) => {
-  const { start_date, end_date } = job
+  const { start_date, end_date, job_sitter } = job
   const [currentUser] = useAtom(userAuthAtom)
   const queryClient = useQueryClient()
   const userPets = currentUser.pets
@@ -16,6 +16,7 @@ const JobCard = ({ job, variant }) => {
   //@ts-ignore
   const numberOfDays = Math.abs(new Date(end_date) - new Date(start_date))
   const lengthOfJob = numberOfDays/(1000 * 3600 * 24)
+  const priceOfJob = lengthOfJob * job_sitter?.daily_rate
 
   const deleteJob = useMutation({
     mutationFn: (id) => {
@@ -55,6 +56,12 @@ const JobCard = ({ job, variant }) => {
       <Divider />
       <CardBody>
         {job.description}
+        {variant === 'requested' ? 
+          <Text color='orange'><b>{lengthOfJob} Days</b></Text>
+          :
+          <Text color='orange'><b>{lengthOfJob} Days – ${priceOfJob}</b></Text>
+        }
+
       </CardBody>
         {variant === 'requested' ? 
           <CardFooter>

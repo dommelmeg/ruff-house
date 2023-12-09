@@ -4,7 +4,6 @@ import { CardHeader, Avatar, Heading } from "@chakra-ui/react";
 const OwnerJobCardHeader = ({ job, variant }) => {
   const moment = require('moment')
   const { job_sitter } = job
-  console.log(job)
 
   return (
     <>
