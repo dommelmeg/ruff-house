@@ -1,19 +1,15 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { ChakraProvider, Box } from '@chakra-ui/react'
 import { Route, Routes } from "react-router-dom"
 import SignIn from './Pages/SignIn';
 import CreateAccount from './Pages/CreateAccount';
 import Home from './Pages/Home';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useQuery, useMutation } from '@tanstack/react-query';
-import axios, {isCancel, AxiosError} from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { useAtom } from "jotai";
-import { userAuthAtom, userTypeAtom } from './StateManagement/store';
-import userEvent from '@testing-library/user-event';
+import { userAuthAtom } from './StateManagement/store';
 
 const App = () => {
   const navigate = useNavigate()
-  const location = useLocation()
   const [currentUser, setCurrentUser] = useAtom(userAuthAtom)
 
   useEffect(() => {

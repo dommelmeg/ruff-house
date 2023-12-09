@@ -1,17 +1,15 @@
 import React, { useReducer } from "react";
 import { Box, Text, Button, Heading, FormControl, FormLabel, Input, Flex, HStack, VStack} from "@chakra-ui/react";
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import { userAuthAtom, errorsAtom, userTypeAtom } from "../StateManagement/store";
+import { userAuthAtom, errorsAtom } from "../StateManagement/store";
 import { useAtom } from "jotai";
 
 const SignIn = () => {
   const navigate = useNavigate()
-  const location = useLocation()
   const [currentUser, setCurrentUser] = useAtom(userAuthAtom)
   const [loginErrors, setLoginErrors] = useAtom(errorsAtom)
-  const [userType, setUserType] = useAtom(userTypeAtom)
 
   const initialSignInState = {
     username: '',

@@ -22,11 +22,13 @@ class JobsController < ApplicationController
         head :no_content
     end
 
-    def update
+    def owner_index
+        user_jobs = Job.where(owner_id: session[:profile_id])
+        render json: user_jobs
     end
 
-    def user_index
-        user_jobs = Job.where(owner_id: session[:profile_id])
+    def sitter_index
+        user_jobs = Job.where(sitter_id: session[:profile_id])
         render json: user_jobs
     end
 end

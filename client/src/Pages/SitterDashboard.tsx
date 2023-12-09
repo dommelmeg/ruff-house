@@ -4,22 +4,30 @@ import JobsCarousel from "../Components/JobsCarousel";
 import { useAtom } from "jotai";
 import { userAuthAtom, User } from "../StateManagement/store";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const SitterDashboard = () => {
   const navigate = useNavigate()
   const [currentUser] = useAtom<User>(userAuthAtom)
   const [showCompletedJobs] = useState(true)
 
-  const userJobs = currentUser.jobs
+  const { data: sitterJobs } = useQuery({
+    queryKey: ['sitterjobs'],
+    queryFn: () => {
+      return axios.get('/sitterjobs')
+    }
+  })
 
   const currentDate = new Date()
-  const upcomingJobs = userJobs?.filter((job) => new Date(job.end_date) > currentDate)
-  const completedJobs = userJobs?.filter((job) => new Date(job.end_date) < currentDate)
+  const upcomingJobs = sitterJobs?.data.filter((job) => new Date(job.end_date) > currentDate)
+  const completedJobs = sitterJobs?.data.filter((job) => new Date(job.end_date) < currentDate)
 
   if (currentUser.type === 'Owner') {
     navigate('/')
   }
 
+  console.log()
   return (
     <Flex direction='row' maxW='100%'>
       <Stack>
