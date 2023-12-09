@@ -56,7 +56,7 @@ const JobCard = ({ job, variant }) => {
       <Divider />
       <CardBody>
         {job.description}
-        {variant === 'requested' ? 
+        {variant === 'requested' || variant ==='unbooked' ? 
           <Text color='orange'><b>{lengthOfJob} Days</b></Text>
           :
           <Text color='orange'><b>{lengthOfJob} Days – ${priceOfJob}</b></Text>
