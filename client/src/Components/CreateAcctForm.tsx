@@ -1,5 +1,5 @@
-import React, { useReducer } from "react";
-import { FormControl, Button, RadioGroup, HStack, Radio, FormLabel, VStack, Input, useToast, Select } from "@chakra-ui/react"
+import React, { useReducer, useState } from "react";
+import { FormControl, Button, RadioGroup, HStack, Radio, FormLabel, VStack, Input, useToast, Select, NumberInput, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, NumberInputField } from "@chakra-ui/react"
 import { useNavigate } from "react-router-dom"
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
@@ -7,6 +7,8 @@ import { userAuthAtom, errorsAtom, states } from "../StateManagement/store";
 import { useAtom } from "jotai";
 
 const CreateAcctForm = () => {
+  const [showDailyRate, setShowDailyRate] = useState(false)
+
   const initialFormState = {
     id: null,
     first_name: '',
@@ -16,6 +18,7 @@ const CreateAcctForm = () => {
     password: '',
     city: '',
     state: '',
+    daily_rate: null,
     type: 'Owner',
   }
 
@@ -42,6 +45,11 @@ const CreateAcctForm = () => {
             ...state,
             state: action.payload
           }
+        case 'HANDLE NUMBER INPUT':
+          return {
+            ...state,
+            daily_rate: action.payload
+        }
         default:
           return state
     }
@@ -58,6 +66,8 @@ const CreateAcctForm = () => {
   }
   
   const handleRadioChange = (e) => {
+    e === 'Sitter' ? setShowDailyRate(true) : setShowDailyRate(false)
+
     dispatch({
       type: 'HANDLE RADIO CHANGE',
       field: 'type',
@@ -66,11 +76,18 @@ const CreateAcctForm = () => {
   }
 
   const handleSelectChange = (e) => {
-    console.log(e.target.value)
     dispatch({
       type: 'HANDLE SELECT INPUT',
       field: 'state',
       payload: e.target.value
+    })
+  }
+
+  const handleNumberInput = (e) => {
+    dispatch({
+      type: 'HANDLE NUMBER INPUT',
+      field: 'daily_rate',
+      payload: e
     })
   }
   
@@ -88,6 +105,8 @@ const CreateAcctForm = () => {
     }
     
   })
+  
+  console.log(showDailyRate)
   
   const handleFormSubmitClick = async (e) => {
     //need to clear any errors
@@ -206,6 +225,23 @@ const CreateAcctForm = () => {
           </HStack>
         </RadioGroup>
       </FormControl>
+
+      {showDailyRate && 
+        <>
+          <FormLabel>Daily Rate</FormLabel>
+          <NumberInput
+            onChange={handleNumberInput}
+            >
+            <NumberInputField 
+              value={formState.daily_rate}
+              />
+            <NumberInputStepper>
+              <NumberIncrementStepper />
+              <NumberDecrementStepper />
+            </NumberInputStepper>
+          </NumberInput>
+        </>
+      }
 
       <Button 
         colorScheme='orange' 
