@@ -144,6 +144,7 @@ const CreateAcctForm = () => {
   return (
     <FormControl isRequired>
       <VStack align='left'>
+
       <FormLabel>First Name</FormLabel>
       <Input 
         type='firstName' 
@@ -162,7 +163,7 @@ const CreateAcctForm = () => {
         onChange={handleInputChange} 
         placeholder='Last Name' 
         width='md' 
-      />
+        />
 
       <FormLabel marginTop='2'>Email Address</FormLabel>
       <Input 
@@ -196,7 +197,7 @@ const CreateAcctForm = () => {
 
       <FormControl isRequired>
         <VStack align='left'>
-          <FormLabel>City</FormLabel>
+          <FormLabel mt='2'>City</FormLabel>
           <Input name='city' placeholder='City' value={formState.city} onChange={handleInputChange} width='md' />
 
           <FormLabel marginTop='2'>State</FormLabel>
@@ -249,6 +250,7 @@ const CreateAcctForm = () => {
         rounded='3xl'
         marginTop='2'
         onClick={handleFormSubmitClick}
+        mb='8'
       >
         Create Account
       </Button>

@@ -81,13 +81,12 @@ const SignIn = () => {
 
   return (
     <Flex direction='row' h='100vh'>
-      <Box display='flex' bg='orange.200' w='md' alignItems='center' justifyContent='center'>
+      <Box display='flex' shadow='2xl' w='md' alignItems='center' justifyContent='center'>
         <VStack>
-          <Heading color='orange.500'>New to RUFF HOUSE?</Heading>
+          <Heading >New to RUFF HOUSE?</Heading>
           <Text>Don't have an account yet? Create one below.</Text>
           <Button 
-            colorScheme='orange' 
-            // variant='outline' 
+            colorScheme='orange'
             rounded='3xl'
             marginTop='4'
             onClick={() => navigate('/createaccount')}
