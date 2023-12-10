@@ -1,8 +1,8 @@
 import React from "react";
 import { CardHeader, Avatar, Heading } from "@chakra-ui/react";
+import { moment } from "../StateManagement/store";
 
 const OwnerJobCardHeader = ({ job, variant }) => {
-  const moment = require('moment')
   const { job_sitter } = job
 
   return (

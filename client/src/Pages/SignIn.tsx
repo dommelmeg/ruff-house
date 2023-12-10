@@ -1,15 +1,18 @@
-import React, { useReducer } from "react";
-import { Box, Text, Button, Heading, FormControl, FormLabel, Input, Flex, HStack, VStack} from "@chakra-ui/react";
+import React, { useReducer, useState } from "react";
+import { Box, Text, Button, Heading, FormControl, FormLabel, Input, Flex, HStack, VStack, Alert} from "@chakra-ui/react";
 import { useNavigate } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import { userAuthAtom, errorsAtom } from "../StateManagement/store";
+import { userAuthAtom } from "../StateManagement/store";
 import { useAtom } from "jotai";
 
 const SignIn = () => {
   const navigate = useNavigate()
   const [currentUser, setCurrentUser] = useAtom(userAuthAtom)
-  const [loginErrors, setLoginErrors] = useAtom(errorsAtom)
+  const [showError, setShowError] = useState(false)
+  const [loginError, setLoginError] = useState('')
+  const ownerUser = currentUser?.type === 'Owner'
+  const sitterUser = currentUser?.type === 'Sitter'
 
   const initialSignInState = {
     username: '',
@@ -31,6 +34,7 @@ const SignIn = () => {
   const [signInState, dispatch] = useReducer(signInReducer, initialSignInState)
 
   const handleInputChange = (e) => {
+    setShowError(false)
     dispatch({
       type: 'HANDLE INPUT TEXT',
       field: e.target.name,
@@ -38,45 +42,26 @@ const SignIn = () => {
     })
   }
 
-  const signInUser = useMutation({
+  const signUserIn = useMutation({
     mutationFn: (user) => {
-      return axios.post('/login', user)
-      .then((r) => {
-        setCurrentUser(r.data)
+      return axios.post('/signin', user)
+      .then((res) => {
+        setCurrentUser(res.data)
       })
-      .catch((error) => {
-        // setErrors(error.response.data.errors)
-        setLoginErrors(error.response.data.error.login)
-      })
+    },
+    onSuccess: () => {
+        navigate('/')
+      },
+    onError: (error) => {
+      //@ts-ignore response is definitely on error...
+      setLoginError(error.response.data.error.login)
+      setShowError(true)
     }
   })
   
-  const handleSignInClick = async (e) => {
+  const handleSignInClick = (e) => {
     e.preventDefault()
-    
-    let response = await fetch('/signin', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(signInState),
-    }).then((r) => {
-      if (r.ok) {
-        r.json()
-          .then((user) => {
-            setCurrentUser(user)
-              if (user.type === 'Owner') {
-                navigate('/')
-              } else {
-                navigate('/sitter-dashboard')
-              }
-          })
-      } else {
-        r.json()
-          .then((errorData) => console.log(errorData.error.login))
-      }
-      }
-    )
+    signUserIn.mutate(signInState)
   }
 
   return (
@@ -99,6 +84,7 @@ const SignIn = () => {
       <Flex direction='column' justify='center' grow='2' alignItems='center'>
         <VStack align='left'>
           <Heading color='orange.500'>Welcome Back!</Heading>
+            {showError && <Alert status='error'>{loginError}</Alert>}
           <HStack>
             <FormControl>
               

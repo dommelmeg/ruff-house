@@ -3,7 +3,7 @@ import { FormControl, Button, RadioGroup, HStack, Radio, FormLabel, VStack, Inpu
 import { useNavigate } from "react-router-dom"
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import { userAuthAtom, errorsAtom, states } from "../StateManagement/store";
+import { userAuthAtom, states } from "../StateManagement/store";
 import { useAtom } from "jotai";
 
 const CreateAcctForm = () => {
@@ -26,7 +26,6 @@ const CreateAcctForm = () => {
   const toast = useToast()
   const toastIdRef: any = React.useRef()
   const [currentUser, setCurrentUser] = useAtom(userAuthAtom)
-  const [errors, setErrors] = useAtom(errorsAtom)
   
   const formReducer = (state, action) => {
     switch (action.type) {
@@ -95,13 +94,8 @@ const CreateAcctForm = () => {
     mutationFn: (newProfile) => {
       return axios.post('/signup', newProfile)
       .then((res) => {
-        //set user here
         setCurrentUser(res.data)
       })
-      .catch((error) => {
-        //set errors here
-        setErrors(error.response.data.errors)
-      });
     }
     
   })
