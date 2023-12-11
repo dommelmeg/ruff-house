@@ -1,5 +1,5 @@
 import React, { useReducer, useState } from "react";
-import { useDisclosure, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Circle, ModalFooter, ButtonGroup, FormControl, VStack, FormLabel, Input, Textarea } from "@chakra-ui/react";
+import { useDisclosure, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Circle, ModalFooter, ButtonGroup, FormControl, VStack, FormLabel, Input, Textarea, Alert, UnorderedList, ListItem } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import { userAuthAtom, Job } from "../StateManagement/store";
 import { useAtom } from "jotai";
@@ -40,6 +40,7 @@ const AddJobModule = () => {
   const [jobFormState, dispatch] = useReducer(jobFormReducer, initialJobState)
 
   const handleInputChange = (e) => {
+    setShowError(false)
     dispatch({
       type: 'HANDLE INPUT TEXT',
       field: e.target.name,
@@ -61,12 +62,12 @@ const AddJobModule = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['userjobs'] })
+      handleClose()
     }, 
     onError: (error) => {
       setShowError(true)
       //@ts-ignore response is on error
-      
-      console.log(error)
+      setJobError(error.response.data.errors)
     }
   })
 
@@ -74,7 +75,6 @@ const AddJobModule = () => {
     e.preventDefault()
 
     createJobRequest.mutate(jobFormState)
-    handleClose()
   }
 
   return (
@@ -96,6 +96,17 @@ const AddJobModule = () => {
           <ModalCloseButton onClick={handleClose} />
 
           <ModalBody>
+          {showError && 
+        <Alert status='error' rounded='10'>
+          <UnorderedList>
+          {jobError.map((error) => {
+            return (
+              <ListItem>{error}!</ListItem>
+              )
+            })}
+          </UnorderedList>
+        </Alert>
+      }
             <FormControl>
               <VStack align='left'>
                 <FormLabel>Start Date</FormLabel>

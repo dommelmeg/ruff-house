@@ -25,8 +25,6 @@ const CreateAcctForm = () => {
   }
 
   const navigate = useNavigate()
-  const toast = useToast()
-  const toastIdRef: any = React.useRef()
   const [currentUser, setCurrentUser] = useAtom(userAuthAtom)
   
   const formReducer = (state, action) => {
