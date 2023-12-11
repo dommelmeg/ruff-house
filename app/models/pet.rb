@@ -4,4 +4,6 @@ class Pet < ApplicationRecord
     belongs_to :owner
     has_many :sitters, through: :jobs
 
+    validates :name, :birth_date, :weight, :breed, presence: true
+
 end

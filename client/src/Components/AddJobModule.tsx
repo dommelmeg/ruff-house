@@ -40,7 +40,6 @@ const AddJobModule = () => {
   const [jobFormState, dispatch] = useReducer(jobFormReducer, initialJobState)
 
   const handleInputChange = (e) => {
-    setShowError(false)
     dispatch({
       type: 'HANDLE INPUT TEXT',
       field: e.target.name,
@@ -50,6 +49,7 @@ const AddJobModule = () => {
 
   const handleClose = () => {
     onClose()
+    setShowError(false)
     
     dispatch({
       type: 'RESET'
@@ -73,7 +73,6 @@ const AddJobModule = () => {
 
   const handleSubmitRequest = (e) => {
     e.preventDefault()
-
     createJobRequest.mutate(jobFormState)
   }
 
@@ -97,16 +96,16 @@ const AddJobModule = () => {
 
           <ModalBody>
           {showError && 
-        <Alert status='error' rounded='10'>
-          <UnorderedList>
-          {jobError.map((error) => {
-            return (
-              <ListItem>{error}!</ListItem>
-              )
-            })}
-          </UnorderedList>
-        </Alert>
-      }
+            <Alert status='error' rounded='10'>
+              <UnorderedList>
+              {jobError.map((error) => {
+                return (
+                  <ListItem>{error}!</ListItem>
+                  )
+                })}
+              </UnorderedList>
+            </Alert>
+          }
             <FormControl>
               <VStack align='left'>
                 <FormLabel>Start Date</FormLabel>

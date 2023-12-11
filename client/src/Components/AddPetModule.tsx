@@ -1,5 +1,5 @@
-import React, { useReducer } from "react";
-import { useDisclosure, RadioGroup, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Circle, ModalFooter, ButtonGroup, FormControl, VStack, FormLabel, Input, Textarea, Select, HStack, Radio } from "@chakra-ui/react";
+import React, { useReducer, useState } from "react";
+import { useDisclosure, RadioGroup, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Circle, ModalFooter, ButtonGroup, FormControl, VStack, FormLabel, Input, Textarea, Select, HStack, Radio, Alert, UnorderedList, ListItem } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import { userAuthAtom, Pet, allDogBreeds } from "../StateManagement/store";
 import { useAtom } from "jotai";
@@ -9,8 +9,9 @@ import axios from "axios";
 const AddPetModule = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const finalRef = React.useRef(null)
-  const [currentUser, setCurrentUser] = useAtom(userAuthAtom)
   const queryClient = useQueryClient()
+  const [showError, setShowError] = useState(false)
+  const [petError, setPetError] = useState([])
 
   const initialPetState: Pet = {
     id: null,
@@ -76,6 +77,7 @@ const AddPetModule = () => {
 
   const handleClose = () => {
     onClose()
+    setShowError(false)
     
     dispatch({
       type: 'RESET'
@@ -89,14 +91,18 @@ const AddPetModule = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['userpets'] })
       queryClient.invalidateQueries({ queryKey: ['userjobs'] })
+      handleClose()
+    },
+    onError: (error) => {
+      setShowError(true)
+      //@ts-ignore response is on error
+      setPetError(error.response.data.errors)
     }
   })
 
   const handleSubmitRequest = (e) => {
     e.preventDefault()
-    
     createPet.mutate(petFormState)
-    handleClose()
   }
 
   return (
@@ -118,6 +124,17 @@ const AddPetModule = () => {
           <ModalCloseButton onClick={handleClose} />
 
           <ModalBody>
+            {showError && 
+              <Alert status='error' rounded='10'>
+                <UnorderedList>
+                {petError.map((error) => {
+                  return (
+                    <ListItem>{error}!</ListItem>
+                    )
+                  })}
+                </UnorderedList>
+              </Alert>
+            }
             <FormControl>
               <VStack align='left'>
                 <FormLabel mt='2'>Name</FormLabel>
