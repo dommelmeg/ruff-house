@@ -123,17 +123,6 @@ const AddPetModule = () => {
           <ModalCloseButton onClick={handleClose} />
 
           <ModalBody>
-            {showError && 
-              <Alert status='error' rounded='10'>
-                <UnorderedList>
-                {petError.map((error) => {
-                  return (
-                    <ListItem>{error}!</ListItem>
-                    )
-                  })}
-                </UnorderedList>
-              </Alert>
-            }
             <FormControl>
               <VStack align='left'>
                 <FormLabel mt='2'>Name</FormLabel>
@@ -142,7 +131,7 @@ const AddPetModule = () => {
                   name='name'
                   value={petFormState.name}
                   onChange={handleInputChange}
-                />
+                  />
 
                 <FormControl as='fieldset' isRequired>
                   <FormLabel as='legend' marginTop='4'>
@@ -152,7 +141,7 @@ const AddPetModule = () => {
                     defaultValue='female' 
                     onChange={handleRadioChange} 
                     colorScheme='orange'
-                  >
+                    >
                     <HStack spacing='24px'>
                       <Radio type='type' name='female' value='Female'>Female</Radio>
                       <Radio type='type' name='male' value='Male'>Male</Radio>
@@ -174,7 +163,7 @@ const AddPetModule = () => {
                   name='weight'
                   value={petFormState.weight}
                   onChange={handleInputChange}
-                />
+                  />
 
                 <FormLabel marginTop='2'>Breed</FormLabel>
                 <Select placeholder='Select breed' name='breed' onChange={handleSelectInputChange} >
@@ -199,10 +188,21 @@ const AddPetModule = () => {
                   placeholder='Tell us more about your 4-legged friend!'
                   value={petFormState.description}
                   onChange={handleInputChange}
-                />
+                  />
 
               </VStack>
             </FormControl>
+            {showError && 
+              <Alert status='error' rounded='10' mt='2'>
+                <UnorderedList>
+                {petError.map((error) => {
+                  return (
+                    <ListItem key={error}>{error}!</ListItem>
+                    )
+                  })}
+                </UnorderedList>
+              </Alert>
+            }
           </ModalBody>
 
           <ModalFooter>
