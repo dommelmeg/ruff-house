@@ -22,7 +22,7 @@ const Jobs = ({allJobs}) => {
         <SimpleGrid columns={3} gap={4}>
           {unBookedJobs?.map((job) => {
             return (
-              <JobCard job={job} variant={'unbooked'} />
+              <JobCard key={job.id} job={job} variant={'unbooked'} />
               )
             })}
         </SimpleGrid>

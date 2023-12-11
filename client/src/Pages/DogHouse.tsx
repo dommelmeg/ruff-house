@@ -54,7 +54,9 @@ const DogHouse = () => {
         const ageNum = (diff/(1000 * 3600 * 24)/365)
         const age = Math.trunc(ageNum)
         return (
-          <Box><DogTabPanel age={age} dog={dog} /></Box>
+          <>
+            <DogTabPanel key={dog.id} age={age} dog={dog} />
+          </>
         )
       })}
         </TabPanels>

@@ -234,7 +234,7 @@ const CreateAcctForm = () => {
           <UnorderedList>
           {createAcctError.map((error) => {
             return (
-              <ListItem>{error}!</ListItem>
+              <ListItem key={error}>{error}!</ListItem>
               )
             })}
           </UnorderedList>
