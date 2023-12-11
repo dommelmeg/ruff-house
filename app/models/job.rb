@@ -3,7 +3,7 @@ class Job < ApplicationRecord
     belongs_to :sitter, optional: true
     has_many :pets, through: :owner
 
-    validates :start_date, :end_date, presence: true
+    validates :start_date, :end_date, :description, presence: true
     validate :start_date_cannot_be_in_the_past, :end_date_cannot_be_in_the_past
 
     def job_pets

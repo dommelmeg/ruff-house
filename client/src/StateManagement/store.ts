@@ -77,6 +77,8 @@ export const userTypeAtom = atomWithStorage('userType', initialTypeState)
 
 export const setUserAuthAtom = atom((set) => set(userAuthAtom))
 
+export const defaultImg = 'https://i.stack.imgur.com/l60Hf.png'
+
 const dogBreeds = require('dog-breeds')
 export const allDogBreeds = dogBreeds.all
 export const randomDogBreed = dogBreeds.random()

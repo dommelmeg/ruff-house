@@ -1,12 +1,11 @@
 import React from "react";
 import { Flex, Grid, GridItem, Image, HStack, Heading, Text, Divider, Alert, AlertTitle, AlertIcon } from "@chakra-ui/react";
-import { userAuthAtom } from "../StateManagement/store";
+import { userAuthAtom, defaultImg } from "../StateManagement/store";
 import { useAtom } from "jotai";
 import EditProfileModal from "../Components/EditProfileModal";
 
 const Profile = () => {
   const [currentUser, setCurrentUser] = useAtom(userAuthAtom)
-  const defaultImg = 'https://i.stack.imgur.com/l60Hf.png'
 
   return (
     <Flex direction='row' maxW='100%'>

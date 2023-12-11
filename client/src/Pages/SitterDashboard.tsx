@@ -27,7 +27,6 @@ const SitterDashboard = () => {
     navigate('/')
   }
 
-  console.log()
   return (
     <Flex direction='row' maxW='100%'>
       <Stack>

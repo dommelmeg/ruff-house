@@ -114,8 +114,6 @@ const CreateAcctForm = () => {
       setShowError(true)
     }
   })
-
-  console.log(createAcctError)
   
   const handleFormSubmitClick = async (e) => {
     e.preventDefault()

@@ -7,8 +7,6 @@ import JobCard from "../Components/JobCard";
 const Jobs = ({allJobs}) => {
   const currentDate = new Date()
 
-  console.log(allJobs)
-
   const unBookedJobs = allJobs?.data.filter((job) => {
     const startDate = new Date(job.start_date)
     return !job.sitter_id && startDate > currentDate
