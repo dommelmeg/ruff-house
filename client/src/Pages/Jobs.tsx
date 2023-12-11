@@ -5,10 +5,14 @@ import { Flex, Text, SimpleGrid, Stack } from "@chakra-ui/react";
 import JobCard from "../Components/JobCard";
 
 const Jobs = ({allJobs}) => {
+  const currentDate = new Date()
 
   console.log(allJobs)
 
-  const unBookedJobs = allJobs?.data.filter((job) => !job.sitter_id)
+  const unBookedJobs = allJobs?.data.filter((job) => {
+    const startDate = new Date(job.start_date)
+    return !job.sitter_id && startDate > currentDate
+  })
 
   return (
     <Flex w='100%'>
