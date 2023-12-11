@@ -1,5 +1,5 @@
 import React, { useReducer, useState } from "react";
-import { useDisclosure, RadioGroup, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Circle, ModalFooter, ButtonGroup, FormControl, VStack, FormLabel, Input, Textarea, Select, HStack, Radio, Alert, UnorderedList, ListItem } from "@chakra-ui/react";
+import { useDisclosure, RadioGroup, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Circle, ModalFooter, ButtonGroup, FormControl, VStack, FormLabel, Input, Textarea, Select, HStack, Radio, Alert, UnorderedList, ListItem, NumberInput, NumberDecrementStepper, NumberIncrementStepper, NumberInputField, NumberInputStepper } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import { Pet, allDogBreeds } from "../StateManagement/store";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -41,6 +41,11 @@ const AddPetModule = () => {
           ...state,
           gender: action.payload
         }
+      case 'HANDLE NUMBER INPUT':
+        return {
+          ...state,
+          weight: action.payload
+        }
       case 'RESET':
         return initialPetState
       default:
@@ -49,6 +54,14 @@ const AddPetModule = () => {
   }
 
   const [petFormState, dispatch] = useReducer(petFormReducer, initialPetState)
+
+  const handleNumberInput = (e) => {
+    dispatch({
+      type: 'HANDLE NUMBER INPUT',
+      field: 'weight',
+      payload: e,
+    })
+  }
 
   const handleInputChange = (e) => {
     dispatch({
@@ -123,8 +136,8 @@ const AddPetModule = () => {
           <ModalCloseButton onClick={handleClose} />
 
           <ModalBody>
-            <FormControl>
               <VStack align='left'>
+            <FormControl isRequired>
                 <FormLabel mt='2'>Name</FormLabel>
                 <Input
                   type='name'
@@ -132,7 +145,7 @@ const AddPetModule = () => {
                   value={petFormState.name}
                   onChange={handleInputChange}
                   />
-
+            </FormControl>
                 <FormControl as='fieldset' isRequired>
                   <FormLabel as='legend' marginTop='4'>
                     Gender:
@@ -148,8 +161,8 @@ const AddPetModule = () => {
                     </HStack>
                   </RadioGroup>
                 </FormControl>
-
-                <FormLabel>Date of Birth</FormLabel>
+              <FormControl>
+                <FormLabel mt='2'>Date of Birth</FormLabel>
                 <Input
                   type='date'
                   name='birth_date'
@@ -157,13 +170,18 @@ const AddPetModule = () => {
                   onChange={handleInputChange}
                 />
 
-                <FormLabel>Weight (in lbs.)</FormLabel>
-                <Input
-                  type='number'
-                  name='weight'
-                  value={petFormState.weight}
-                  onChange={handleInputChange}
-                  />
+                <FormLabel mt='2'>Weight (in lbs.)</FormLabel>
+                  <NumberInput
+                    onChange={handleNumberInput}
+                    >
+                    <NumberInputField 
+                      value={petFormState.weight}
+                      />
+                    <NumberInputStepper>
+                      <NumberIncrementStepper />
+                      <NumberDecrementStepper />
+                    </NumberInputStepper>
+                  </NumberInput>
 
                 <FormLabel marginTop='2'>Breed</FormLabel>
                 <Select placeholder='Select breed' name='breed' onChange={handleSelectInputChange} >
@@ -192,8 +210,8 @@ const AddPetModule = () => {
                   onChange={handleInputChange}
                   />
 
-              </VStack>
             </FormControl>
+              </VStack>
             {showError && 
               <Alert status='error' rounded='10' mt='2'>
                 <UnorderedList>
