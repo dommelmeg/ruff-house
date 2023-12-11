@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useState } from "react";
 import { useDisclosure, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Circle, ModalFooter, ButtonGroup, FormControl, VStack, FormLabel, Input, Textarea } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import { userAuthAtom, Job } from "../StateManagement/store";
@@ -11,6 +11,8 @@ const AddJobModule = () => {
   const finalRef = React.useRef(null)
   const [currentUser, setCurrentUser] = useAtom(userAuthAtom)
   const queryClient = useQueryClient()
+  const [showError, setShowError] = useState(false)
+  const [jobError, setJobError] = useState([])
 
   const initialJobState: Job = {
     id: null,
@@ -59,6 +61,12 @@ const AddJobModule = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['userjobs'] })
+    }, 
+    onError: (error) => {
+      setShowError(true)
+      //@ts-ignore response is on error
+      
+      console.log(error)
     }
   })
 

@@ -4,7 +4,7 @@ class Job < ApplicationRecord
     has_many :pets, through: :owner
 
     validates :start_date, :end_date, presence: true
-    validate :date_cannot_be_in_the_past
+    validate :start_date_cannot_be_in_the_past, :end_date_cannot_be_in_the_past
 
     def job_pets
         self.owner.pets
@@ -14,9 +14,15 @@ class Job < ApplicationRecord
         self.sitter
     end
 
-    def date_cannot_be_in_the_past
-        if date.present? && date < Date.today
-            errors.add(:date, "can't be in the past")
+    def start_date_cannot_be_in_the_past
+        if start_date.present? && start_date < Date.today
+            errors.add(:start_date, "Job can't start in the past")
+        end
+    end
+
+    def end_date_cannot_be_in_the_past
+        if end_date.present? && end_date < Date.today
+            errors.add(:end_date, "Job can't end in the past")
         end
     end
 end
