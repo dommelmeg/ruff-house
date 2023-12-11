@@ -1,8 +1,7 @@
 import React, { useReducer, useState } from "react";
 import { useDisclosure, RadioGroup, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Circle, ModalFooter, ButtonGroup, FormControl, VStack, FormLabel, Input, Textarea, Select, HStack, Radio, Alert, UnorderedList, ListItem } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
-import { userAuthAtom, Pet, allDogBreeds } from "../StateManagement/store";
-import { useAtom } from "jotai";
+import { Pet, allDogBreeds } from "../StateManagement/store";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 

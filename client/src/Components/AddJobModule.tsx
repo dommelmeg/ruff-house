@@ -1,15 +1,13 @@
 import React, { useReducer, useState } from "react";
 import { useDisclosure, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Circle, ModalFooter, ButtonGroup, FormControl, VStack, FormLabel, Input, Textarea, Alert, UnorderedList, ListItem } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
-import { userAuthAtom, Job } from "../StateManagement/store";
-import { useAtom } from "jotai";
+import { Job } from "../StateManagement/store";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 const AddJobModule = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const finalRef = React.useRef(null)
-  const [currentUser, setCurrentUser] = useAtom(userAuthAtom)
   const queryClient = useQueryClient()
   const [showError, setShowError] = useState(false)
   const [jobError, setJobError] = useState([])

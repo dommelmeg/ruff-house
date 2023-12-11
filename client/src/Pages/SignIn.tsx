@@ -82,7 +82,6 @@ const SignIn = () => {
       <Flex direction='column' justify='center' grow='2' alignItems='center'>
         <VStack align='left'>
           <Heading color='orange.500'>Welcome Back!</Heading>
-            {showError && <Alert status='error'>{loginError}</Alert>}
           <HStack>
             <FormControl>
               
@@ -93,7 +92,7 @@ const SignIn = () => {
                 value={signInState.username}
                 onChange={handleInputChange} placeholder='Username' 
                 width='md' 
-              />
+                />
 
               <FormLabel marginTop='2'>Password</FormLabel>
               <Input 
@@ -102,10 +101,11 @@ const SignIn = () => {
                 value={signInState.password}
                 onChange={handleInputChange}placeholder='Password' 
                 width='md' 
-              />
+                />
 
             </FormControl>
           </HStack>
+            {showError && <Alert status='error'>{loginError}</Alert>}
           <Button 
             colorScheme='orange' 
             variant='outline' 

@@ -125,17 +125,6 @@ const CreateAcctForm = () => {
 
   return (
     <>
-      {showError && 
-        <Alert status='error' rounded='10'>
-          <UnorderedList>
-          {createAcctError.map((error) => {
-            return (
-              <ListItem>{error}!</ListItem>
-              )
-            })}
-          </UnorderedList>
-        </Alert>
-      }
 
     <FormControl isRequired>
 
@@ -238,6 +227,18 @@ const CreateAcctForm = () => {
             </NumberInputStepper>
           </NumberInput>
         </>
+      }
+      
+      {showError && 
+        <Alert status='error' rounded='10'>
+          <UnorderedList>
+          {createAcctError.map((error) => {
+            return (
+              <ListItem>{error}!</ListItem>
+              )
+            })}
+          </UnorderedList>
+        </Alert>
       }
 
       <Button 
