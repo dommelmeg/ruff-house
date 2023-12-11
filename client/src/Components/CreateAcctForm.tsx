@@ -1,5 +1,5 @@
 import React, { useReducer, useState } from "react";
-import { FormControl, Button, RadioGroup, HStack, Radio, FormLabel, VStack, Input, useToast, Select, NumberInput, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, NumberInputField } from "@chakra-ui/react"
+import { FormControl, Button, RadioGroup, HStack, Radio, FormLabel, VStack, Input, useToast, Select, NumberInput, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, NumberInputField, Alert, UnorderedList, ListItem } from "@chakra-ui/react"
 import { useNavigate } from "react-router-dom"
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
@@ -8,6 +8,8 @@ import { useAtom } from "jotai";
 
 const CreateAcctForm = () => {
   const [showDailyRate, setShowDailyRate] = useState(false)
+  const [showError, setShowError] = useState(false)
+  const [createAcctError, setCreateAcctError] = useState([])
 
   const initialFormState = {
     id: null,
@@ -55,8 +57,13 @@ const CreateAcctForm = () => {
   }
   
   const [formState, dispatch] = useReducer(formReducer, initialFormState)
+
+  const clearErrors = () => {
+    setShowError(false)
+  }
   
   const handleInputChange = (e) => {
+    clearErrors()
     dispatch({
       type: 'HANDLE INPUT TEXT',
       field: e.target.name,
@@ -65,6 +72,7 @@ const CreateAcctForm = () => {
   }
   
   const handleRadioChange = (e) => {
+    clearErrors()
     e === 'Sitter' ? setShowDailyRate(true) : setShowDailyRate(false)
 
     dispatch({
@@ -75,6 +83,7 @@ const CreateAcctForm = () => {
   }
 
   const handleSelectChange = (e) => {
+    clearErrors()
     dispatch({
       type: 'HANDLE SELECT INPUT',
       field: 'state',
@@ -83,6 +92,7 @@ const CreateAcctForm = () => {
   }
 
   const handleNumberInput = (e) => {
+    clearErrors()
     dispatch({
       type: 'HANDLE NUMBER INPUT',
       field: 'daily_rate',
@@ -96,47 +106,41 @@ const CreateAcctForm = () => {
       .then((res) => {
         setCurrentUser(res.data)
       })
+    },
+    onSuccess: () => {
+      navigate('/')
+    },
+    onError: (error) => {
+      //@ts-ignore response is definitely on error
+      setCreateAcctError(error.response.data.errors)
+      setShowError(true)
     }
-    
   })
-  
-  console.log(showDailyRate)
+
+  console.log(createAcctError)
   
   const handleFormSubmitClick = async (e) => {
-    //need to clear any errors
     e.preventDefault()
     
     createProfile.mutate(formState)
-    if (currentUser.type === 'Owner') {
-      navigate('/')
-    } else {
-      navigate('/sitter-dashboard')
-    }
-    // toastIdRef.current = toast({
-      //   title: 'Account Pending',
-      //   status: 'loading',
-      //   duration: null
-      // })
-
-    // try {
-    //   toast.update(toastIdRef.current, {
-    //     title: 'Account Created',
-    //     status: 'success',
-    //     duration: 2000,
-    //     isClosable: true,
-    //   })
-    // } catch {
-    //   toast.update(toastIdRef.current, {
-    //     title: 'An error occurred',
-    //     status: 'error',
-    //     duration: 2000,
-    //     isClosable: true,
-    //   })
-    // }
   }
 
   return (
+    <>
+      {showError && 
+        <Alert status='error' rounded='10'>
+          <UnorderedList>
+          {createAcctError.map((error) => {
+            return (
+              <ListItem>{error}!</ListItem>
+              )
+            })}
+          </UnorderedList>
+        </Alert>
+      }
+
     <FormControl isRequired>
+
       <VStack align='left'>
 
       <FormLabel>First Name</FormLabel>
@@ -147,7 +151,7 @@ const CreateAcctForm = () => {
         onChange={handleInputChange} 
         placeholder='First Name' 
         width='md' 
-      />
+        />
 
       <FormLabel marginTop='2'>Last Name</FormLabel>
       <Input 
@@ -167,7 +171,7 @@ const CreateAcctForm = () => {
         onChange={handleInputChange} 
         placeholder='Email Address' 
         width='md' 
-      />
+        />
 
       <FormLabel marginTop='2'>Username</FormLabel>
       <Input 
@@ -177,7 +181,7 @@ const CreateAcctForm = () => {
         onChange={handleInputChange} 
         placeholder='Username' 
         width='md' 
-      />
+        />
 
       <FormLabel marginTop='2'>Password</FormLabel>
       <Input
@@ -187,7 +191,7 @@ const CreateAcctForm = () => {
         onChange={handleInputChange}
         placeholder='Password' 
         width='md' 
-      />
+        />
 
       <FormControl isRequired>
         <VStack align='left'>
@@ -199,8 +203,8 @@ const CreateAcctForm = () => {
             {states.map((state) => {
               return(
                 <option key={state} value={state}>{state}</option>
-              )
-            })}
+                )
+              })}
           </Select>
         </VStack>
       </FormControl>
@@ -213,7 +217,7 @@ const CreateAcctForm = () => {
           defaultValue='Owner' 
           onChange={handleRadioChange} 
           colorScheme='orange'
-        >
+          >
           <HStack spacing='24px'>
             <Radio type='type' name='Owner' value='Owner'>Pet Owner</Radio>
             <Radio type='type' name='Sitter' value='Sitter'>Pet Sitter</Radio>
@@ -245,12 +249,13 @@ const CreateAcctForm = () => {
         marginTop='2'
         onClick={handleFormSubmitClick}
         mb='8'
-      >
+        >
         Create Account
       </Button>
 
       </VStack>
     </FormControl>
+  </>
   )
 }
 

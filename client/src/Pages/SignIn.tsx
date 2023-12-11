@@ -11,8 +11,6 @@ const SignIn = () => {
   const [currentUser, setCurrentUser] = useAtom(userAuthAtom)
   const [showError, setShowError] = useState(false)
   const [loginError, setLoginError] = useState('')
-  const ownerUser = currentUser?.type === 'Owner'
-  const sitterUser = currentUser?.type === 'Sitter'
 
   const initialSignInState = {
     username: '',

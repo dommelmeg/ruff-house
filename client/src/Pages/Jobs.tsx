@@ -8,7 +8,7 @@ const Jobs = ({allJobs}) => {
 
   console.log(allJobs)
 
-  const unBookedJobs = allJobs.data.filter((job) => !job.sitter_id)
+  const unBookedJobs = allJobs?.data.filter((job) => !job.sitter_id)
 
   return (
     <Flex w='100%'>
@@ -20,7 +20,7 @@ const Jobs = ({allJobs}) => {
           AVAILABLE JOBS
         </Text>
         <SimpleGrid columns={3} gap={4}>
-          {unBookedJobs.map((job) => {
+          {unBookedJobs?.map((job) => {
             return (
               <JobCard job={job} variant={'unbooked'} />
               )
