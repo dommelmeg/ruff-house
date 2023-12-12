@@ -1,9 +1,10 @@
 import React, { useReducer, useState } from "react";
 import { useDisclosure, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Circle, ModalFooter, ButtonGroup, FormControl, VStack, FormLabel, Input, Textarea, Alert, UnorderedList, ListItem } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
-import { Job } from "../StateManagement/store";
+import { Job, userAuthAtom } from "../StateManagement/store";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import { useAtom } from "jotai";
 
 const AddJobModule = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -11,14 +12,15 @@ const AddJobModule = () => {
   const queryClient = useQueryClient()
   const [showError, setShowError] = useState(false)
   const [jobError, setJobError] = useState([])
+  const [currentUser] = useAtom(userAuthAtom)
 
   const initialJobState: Job = {
     id: null,
     start_date: '',
     end_date: '',
     description: '',
-    owner_id: null,
     sitter_id: null,
+    owner_id: null,
   }
 
   const jobFormReducer = (state, action) => {
@@ -71,7 +73,7 @@ const AddJobModule = () => {
 
   const handleSubmitRequest = (e) => {
     e.preventDefault()
-    createJobRequest.mutate(jobFormState)
+    createJobRequest.mutate({ ...jobFormState, owner_id: currentUser.id })
   }
 
   return (

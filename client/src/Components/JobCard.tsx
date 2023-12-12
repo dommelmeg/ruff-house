@@ -1,5 +1,5 @@
-import React from "react";
-import { Card, CardHeader, CardBody, AvatarGroup, Avatar, CardFooter, ButtonGroup, Button, Heading, Divider, Text, HStack } from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Card, CardHeader, CardBody, AvatarGroup, Avatar, CardFooter, ButtonGroup, Button, Heading, Divider, Text, HStack, Alert } from "@chakra-ui/react";
 import { useAtom } from "jotai";
 import { userAuthAtom, moment } from "../StateManagement/store";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -11,7 +11,8 @@ const JobCard = ({ job, variant }) => {
   const { start_date, end_date, job_sitter } = job
   const [currentUser] = useAtom(userAuthAtom)
   const queryClient = useQueryClient()
-  const userPets = currentUser.pets
+  const [claimJobError, setClaimJobError] = useState([])
+  const [showClaimJobError, setShowClaimJobError] = useState(false)
 
   //@ts-ignore
   const numberOfDays = Math.abs(new Date(end_date) - new Date(start_date))
@@ -33,6 +34,11 @@ const JobCard = ({ job, variant }) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['allJobs']})
+    }, 
+    onError: (error) => {
+      setShowClaimJobError(true)
+      //@ts-ignore response is on error
+      setClaimJobError(error.response.data.errors)
     }
   })
 
@@ -45,6 +51,7 @@ const JobCard = ({ job, variant }) => {
 
   return (
     <Card size='sm' padding={2} m={4} key={job.id}>
+      {showClaimJobError && <Alert status='error' rounded='10'>{claimJobError}!</Alert>}
       {currentUser.type === 'Owner' ? 
         <OwnerJobCardHeader job={job} variant={variant} />
         :

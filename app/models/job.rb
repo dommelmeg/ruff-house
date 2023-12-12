@@ -5,6 +5,13 @@ class Job < ApplicationRecord
 
     validates :start_date, :end_date, :description, presence: true
     validate :start_date_cannot_be_in_the_past, :end_date_cannot_be_in_the_past
+    validate :create_job_overlap, on: :create
+    validate :update_job_overlap, on: :update
+
+
+    def period
+        start_date..end_date
+    end
 
     def job_pets
         self.owner.pets
@@ -12,6 +19,22 @@ class Job < ApplicationRecord
 
     def job_sitter
         self.sitter
+    end
+
+    def create_job_overlap
+        user_jobs = Job.where(owner_id: self.owner.id)
+        is_overlapping = user_jobs.any? do |job|
+            period.overlaps?(job.period)
+        end
+        errors.add(:overlapping_jobs, "not allowed. Please change your dates.") if is_overlapping
+    end
+
+    def update_job_overlap
+        user_jobs = Job.where(sitter_id: self.sitter.id)
+        is_overlapping = user_jobs.any? do |job|
+            period.overlaps?(job.period)
+        end
+        errors.add(:overlapping_jobs, "not allowed. Please choose a different job") if is_overlapping
     end
 
     def start_date_cannot_be_in_the_past

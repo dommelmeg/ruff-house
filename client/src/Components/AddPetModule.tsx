@@ -137,15 +137,15 @@ const AddPetModule = () => {
 
           <ModalBody>
               <VStack align='left'>
-            <FormControl isRequired>
-                <FormLabel mt='2'>Name</FormLabel>
-                <Input
-                  type='name'
-                  name='name'
-                  value={petFormState.name}
-                  onChange={handleInputChange}
+                <FormControl isRequired>
+                  <FormLabel mt='2'>Name</FormLabel>
+                  <Input
+                    type='name'
+                    name='name'
+                    value={petFormState.name}
+                    onChange={handleInputChange}
                   />
-            </FormControl>
+                </FormControl>
                 <FormControl as='fieldset' isRequired>
                   <FormLabel as='legend' marginTop='4'>
                     Gender:
