@@ -1,5 +1,5 @@
 import React from "react";
-import { CardHeader, AvatarGroup, Avatar, Heading } from "@chakra-ui/react";
+import { CardHeader, AvatarGroup, Avatar, Heading, Text } from "@chakra-ui/react";
 import { moment } from "../StateManagement/store";
 
 const SitterJobCardHeader = ({ job, owner }) => {
@@ -8,6 +8,7 @@ const SitterJobCardHeader = ({ job, owner }) => {
   return (
     <>
       <CardHeader>
+        <Text fontSize='xs'><b>REQUESTED BY {owner.username.toUpperCase()}</b></Text>
         <AvatarGroup size='sm' max={2} mt={2}>
           {job_pets?.map((dog) => {
             return (
