@@ -1,5 +1,5 @@
-import React, { useReducer } from "react";
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, VStack, FormLabel, Input, RadioGroup, HStack, Radio, Textarea, ModalFooter, ButtonGroup, Button, useDisclosure, IconButton, Select, NumberInput, NumberInputField, NumberIncrementStepper, NumberInputStepper, NumberDecrementStepper } from "@chakra-ui/react";
+import React, { useReducer, useState } from "react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, VStack, FormLabel, Input, ModalFooter, ButtonGroup, Button, useDisclosure, IconButton, Select, NumberInput, NumberInputField, NumberIncrementStepper, NumberInputStepper, NumberDecrementStepper, Alert } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
 import { states, userAuthAtom } from "../StateManagement/store";
 import { useAtom } from "jotai";
@@ -11,6 +11,8 @@ const EditProfileModal = () => {
   const finalRef = React.useRef(null)
   const [currentUser, setCurrentUser] = useAtom(userAuthAtom)
   const { first_name, last_name, city, state, image_url, daily_rate } = currentUser
+  const [imageError, setImageError] = useState('')
+  const [showImageError, setShowImageError] = useState(false)
 
   const initialEditProfileState = {
     first_name: first_name,
@@ -49,13 +51,12 @@ const EditProfileModal = () => {
 
   const handleClose = () => {
     onClose()
-    
-    dispatch({
-      type: 'RESET'
-    })
+    setShowImageError(false)
+    dispatch({ type: 'RESET' })
   }
   
   const handleInputChange = (e) => {
+    setShowImageError(false)
     dispatch({
       type: 'HANDLE INPUT TEXT',
       field: e.target.name,
@@ -74,19 +75,36 @@ const EditProfileModal = () => {
   const editProfile = useMutation({
     mutationFn: (editedProfile) => {
       return axios.patch(`/profiles/${currentUser.id}`, editedProfile)
-      .then((r) => {
-        setCurrentUser(r.data)
-      })
+      .then((r) => setCurrentUser(r.data))
     }
   })
+
+  const isImageUrl = (url) => {
+    const urlRegex = /^http.+(png|jpeg|gif|jpg)$/
+    const testResult = urlRegex.test(url)
+    // Check if the URL matches the regex
+    if (!testResult) {
+      setImageError('Image URL is not valid')
+      return false;
+    } else {
+      return true
+    }
+  }
 
   const handleFormSubmitClick = (e) => {
     e.preventDefault()
 
-    editProfile.mutate(profileFormState)
-    handleClose()
-  }
+    const { image_url } = profileFormState
+    const isValidUrl = isImageUrl(image_url)
 
+    if (isValidUrl) {
+      editProfile.mutate(profileFormState)
+      handleClose()
+    } else {
+      setShowImageError(true)
+    }
+  }
+  
   const handleNumberInput = (e) => {
     dispatch({
       type: 'HANDLE NUMBER INPUT',
@@ -160,7 +178,6 @@ const EditProfileModal = () => {
                 value={profileFormState.image_url}
                 onChange={handleInputChange}
               />
-
               {currentUser.type === 'Sitter' && 
               <>
                 <FormLabel mt='2'>Daily Rate</FormLabel>
@@ -179,6 +196,7 @@ const EditProfileModal = () => {
                   }
             </VStack>
           </FormControl>
+          {showImageError && <Alert mt='2' rounded='10' status='error'>{imageError}</Alert>}
         </ModalBody>
 
         <ModalFooter>
