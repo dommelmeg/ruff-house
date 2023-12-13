@@ -1,5 +1,5 @@
 import React, { useReducer, useState } from "react";
-import { useDisclosure, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Circle, ModalFooter, ButtonGroup, FormControl, VStack, FormLabel, Input, Textarea, Alert, UnorderedList, ListItem } from "@chakra-ui/react";
+import { useDisclosure, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Circle, ModalFooter, ButtonGroup, FormControl, VStack, FormLabel, Input, Textarea, Alert, UnorderedList, ListItem, useButtonGroup, Tooltip } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import { Job, userAuthAtom } from "../StateManagement/store";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -12,7 +12,8 @@ const AddJobModule = () => {
   const queryClient = useQueryClient()
   const [showError, setShowError] = useState(false)
   const [jobError, setJobError] = useState([])
-  const [currentUser] = useAtom(userAuthAtom)
+  const [currentUser, setCurrentUser] = useAtom(userAuthAtom)
+  const noDogs = currentUser.pets?.length < 1
 
   const initialJobState: Job = {
     id: null,
@@ -135,11 +136,17 @@ const AddJobModule = () => {
           </ModalBody>
 
           <ModalFooter>
+
             <ButtonGroup>
-              <Button 
-                colorScheme="orange" 
-                onClick={handleSubmitRequest}
-              >Submit Request</Button>
+              <Tooltip isDisabled={!noDogs} label='You must add a dog first to request a job!'>
+                <Button 
+                  isDisabled={noDogs}
+                  colorScheme="orange" 
+                  onClick={handleSubmitRequest}
+                  >
+                  Submit Request
+                </Button>
+                </Tooltip>
               <Button variant='ghost' mr={3} onClick={handleClose}>
                 Cancel
               </Button>

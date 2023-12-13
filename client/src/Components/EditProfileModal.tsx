@@ -84,7 +84,7 @@ const EditProfileModal = () => {
     const testResult = urlRegex.test(url)
     // Check if the URL matches the regex
     if (!testResult) {
-      setImageError('Image URL is not valid')
+      setImageError('Image URL must begin with http and end .png, .jpeg, .gif, or .jpg.')
       return false;
     } else {
       return true

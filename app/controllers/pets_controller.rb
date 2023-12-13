@@ -20,6 +20,14 @@ class PetsController < ApplicationController
         render json: new_pet, status: :created
     end
 
+    def update
+        pet = Pet.find_by(id: params[:id])
+        pet.update!(
+            image_url: params[:image_url]
+        )
+        render json: pet
+    end
+
     def destroy
         pet = Pet.find_by(id: params[:id])
         pet.destroy

@@ -1,9 +1,10 @@
 import React, { useReducer, useState } from "react";
 import { useDisclosure, RadioGroup, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Circle, ModalFooter, ButtonGroup, FormControl, VStack, FormLabel, Input, Textarea, Select, HStack, Radio, Alert, UnorderedList, ListItem, NumberInput, NumberDecrementStepper, NumberIncrementStepper, NumberInputField, NumberInputStepper } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
-import { Pet, allDogBreeds } from "../StateManagement/store";
+import { Pet, allDogBreeds, userAuthAtom } from "../StateManagement/store";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import { useAtom } from "jotai";
 
 const AddPetModule = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -11,6 +12,7 @@ const AddPetModule = () => {
   const queryClient = useQueryClient()
   const [showError, setShowError] = useState(false)
   const [petError, setPetError] = useState([])
+  const [currentUser, setCurrentUser] = useAtom(userAuthAtom)
 
   const initialPetState: Pet = {
     id: null,
@@ -100,9 +102,10 @@ const AddPetModule = () => {
     mutationFn: (newPet) => {
       return axios.post('/pets', newPet)
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['userpets'] })
       queryClient.invalidateQueries({ queryKey: ['userjobs'] })
+      setCurrentUser(prevState => ({ ...prevState, pets: [ ...prevState.pets, data.data ] }))
       handleClose()
     },
     onError: (error) => {
