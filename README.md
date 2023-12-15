@@ -1,17 +1,8 @@
 # Project Template: React/Rails API
 
-## Description
+## Ruff House
 
-This project is scaffolded so that you can build a React frontend and Rails
-backend together, and easily deploy them to Render.
-
-**Note**: if you are not planning to deploy your app to Render and prefer to use
-SQLite, you will need to make the following changes in the project files:
-
-1. In the `Gemfile`, replace `gem 'pg', '~> 1.1'` with `gem 'sqlite3', '~>
-   1.4'`.
-2. In the `database.yml` file, change the line `adapter: postgresql` to
-   `adapter: sqlite3`.
+Ruff House is a React/Ruby on Rails single page pet sitter booking app. I built this app so pet owners could request pet sitting jobs and pet sitters could claim them (essentially the reverse of the Rover app). You can create either a Pet Owner or a Pet Sitter user account.
 
 ## Requirements
 
