@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+# Ruff House
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Ruff House is a React/Ruby on Rails single page pet sitter booking app. I built this app so pet owners could request pet sitting jobs and pet sitters could claim them (essentially the reverse of the Rover app). You can create either a Pet Owner or a Pet Sitter user account. Owners can add pets to their 'Doggo House' and create job requests. Sitters can set their daily rate & claim job requests. Both users can edit their profile information.
 
-## Available Scripts
+## Deployed App (Recommended)
 
-In the project directory, you can run:
+The easiest way to see the app in action is to view the deployed verison [here](https://ruff-house.onrender.com/signin).
 
-### `npm start`
+## Installation (Alternative)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Fork and Clone Repo down to local environment
+Navigate into that directory
+```bundle install
+npm install && npm start --prefix client/
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Dashboards
 
-### `npm test`
+Once logged in, you will see either the owner dashboard or the sitter dashboard depending on your user type.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Owners can see:
+- Requested jobs carousel (with a button that allows them to create a new request)
+- Booked jobs carousel (with total cost of job & sitter who booked it)
+- Completed jobs
+- List of their pets (with a button that allows them to add a new pet) 
 
-### `npm run build`
+### Sitters can see:
+- Booked jobs carousel
+- Completed jobs carousel
+- Side menu includes a menu item called Jobs that lists of all of the available jobs
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Additional Information
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Pet Owners have the following abilities:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Create
+- Create account
+- Create pet (pet must be atleast 3 months old)
+- Create job request (cannot overlap with another job & cannot be in the past)
+Update
+- Profile information
+- Pet picture
+Delete
+- Job requests that have not been booked with a sitter
+- Pets (unless that is the only pet owned & it already has a job booked)
 
-### `npm run eject`
+### Pet Sitters have the following abilities:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Create
+- Create account (includes their daily rate – total job cost is calculated once a job is claimed)
+Update
+- Their account
+- Can claim jobs (cannot overlap with already booked jobs)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Future Features
+- Add total amount earned to the sitter dashboard
+- Add a rating feature that allows owners to rate their sitters once job is completed
+- Add an All Local Sitters menu item that allows owners to view all of their local sitters & their ratings
+- Favorites page for sitters. They can favorite pets and see if any jobs requests are available with those pets
+- Sitters can click on pets to see their bio
+- Add in activeStorage for pets (pet image gallery on pet page) & owners
+- Edit/unbook jobs (owner side)
+- Ability for owner to decline sitter's request to claim the job
+- Owner can set daily rate range & sitter can filter by that
