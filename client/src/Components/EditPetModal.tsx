@@ -99,7 +99,7 @@ const EditPetModal = ({ pet }) => {
     <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose} colorScheme="orange">
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Edit Your Profile</ModalHeader>
+        <ModalHeader>Edit {pet.name}'s Profile</ModalHeader>
         <ModalCloseButton onClick={handleClose} />
 
         <ModalBody>
