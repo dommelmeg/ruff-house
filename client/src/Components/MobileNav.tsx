@@ -50,15 +50,6 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   
   const handleSignOut = () => {
     signUserOut.mutate()
-    // fetch('/logout', {
-    //   method: 'DELETE'
-    // })
-    // .then((r) => {
-    //   if (r.ok) {
-    //     setCurrentUser(null)
-    //     navigate('/signin')
-    //   }
-    // })
   }
   
   return (
@@ -98,17 +89,17 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               <HStack>
                 <Avatar
                   size={'sm'}
-                  src={currentUser.image_url}
-                  name={currentUser.first_name}
+                  src={currentUser?.image_url}
+                  name={currentUser?.first_name}
                 />
                 <VStack
                   display={{ base: 'none', md: 'flex' }}
                   alignItems="flex-start"
                   spacing="1px"
                   ml="2">
-                  <Text fontSize="sm">{currentUser.first_name} {currentUser.last_name}</Text>
+                  <Text fontSize="sm">{currentUser?.first_name} {currentUser?.last_name}</Text>
                   <Text fontSize="xs" color="gray.600">
-                    {currentUser.type}
+                    {currentUser?.type}
                   </Text>
                 </VStack>
                 <Box display={{ base: 'none', md: 'flex' }}>

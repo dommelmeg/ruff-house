@@ -49,7 +49,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         </Text>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
-      {currentUser.type === 'Owner' ? OwnerLinkItems.map((link) => (
+      {currentUser?.type === 'Owner' ? OwnerLinkItems.map((link) => (
         <NavItem key={link.name} icon={link.icon} slug={link.route}>
           {link.name}
         </NavItem>

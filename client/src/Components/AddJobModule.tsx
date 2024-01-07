@@ -13,7 +13,7 @@ const AddJobModule = () => {
   const [showError, setShowError] = useState(false)
   const [jobError, setJobError] = useState([])
   const [currentUser, setCurrentUser] = useAtom(userAuthAtom)
-  const noDogs = currentUser.pets?.length < 1
+  const noDogs = currentUser?.pets?.length < 1
 
   const initialJobState: Job = {
     id: null,

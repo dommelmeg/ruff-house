@@ -23,7 +23,7 @@ const SitterDashboard = () => {
   const upcomingJobs = sitterJobs?.data.filter((job) => new Date(job.end_date) > currentDate)
   const completedJobs = sitterJobs?.data.filter((job) => new Date(job.end_date) < currentDate)
 
-  if (currentUser.type === 'Owner') {
+  if (currentUser?.type === 'Owner') {
     navigate('/')
   }
 

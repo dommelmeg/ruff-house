@@ -35,7 +35,7 @@ const OwnerDashboard = () => {
     }
   })
 
-  if (currentUser.type === 'Sitter') {
+  if (currentUser?.type === 'Sitter') {
     navigate('/sitter-dashboard')
   }
 
