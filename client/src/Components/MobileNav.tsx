@@ -41,19 +41,24 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const signUserOut = useMutation({
     mutationFn: (user) => {
       return axios.delete('/logout')
+    },
+    onSuccess: () => {
+      setCurrentUser(null)
+      navigate('/signin')
     }
   })
   
   const handleSignOut = () => {
-    fetch('/logout', {
-      method: 'DELETE'
-    })
-    .then((r) => {
-      if (r.ok) {
-        setCurrentUser(null)
-        navigate('/signin')
-      }
-    })
+    signUserOut.mutate()
+    // fetch('/logout', {
+    //   method: 'DELETE'
+    // })
+    // .then((r) => {
+    //   if (r.ok) {
+    //     setCurrentUser(null)
+    //     navigate('/signin')
+    //   }
+    // })
   }
   
   return (
